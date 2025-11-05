@@ -7,8 +7,8 @@ import { RootState } from '@/store';
 export type FilterState = Record<ConversationFilterOptions, string>;
 
 export const defaultFilterState: FilterState = {
-  assignee_type: 'me',
-  status: 'open',
+  assignee_type: 'all',
+  status: 'all',
   sort_by: 'latest',
   inbox_id: '0',
 };

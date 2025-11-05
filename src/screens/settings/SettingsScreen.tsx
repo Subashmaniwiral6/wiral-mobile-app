@@ -304,9 +304,9 @@ const SettingsScreen = () => {
         <Animated.View style={tailwind.style('pt-6')}>
           <SettingsList sectionTitle={i18n.t('SETTINGS.PREFERENCES')} list={preferencesList} />
         </Animated.View>
-        <Animated.View style={tailwind.style('pt-6')}>
+        {/* <Animated.View style={tailwind.style('pt-6')}>
           <SettingsList sectionTitle={i18n.t('SETTINGS.SUPPORT')} list={supportList} />
-        </Animated.View>
+        </Animated.View> */}
         <Animated.View style={tailwind.style('pt-6 mx-4')}>
           <Button
             variant="secondary"
@@ -315,13 +315,13 @@ const SettingsScreen = () => {
             handlePress={onClickLogout}
           />
         </Animated.View>
-        <Pressable
+        {/* <Pressable
           style={tailwind.style('p-4 items-center')}
           onLongPress={() => debugActionsSheetRef.current?.present()}>
           <Text style={tailwind.style('text-sm text-gray-700 ')}>
             {`${chatwootInstance} ${appVersionDetails}`}
           </Text>
-        </Pressable>
+        </Pressable> */}
       </Animated.ScrollView>
       <BottomSheetModal
         ref={userAvailabilityStatusSheetRef}

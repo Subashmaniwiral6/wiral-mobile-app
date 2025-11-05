@@ -20,13 +20,13 @@ interface SettingsState {
   pushToken: string;
 }
 const initialState: SettingsState = {
-  baseUrl: 'app.chatwoot.com',
-  installationUrl: 'https://app.chatwoot.com/',
+  baseUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'https://app.wiral.ai/', 
+  installationUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'https://app.wiral.ai/', 
   uiFlags: {
     isSettingUrl: false,
     isUpdating: false,
     isLocaleSet: false,
-  },
+  },  
   localeValue: 'en',
   notificationSettings: {
     account_id: 0,
@@ -37,7 +37,7 @@ const initialState: SettingsState = {
     selected_push_flags: [],
     user_id: 0,
   },
-  webSocketUrl: 'wss://app.chatwoot.com/cable',
+  webSocketUrl: 'wss://app.wiral.ai/cable',
   theme: 'system',
   version: '',
   pushToken: '',

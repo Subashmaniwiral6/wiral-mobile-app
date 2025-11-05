@@ -5,7 +5,7 @@
 
 # Chatwoot
 
-Mobile app for chatwoot platform. Built with React Native and Expo.
+Mobile app for wiral app platform. Built with React Native and Expo.
 
 <p>
    <a href="https://github.com/react-native-community/releases/blob/master/CHANGELOG.md"><img src="https://img.shields.io/github/package-json/dependency-version/chatwoot/chatwoot-mobile-app/react-native?color=%2361dafb" alt="Project Dependencies"></a>

@@ -30,7 +30,7 @@ const ConfigURLScreen = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      url: baseUrl ? baseUrl : appName === 'Chatwoot' ? 'app.chatwoot.com' : '',
+      url:  'https://app.wiral.ai/',
     },
   });
 
@@ -58,15 +58,16 @@ const ConfigURLScreen = () => {
           contentContainerStyle={tailwind.style('px-6 pt-16')}>
           <Icon icon={<LinkIcon />} size={40} />
           <View style={tailwind.style('pt-6 gap-4')}>
-            <Animated.Text style={tailwind.style('text-2xl text-gray-950 font-inter-semibold-20')}>
+            {/* Disabled by thouseef 30/10/2025 */}
+            {/* <Animated.Text style={tailwind.style('text-2xl text-gray-950 font-inter-semibold-20')}>
               {i18n.t('CONFIGURE_URL.ENTER_URL')}
-            </Animated.Text>
-            <Animated.Text
+            </Animated.Text> */}
+            {/* <Animated.Text
               style={tailwind.style(
                 'font-inter-normal-20 leading-[18px] tracking-[0.32px] text-gray-900',
               )}>
               {i18n.t('CONFIGURE_URL.DESCRIPTION')}
-            </Animated.Text>
+            </Animated.Text> */}
           </View>
 
           <Controller

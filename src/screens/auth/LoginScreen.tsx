@@ -91,6 +91,8 @@ const LoginScreen = () => {
     try {
       const result = await dispatch(authActions.login({ email, password })).unwrap();
 
+      console.log('result', result);
+
       // Check if MFA is required in the response
       if ('mfa_required' in result && result.mfa_required) {
         // Navigate directly to MFA screen with the token
@@ -98,14 +100,18 @@ const LoginScreen = () => {
       }
       // If MFA not required, the auth state will be updated and
       // the app will automatically navigate to the dashboard
-    } catch {
+    } catch (error) {
+      console.log('error', error);
       // Login error is handled by Redux and displayed in the UI
     }
   };
 
   // TODO: Change this condition based on EE check
   // Show SSO login button only if installation URL contains app.chatwoot.com
-  const showSsoLogin = installationUrl.includes('app.chatwoot.com');
+
+  // Disabled by thouseef 30/10/2025
+  // const showSsoLogin = installationUrl.includes('app.chatwoot.com');
+  const showSsoLogin = false;
 
   const openResetPassword = () => {
     navigation.navigate('ResetPassword' as never);
@@ -133,6 +139,7 @@ const LoginScreen = () => {
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      console.log('error', error);
       // SSO login error handled silently
     }
   };
@@ -150,20 +157,20 @@ const LoginScreen = () => {
           contentContainerStyle={tailwind.style('px-6 pt-24')}>
           <Image
             // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-            source={require('@/assets/images/logo.png')}
-            style={tailwind.style('w-10 h-10')}
+            source={require('@/assets/images/wiral-label-logo.jpeg')}
+            style={tailwind.style('w-32 h-24')}
             resizeMode="contain"
           />
           <View style={tailwind.style('pt-6 gap-4')}>
             <Animated.Text style={tailwind.style('text-2xl text-gray-950 font-inter-semibold-20')}>
               {i18n.t('LOGIN.TITLE')}
             </Animated.Text>
-            <Animated.Text
+            {/* <Animated.Text
               style={tailwind.style(
                 'font-inter-normal-20 leading-[18px] tracking-[0.32px] text-gray-900',
               )}>
               {i18n.t('LOGIN.DESCRIPTION', { baseUrl })}
-            </Animated.Text>
+            </Animated.Text> */}
           </View>
 
           {showSsoLogin && (
@@ -282,20 +289,20 @@ const LoginScreen = () => {
             handlePress={handleSubmit(onSubmit)}
           />
 
-          <Pressable
+          {/* <Pressable
             style={tailwind.style('flex-row justify-center items-center mt-6')}
             onPress={openConfigInstallationURL}>
             <Animated.Text style={tailwind.style('text-sm text-gray-900')}>
               {i18n.t('LOGIN.CHANGE_URL')}
             </Animated.Text>
-          </Pressable>
-          <Pressable
+          </Pressable> */}
+          {/* <Pressable
             style={tailwind.style('flex-row justify-center items-center mt-4')}
             onPress={() => languagesModalSheetRef.current?.present()}>
             <Animated.Text style={tailwind.style('text-sm text-gray-900')}>
               {i18n.t('LOGIN.CHANGE_LANGUAGE')}
             </Animated.Text>
-          </Pressable>
+          </Pressable> */}
         </Animated.ScrollView>
       </View>
       <BottomSheetModal

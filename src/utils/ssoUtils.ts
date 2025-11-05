@@ -25,7 +25,7 @@ export class SsoUtils {
     try {
       // Create redirect URI with custom scheme
       const redirectUri = AuthSession.makeRedirectUri({
-        scheme: 'chatwootapp',
+        scheme: 'wiralapp',
         path: 'sso/callback',
       });
 

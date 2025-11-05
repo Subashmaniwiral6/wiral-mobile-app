@@ -1,24 +1,61 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => {
+  // Build plugins array conditionally
+  const plugins: (string | [string] | [string, any])[] = [
+    'expo-font',
+    ['react-native-permissions', { iosPermissions: ['Camera', 'PhotoLibrary', 'MediaLibrary'] }],
+  ];
+
+  // Only include Sentry plugin if configuration is provided
+  if (process.env.EXPO_PUBLIC_SENTRY_PROJECT_NAME && process.env.EXPO_PUBLIC_SENTRY_ORG_NAME) {
+    plugins.push([
+      '@sentry/react-native/expo',
+      {
+        url: 'https://sentry.io/',
+        project: process.env.EXPO_PUBLIC_SENTRY_PROJECT_NAME,
+        organization: process.env.EXPO_PUBLIC_SENTRY_ORG_NAME,
+      },
+    ]);
+  }
+
+  plugins.push(
+    '@react-native-firebase/app',
+    '@react-native-firebase/messaging',
+    [
+      'expo-build-properties',
+      {
+        // https://github.com/invertase/notifee/issues/808#issuecomment-2175934609
+        android: {
+          minSdkVersion: 24,
+          compileSdkVersion: 35,
+          targetSdkVersion: 35,
+          enableProguardInReleaseBuilds: true,
+        },
+        ios: { useFrameworks: 'static' },
+      },
+    ],
+    './with-ffmpeg-pod.js',
+  );
+
   return {
-    name: 'Chatwoot',
-    slug: process.env.EXPO_PUBLIC_APP_SLUG || 'chatwoot-mobile',
+    name: 'Wiral',
+    slug: process.env.EXPO_PUBLIC_APP_SLUG || 'wiral',
     version: '4.3.0',
     orientation: 'portrait',
-    icon: './assets/icon.png',
+    icon: './assets/icon.jpg',
     userInterfaceStyle: 'light',
     newArchEnabled: false,
-    scheme: 'chatwootapp',
+    scheme: 'wiralapp',
     splash: {
-      image: './assets/splash.png',
+      image: './assets/splash.jpeg',
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
       enableFullScreenImage_legacy: true,
     },
     ios: {
       supportsTablet: true,
-      bundleIdentifier: 'com.chatwoot.app',
+      bundleIdentifier: 'com.wiral.app',
       infoPlist: {
         NSCameraUsageDescription:
           'This app requires access to the camera to upload images and videos.',
@@ -31,24 +68,24 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         ITSAppUsesNonExemptEncryption: false,
       },
       // Please use the relative path to the google-services.json file
-      googleServicesFile: process.env.EXPO_PUBLIC_IOS_GOOGLE_SERVICES_FILE,
+      googleServicesFile: process.env.EXPO_PUBLIC_IOS_GOOGLE_SERVICES_FILE || './google-services.json',
       entitlements: { 'aps-environment': 'production' },
-      associatedDomains: ['applinks:app.chatwoot.com'],
+      associatedDomains: ['applinks:app.wiral.ai']
     },
     android: {
-      adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#ffffff' },
-      package: 'com.chatwoot.app',
+      adaptiveIcon: { foregroundImage: './assets/icon.jpg', backgroundColor: '#ffffff' },
+      package: 'com.wiral.app',
       permissions: ['android.permission.CAMERA', 'android.permission.RECORD_AUDIO'],
       // Please use the relative path to the google-services.json file
-      googleServicesFile: process.env.EXPO_PUBLIC_ANDROID_GOOGLE_SERVICES_FILE,
+      googleServicesFile: process.env.EXPO_PUBLIC_ANDROID_GOOGLE_SERVICES_FILE || './google-services.json',
       intentFilters: [
         {
           action: 'VIEW',
           autoVerify: true,
           data: [
             {
-              scheme: 'https',
-              host: 'app.chatwoot.com',
+              scheme: "https",
+              host: "app.wiral.ai",
               pathPrefix: '/app/accounts/',
               pathPattern: '/*/conversations/*',
             },
@@ -59,7 +96,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
           action: 'VIEW',
           data: [
             {
-              scheme: 'chatwootapp',
+              scheme: 'wiralapp',
             },
           ],
           category: ['BROWSABLE', 'DEFAULT'],
@@ -68,39 +105,11 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
     extra: {
       eas: {
-        projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
+        projectId: '5eeef906-87ff-42a6-8480-9c2d5e835463',
         storybookEnabled: process.env.EXPO_STORYBOOK_ENABLED,
       },
     },
-    owner: 'chatwoot',
-    plugins: [
-      'expo-font',
-      ['react-native-permissions', { iosPermissions: ['Camera', 'PhotoLibrary', 'MediaLibrary'] }],
-      [
-        '@sentry/react-native/expo',
-        {
-          url: 'https://sentry.io/',
-          project: process.env.EXPO_PUBLIC_SENTRY_PROJECT_NAME,
-          organization: process.env.EXPO_PUBLIC_SENTRY_ORG_NAME,
-        },
-      ],
-      '@react-native-firebase/app',
-      '@react-native-firebase/messaging',
-      [
-        'expo-build-properties',
-        {
-          // https://github.com/invertase/notifee/issues/808#issuecomment-2175934609
-          android: {
-            minSdkVersion: 24,
-            compileSdkVersion: 35,
-            targetSdkVersion: 35,
-            enableProguardInReleaseBuilds: true,
-          },
-          ios: { useFrameworks: 'static' },
-        },
-      ],
-      './with-ffmpeg-pod.js',
-    ],
+    plugins,
     androidNavigationBar: { backgroundColor: '#ffffff' },
   };
 };
