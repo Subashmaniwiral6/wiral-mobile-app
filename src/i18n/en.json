@@ -477,5 +477,13 @@
     "EXECUTION_SUCCESS": "Macro executed successfully",
     "EXECUTION_ERROR": "Macro execution failed",
     "NO_MACROS": "No macros found"
+  },
+  "CALENDAR": {
+    "HEADER": {
+      "TITLE": "Calendar",
+      "MONTH": "Month",
+      "WEEK": "Week",
+      "DAY": "Day"
+    }
   }
 }

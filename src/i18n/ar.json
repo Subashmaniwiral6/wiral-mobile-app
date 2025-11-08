@@ -454,5 +454,13 @@
     "EXECUTION_SUCCESS": "تم تنفيذ الماكرو بنجاح",
     "EXECUTION_ERROR": "Macro execution failed",
     "NO_MACROS": "لم يتم العثور على الماكروس"
+  },
+  "CALENDAR": {
+    "HEADER": {
+      "TITLE": "التقويم",
+      "MONTH": "شهر",
+      "WEEK": "أسبوع",
+      "DAY": "يوم"
+    }
   }
 }

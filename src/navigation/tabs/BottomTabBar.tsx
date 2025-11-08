@@ -10,8 +10,10 @@ import { BlurView, BlurViewProps } from '@react-native-community/blur';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { RouteProp } from '@react-navigation/native';
 import { selectCurrentState } from '@/store/conversation/conversationHeaderSlice';
-
+import { Calendar } from 'lucide-react-native';
 import {
+  CalendarIconFilled,
+  CalendarIconOutline,
   ConversationIconFilled,
   ConversationIconOutline,
   InboxIconFilled,
@@ -41,8 +43,10 @@ const TabBarIcons = ({ focused, route }: TabBarIconsProps) => {
       return focused ? <ConversationIconFilled /> : <ConversationIconOutline />;
     case 'Inbox':
       return focused ? <InboxIconFilled /> : <InboxIconOutline />;
-    case 'Settings':
-      return focused ? <SettingsIconFilled /> : <SettingsIconOutline />;
+      case 'Settings':
+        return focused ? <SettingsIconFilled /> : <SettingsIconOutline />;
+      case 'Calendar':
+        return focused ? <Calendar style={{ marginBottom: 12 }} size={30} strokeWidth={2} color={"#171717"} /> : <Calendar strokeWidth={1} style={{ marginBottom: 12 }} size={30} color={"#171717"} />;
   }
 };
 

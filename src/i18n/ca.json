@@ -454,5 +454,13 @@
     "EXECUTION_SUCCESS": "La macro s'ha executat correctament",
     "EXECUTION_ERROR": "Macro execution failed",
     "NO_MACROS": "No s'han trobat macros"
+  },
+  "CALENDAR": {
+    "HEADER": {
+      "TITLE": "Calendari",
+      "MONTH": "Mes",
+      "WEEK": "Setmana",
+      "DAY": "Dia"
+    }
   }
 }

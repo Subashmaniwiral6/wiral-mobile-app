@@ -399,11 +399,11 @@
     "CHANGE_TEAMS": "Das Konversationsteam hat sich geändert"
   },
   "ERRORS": {
-    "COMMON_ERROR": "Could not connect to Chatwoot Server, Please try again later",
+    "COMMON_ERROR": "Could not connect to Wiral Server, Please try again later",
     "OfFLINE": "Sie müssen eine Verbindung zu einem Wlan- oder Mobilfunknetz herstellen, um wieder online zu gehen",
     "CANNOT_FETCH": "Beim Abrufen der Informationen ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut",
     "AUTH": "Benutzername / Passwort falsch. Bitte versuchen Sie es erneut",
-    "NO_ACCOUNTS_MESSAGE": "Sie haben keinen Zugriff auf Chatwoot-Konten"
+    "NO_ACCOUNTS_MESSAGE": "Sie haben keinen Zugriff auf Wiral-Konten"
   },
   "SUCCESS": {
     "AUTH": "Anmeldung erfolgreich"
@@ -454,5 +454,13 @@
     "EXECUTION_SUCCESS": "Makro erfolgreich ausgeführt",
     "EXECUTION_ERROR": "Macro execution failed",
     "NO_MACROS": "Keine Makros gefunden"
+  },
+  "CALENDAR": {
+    "HEADER": {
+      "TITLE": "Kalender",
+      "MONTH": "Monat",
+      "WEEK": "Woche",
+      "DAY": "Tag"
+    }
   }
 }

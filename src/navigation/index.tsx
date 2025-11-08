@@ -28,8 +28,15 @@ import Inter50024 from '@/assets/fonts/Inter-500-24.ttf';
 import Inter58024 from '@/assets/fonts/Inter-580-24.ttf';
 import Inter60020 from '@/assets/fonts/Inter-600-20.ttf';
 
+// Background message handler - must be defined outside component
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage);
+  console.log('[FCM DEBUG] Background message received:', JSON.stringify(remoteMessage, null, 2));
+  try {
+    const notification = findNotificationFromFCM({ message: remoteMessage });
+    console.log('[FCM DEBUG] Background notification extracted:', JSON.stringify(notification, null, 2));
+  } catch (error) {
+    console.error('[FCM ERROR] Background message handler error:', error);
+  }
 });
 
 export const AppNavigationContainer = () => {
@@ -46,6 +53,53 @@ export const AppNavigationContainer = () => {
 
   const installationUrl = useAppSelector(selectInstallationUrl);
   const locale = useAppSelector(selectLocale);
+
+  // Setup FCM handlers
+  React.useEffect(() => {
+    console.log('[FCM DEBUG] Setting up FCM handlers');
+
+    // Foreground message handler - when app is in foreground
+    const unsubscribeForeground = messaging().onMessage(async remoteMessage => {
+      console.log('[FCM DEBUG] Foreground message received:', JSON.stringify(remoteMessage, null, 2));
+      try {
+        const notification = findNotificationFromFCM({ message: remoteMessage });
+        if (notification) {
+          console.log('[FCM DEBUG] Foreground notification processed:', JSON.stringify(notification, null, 2));
+          // You can show a local notification here if needed
+          // For now, we just log it
+        }
+      } catch (error) {
+        console.error('[FCM ERROR] Foreground message handler error:', error);
+      }
+    });
+
+    // Token refresh handler
+    const unsubscribeTokenRefresh = messaging().onTokenRefresh(async fcmToken => {
+      console.log('[FCM DEBUG] FCM token refreshed:', fcmToken);
+      try {
+        // You might want to update the token on the server here
+        // For now, just log it
+      } catch (error) {
+        console.error('[FCM ERROR] Token refresh handler error:', error);
+      }
+    });
+
+    // Get initial token
+    messaging()
+      .getToken()
+      .then(fcmToken => {
+        console.log('[FCM DEBUG] Initial FCM token:', fcmToken);
+      })
+      .catch(error => {
+        console.error('[FCM ERROR] Failed to get initial FCM token:', error);
+      });
+
+    return () => {
+      console.log('[FCM DEBUG] Cleaning up FCM handlers');
+      unsubscribeForeground();
+      unsubscribeTokenRefresh();
+    };
+  }, []);
 
   const linking = {
     prefixes: [installationUrl, SSO_CALLBACK_URL],
@@ -121,17 +175,32 @@ export const AppNavigationContainer = () => {
       }
 
       // getInitialNotification: When the application is opened from a quit state.
+      console.log('[FCM DEBUG] Checking for initial notification');
       const message = await messaging().getInitialNotification();
       if (message) {
-        const notification = findNotificationFromFCM({ message });
+        console.log('[FCM DEBUG] Initial notification found:', JSON.stringify(message, null, 2));
+        try {
+          const notification = findNotificationFromFCM({ message });
+          if (!notification) {
+            console.warn('[FCM DEBUG] No notification extracted from initial message');
+            return undefined;
+          }
         const camelCaseNotification = transformNotification(notification);
+          console.log('[FCM DEBUG] Transformed notification:', JSON.stringify(camelCaseNotification, null, 2));
+          
         const conversationLink = findConversationLinkFromPush({
           notification: camelCaseNotification,
           installationUrl,
         });
+          console.log('[FCM DEBUG] Conversation link:', conversationLink);
         if (conversationLink) {
           return conversationLink;
         }
+        } catch (error) {
+          console.error('[FCM ERROR] Error processing initial notification:', error);
+        }
+      } else {
+        console.log('[FCM DEBUG] No initial notification found');
       }
       return undefined;
     },
@@ -153,16 +222,29 @@ export const AppNavigationContainer = () => {
 
       //onNotificationOpenedApp: When the application is running, but in the background.
       const unsubscribeNotification = messaging().onNotificationOpenedApp(message => {
+        console.log('[FCM DEBUG] Notification opened app (background -> foreground):', JSON.stringify(message, null, 2));
         if (message) {
+          try {
           const notification = findNotificationFromFCM({ message });
+            if (!notification) {
+              console.warn('[FCM DEBUG] No notification extracted from background message');
+              return;
+            }
           const camelCaseNotification = transformNotification(notification);
+            console.log('[FCM DEBUG] Transformed notification:', JSON.stringify(camelCaseNotification, null, 2));
 
           const conversationLink = findConversationLinkFromPush({
             notification: camelCaseNotification,
             installationUrl,
           });
+            console.log('[FCM DEBUG] Conversation link:', conversationLink);
           if (conversationLink) {
             listener(conversationLink);
+            } else {
+              console.warn('[FCM DEBUG] No conversation link generated from notification');
+            }
+          } catch (error) {
+            console.error('[FCM ERROR] Error processing background notification:', error);
           }
         }
       });
