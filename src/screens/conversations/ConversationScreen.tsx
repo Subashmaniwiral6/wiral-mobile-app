@@ -17,10 +17,10 @@ import { FlashList } from '@shopify/flash-list';
 import {
   ConversationItemContainer,
   ConversationHeader,
-  StatusFilters,
-  SortByFilters,
+  AgentFilters,
+  LabelFilters,
+  PipelineFilters,
   InboxFilters,
-  AssigneeTypeFilters,
 } from './components';
 
 import { ActionTabs, BottomSheetBackdrop, BottomSheetWrapper } from '@/components-next';
@@ -55,7 +55,6 @@ import {
 import { selectFilters, FilterState } from '@/store/conversation/conversationFilterSlice';
 import { ConversationPayload } from '@/store/conversation/conversationTypes';
 import { clearAllConversations } from '@/store/conversation/conversationSlice';
-import { selectUserId } from '@/store/auth/authSelectors';
 import { clearAllContacts } from '@/store/contact/contactSlice';
 import { clearAssignableAgents } from '@/store/assignable-agent/assignableAgentSlice';
 
@@ -85,7 +84,6 @@ const ConversationList = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   // This is used for pagination
   const [pageNumber, setPageNumber] = useState(1);
-  const userId = useAppSelector(selectUserId);
 
   // This is used to store the index of the item that is currently selected
   const { openedRowIndex } = useConversationListStateContext();
@@ -195,10 +193,11 @@ const ConversationList = () => {
   const fetchConversations = useCallback(
     async (filters: FilterState, page: number = 1) => {
       const conversationFilters = {
-        status: filters.status,
-        assigneeType: filters.assignee_type,
+        // 2025-12-09 thouseef-hamza: Backend call keeps default filters while UI uses new client filters
+        status: 'all',
+        assigneeType: 'all',
         page: page,
-        sortBy: filters.sort_by,
+        sortBy: 'latest',
         inboxId: parseInt(filters.inbox_id),
       } as ConversationPayload;
 
@@ -231,9 +230,7 @@ const ConversationList = () => {
     },
   });
 
-  const allConversations = useAppSelector(state =>
-    getFilteredConversations(state, filters, userId),
-  );
+  const allConversations = useAppSelector(state => getFilteredConversations(state, filters));
 
   const shouldShowEmptyLoader = isConversationsLoading && allConversations.length === 0;
 
@@ -296,12 +293,12 @@ const ConversationScreen = () => {
 
   const filterSnapPoints = useMemo(() => {
     switch (currentBottomSheet) {
-      case 'status':
-        return [290];
-      case 'sort_by':
-        return [200];
-      case 'assignee_type':
-        return [200];
+      case 'assignee_id':
+        return [340];
+      case 'label':
+        return [340];
+      case 'pipeline':
+        return [340];
       case 'inbox_id':
         return ['70%'];
       default:
@@ -332,9 +329,9 @@ const ConversationScreen = () => {
           snapPoints={filterSnapPoints}
           onDismiss={handleOnDismiss}>
           <BottomSheetWrapper>
-            {currentBottomSheet === 'status' ? <StatusFilters /> : null}
-            {currentBottomSheet === 'sort_by' ? <SortByFilters /> : null}
-            {currentBottomSheet === 'assignee_type' ? <AssigneeTypeFilters /> : null}
+            {currentBottomSheet === 'assignee_id' ? <AgentFilters /> : null}
+            {currentBottomSheet === 'label' ? <LabelFilters /> : null}
+            {currentBottomSheet === 'pipeline' ? <PipelineFilters /> : null}
             {currentBottomSheet === 'inbox_id' ? <InboxFilters /> : null}
           </BottomSheetWrapper>
         </BottomSheetModal>

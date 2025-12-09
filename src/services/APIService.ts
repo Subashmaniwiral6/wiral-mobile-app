@@ -57,6 +57,10 @@ class APIService {
         } else if (nonAccountRoutes.includes(config.url || '')) {
           config.url = `api/v1/${config.url}`;
         }
+
+        console.log('config.baseURL', config.baseURL);
+        console.log(`${config.baseURL || ''}${config.url || ''}`);
+
         return {
           ...config,
           headers: {
@@ -69,7 +73,9 @@ class APIService {
     );
 
     this.api.interceptors.response.use(
-      (response: AxiosResponse) => response,
+      (response: AxiosResponse) => {
+        return response;
+      },
       async (error: AxiosError) => {
         if (error.response?.status === 401) {
           const store = getStore();

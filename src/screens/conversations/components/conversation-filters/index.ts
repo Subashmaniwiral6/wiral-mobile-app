@@ -1,5 +1,5 @@
 export { ConversationFilterBar } from './ConversationFilterBar';
-export { StatusFilters } from './StatusFilters';
-export { SortByFilters } from './SortByFilters';
+export { AgentFilters } from './AgentFilters';
+export { LabelFilters } from './LabelFilters';
+export { PipelineFilters } from './PipelineFilters';
 export { InboxFilters } from './InboxFilters';
-export { AssigneeTypeFilters } from './AssigneeTypeFilters';

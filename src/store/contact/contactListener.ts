@@ -15,7 +15,9 @@ contactListenerMiddleware.startListening({
   effect: (action, listenerApi) => {
     const { payload } = action;
     const { conversations } = payload;
-    const contacts = conversations.map((conversation: Conversation) => conversation.meta.sender);
+    const contacts = conversations
+      .filter((conversation: Conversation) => conversation?.meta?.sender)
+      .map((conversation: Conversation) => conversation.meta.sender);
     if (contacts.length > 0) {
       listenerApi.dispatch(addContacts({ contacts }));
     }

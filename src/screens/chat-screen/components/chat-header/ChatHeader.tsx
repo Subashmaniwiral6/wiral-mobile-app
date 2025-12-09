@@ -1,13 +1,13 @@
 import React from 'react';
-import { ImageSourcePropType, Keyboard, Platform, Pressable } from 'react-native';
+import { ImageSourcePropType, Platform, Pressable } from 'react-native';
 import { BottomSheetModal, useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
 import Animated from 'react-native-reanimated';
 
 import { Avatar, Icon } from '@/components-next';
-import { ChevronLeft, OpenIcon, Overflow, ResolvedIcon, SLAIcon } from '@/svg-icons';
+import { ChevronLeft } from '@/svg-icons';
 import { BottomSheetBackdrop, BottomSheetWrapper } from '@/components-next';
 import { tailwind } from '@/theme';
-import { ChatDropdownMenu, DashboardList } from './DropdownMenu';
+import { DashboardList } from './DropdownMenu';
 import { SLAEvent } from '@/types/common';
 import { useRefsContext } from '@/context';
 import { SlaEvents } from './SlaEvents';
@@ -47,13 +47,6 @@ export const ChatHeader = ({
     damping: 30,
   });
 
-  const toggleSlaEventsSheet = () => {
-    if (slaEvents?.length) {
-      Keyboard.dismiss();
-      slaEventsSheetRef.current?.present();
-    }
-  };
-
   return (
     <Animated.View style={[tailwind.style('border-b-[1px] border-b-blackA-A3')]}>
       <Animated.View style={tailwind.style('flex flex-row justify-between items-center px-4 py-2')}>
@@ -84,30 +77,8 @@ export const ChatHeader = ({
           style={tailwind.style(
             `flex flex-row flex-1 justify-end ${Platform.OS === 'ios' ? 'gap-4' : ''}`,
           )}>
-          <Animated.View style={tailwind.style('flex flex-row items-center gap-4')}>
-            {hasSla && (
-              <Pressable hitSlop={8} onPress={toggleSlaEventsSheet}>
-                <Icon icon={<SLAIcon color={isSlaMissed ? '#E13D45' : '#BBBBBB'} />} size={24} />
-              </Pressable>
-            )}
-            <Pressable hitSlop={8} onPress={onToggleChatStatus}>
-              <Icon
-                icon={
-                  isResolved ? (
-                    <ResolvedIcon strokeWidth={2} stroke={tailwind.color('bg-green-700')} />
-                  ) : (
-                    <OpenIcon strokeWidth={2} />
-                  )
-                }
-                size={24}
-              />
-            </Pressable>
-          </Animated.View>
-          {dashboardsList.length > 0 && (
-            <ChatDropdownMenu dropdownMenuList={dashboardsList}>
-              <Icon icon={<Overflow strokeWidth={2} />} size={24} />
-            </ChatDropdownMenu>
-          )}
+          {/* 2025-12-09 thouseef-hamza: Hide header status toggle and overflow actions */}
+          <Animated.View style={tailwind.style('flex flex-row items-center gap-4')} />
         </Animated.View>
       </Animated.View>
       <BottomSheetModal

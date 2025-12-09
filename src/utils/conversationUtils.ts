@@ -6,20 +6,20 @@ import type { FilterState } from '@/store/conversation/conversationFilterSlice';
 import { PendingMessage } from '@/store/conversation/conversationTypes';
 import { formatDate } from '@/utils/dateTimeUtils';
 
-const filterByStatus = (chatStatus: string, filterStatus: string) =>
-  filterStatus === 'all' ? true : chatStatus === filterStatus;
-
 export const shouldApplyFilters = (conversation: Conversation, filters: FilterState) => {
-  const { inbox_id: inboxId, status } = filters;
-  const { status: chatStatus, inboxId: chatInboxId } = conversation;
-  let shouldFilter = filterByStatus(chatStatus, status);
-  const hasInboxFilter = inboxId && inboxId !== '0';
-  if (hasInboxFilter) {
-    const filterByInbox = Number(inboxId) === chatInboxId;
-    shouldFilter = shouldFilter && filterByInbox;
-  }
+  const { inbox_id: inboxId, assignee_id: assigneeId, label, pipeline } = filters;
+  const { inboxId: chatInboxId } = conversation;
+  const conversationLabels = conversation.labels || [];
 
-  return shouldFilter;
+  const matchesInbox = inboxId === '0' ? true : Number(inboxId) === chatInboxId;
+  const matchesAssignee =
+    assigneeId === 'all'
+      ? true
+      : conversation.meta.assignee?.id?.toString() === assigneeId.toString();
+  const matchesLabel = label === 'all' ? true : conversationLabels.includes(label);
+  const matchesPipeline = pipeline === 'all' ? true : conversationLabels.includes(pipeline);
+
+  return matchesInbox && matchesAssignee && matchesLabel && matchesPipeline;
 };
 
 const getLastNonActivityMessage = (

@@ -38,4 +38,3 @@ export const CalendarHeaderPresenter = ({ onAddEvent }: CalendarHeaderPresenterP
     </Animated.View>
   );
 };
-

@@ -10,6 +10,7 @@ import i18n from '@/i18n';
 const Chatwoot = () => {
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    console.log('API URL', process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
     };

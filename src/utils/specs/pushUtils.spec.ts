@@ -89,7 +89,7 @@ describe('findConversationLinkFromPush', () => {
       primaryActorType: 'Message',
       primaryActor: { conversationId: 14427, id: 58712 },
     };
-    const installationUrl = 'https://app.chatwoot.com';
+    const installationUrl = 'http://172.30.8.37:3000';
     const transformedNotification = transformNotification(notification);
     const result = findConversationLinkFromPush({
       notification: transformedNotification,
@@ -108,7 +108,7 @@ describe('findConversationLinkFromPush', () => {
       primaryActorType: 'Message',
       primaryActor: { conversationId: 14427, id: 58712 },
     };
-    const installationUrl = 'https://app.wiral.ai'; 
+    const installationUrl = 'http://172.30.8.37:3000';
     const transformedNotification = transformNotification(notification);
     const result = findConversationLinkFromPush({
       notification: transformedNotification,

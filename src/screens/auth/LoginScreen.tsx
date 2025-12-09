@@ -25,11 +25,7 @@ import {
   Icon,
   AuthButton,
 } from '@/components-next';
-import {
-  selectInstallationUrl,
-  selectBaseUrl,
-  selectLocale,
-} from '@/store/settings/settingsSelectors';
+import { selectInstallationUrl, selectLocale } from '@/store/settings/settingsSelectors';
 import { selectIsLoggingIn } from '@/store/auth/authSelectors';
 import { setLocale } from '@/store/settings/settingsSlice';
 import { useRefsContext } from '@/context/RefsContext';
@@ -66,7 +62,6 @@ const LoginScreen = () => {
   const isLoggingIn = useAppSelector(selectIsLoggingIn);
 
   const installationUrl = useAppSelector(selectInstallationUrl);
-  const baseUrl = useAppSelector(selectBaseUrl);
   const activeLocale = useAppSelector(selectLocale);
 
   useEffect(() => {
@@ -109,16 +104,10 @@ const LoginScreen = () => {
   // TODO: Change this condition based on EE check
   // Show SSO login button only if installation URL contains app.chatwoot.com
 
-  // Disabled by thouseef 30/10/2025
-  // const showSsoLogin = installationUrl.includes('app.chatwoot.com');
   const showSsoLogin = false;
 
   const openResetPassword = () => {
     navigation.navigate('ResetPassword' as never);
-  };
-
-  const openConfigInstallationURL = () => {
-    navigation.navigate('ConfigureURL' as never);
   };
 
   const onChangeLanguage = (locale: string) => {
@@ -169,7 +158,7 @@ const LoginScreen = () => {
               style={tailwind.style(
                 'font-inter-normal-20 leading-[18px] tracking-[0.32px] text-gray-900',
               )}>
-              {i18n.t('LOGIN.DESCRIPTION', { baseUrl })}
+              {i18n.t('LOGIN.DESCRIPTION', { baseUrl: installationUrl })}
             </Animated.Text> */}
           </View>
 

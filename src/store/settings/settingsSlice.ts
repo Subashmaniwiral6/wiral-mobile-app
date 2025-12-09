@@ -20,13 +20,13 @@ interface SettingsState {
   pushToken: string;
 }
 const initialState: SettingsState = {
-  baseUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'https://app.wiral.ai/', 
-  installationUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'https://app.wiral.ai/', 
+  baseUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'http://172.30.8.37:3000/',
+  installationUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'http://172.30.8.37:3000/',
   uiFlags: {
     isSettingUrl: false,
     isUpdating: false,
     isLocaleSet: false,
-  },  
+  },
   localeValue: 'en',
   notificationSettings: {
     account_id: 0,
@@ -37,7 +37,7 @@ const initialState: SettingsState = {
     selected_push_flags: [],
     user_id: 0,
   },
-  webSocketUrl: 'wss://app.wiral.ai/cable',
+  webSocketUrl: 'wss://172.30.8.37:3000/cable',
   theme: 'system',
   version: '',
   pushToken: '',
@@ -95,6 +95,9 @@ export const settingsSlice = createSlice({
         }
       })
       .addCase(settingsActions.saveDeviceDetails.rejected, (state, action) => {
+        state.pushToken = '';
+      })
+      .addCase(settingsActions.removeDevice.fulfilled, state => {
         state.pushToken = '';
       });
   },

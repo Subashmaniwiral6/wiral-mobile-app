@@ -33,4 +33,3 @@ export const CalendarHeader = ({ onAddEvent }: CalendarHeaderProps) => {
     </Animated.View>
   );
 };
-

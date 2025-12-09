@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, Text, ViewStyle } from 'react-native';
 import Animated, { AnimatedStyle } from 'react-native-reanimated';
 import { Icon } from '@/components-next/common';
-import { CheckedIcon, CloseIcon, FilterIcon, UncheckedIcon } from '@/svg-icons';
+import { CheckedIcon, UncheckedIcon } from '@/svg-icons';
 import { tailwind } from '@/theme';
 import i18n from '@/i18n';
 import { useScaleAnimation } from '@/utils';
@@ -115,30 +115,8 @@ const RightSection = ({
   filtersAppliedCount,
   onRightIconPress,
 }: RightSectionProps) => {
-  const { entering, exiting } = useHeaderAnimation();
-
-  return (
-    <Animated.View style={tailwind.style('flex-1 items-end')}>
-      <Pressable onPress={onRightIconPress} hitSlop={16}>
-        {currentState === 'Filter' || currentState === 'Select' ? (
-          <Animated.View exiting={exiting} entering={entering}>
-            <Icon size={24} icon={<CloseIcon />} />
-          </Animated.View>
-        ) : (
-          <Animated.View exiting={exiting} entering={entering}>
-            {filtersAppliedCount > 0 && (
-              <Animated.View
-                style={tailwind.style(
-                  'absolute z-10 -right-0.5 h-2.5 w-2.5 rounded-full bg-blue-800',
-                )}
-              />
-            )}
-            <Icon size={24} icon={<FilterIcon />} />
-          </Animated.View>
-        )}
-      </Pressable>
-    </Animated.View>
-  );
+  // 2025-12-09 thouseef-hamza: Filter toggle hidden; preserve layout spacing
+  return <Animated.View style={tailwind.style('flex-1 items-end')} />;
 };
 
 export const ConversationHeaderPresenter = ({
@@ -159,14 +137,7 @@ export const ConversationHeaderPresenter = ({
         isSelectedAll={isSelectedAll}
         onLeftIconPress={onLeftIconPress}
       />
-      {currentState === 'Filter' && (
-        <FilterSection
-          filtersAppliedCount={filtersAppliedCount}
-          onClearFilter={onClearFilter}
-          handlers={handlers}
-          animatedStyle={animatedStyle}
-        />
-      )}
+      {/* 2025-12-09 thouseef-hamza: Clear filter hidden per request */}
       <HeaderTitle />
       <RightSection
         currentState={currentState}

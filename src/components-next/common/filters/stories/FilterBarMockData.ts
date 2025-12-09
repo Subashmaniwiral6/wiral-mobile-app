@@ -1,20 +1,19 @@
 import { BaseFilterOption } from '../FilterBar';
-import { AssigneeOptions, SortOptions, StatusOptions } from '@/types';
 
 export const ConversationFilterOptions: BaseFilterOption[] = [
   {
-    type: 'assignee_type',
-    options: AssigneeOptions,
-    defaultFilter: 'All',
+    type: 'assignee_id',
+    options: { all: 'All agents' },
+    defaultFilter: 'All agents',
   },
   {
-    type: 'status',
-    options: StatusOptions,
-    defaultFilter: 'Open',
+    type: 'label',
+    options: { all: 'All labels' },
+    defaultFilter: 'All labels',
   },
   {
-    type: 'sort_by',
-    options: SortOptions,
-    defaultFilter: 'Latest',
+    type: 'pipeline',
+    options: { all: 'All pipelines' },
+    defaultFilter: 'All pipelines',
   },
 ];

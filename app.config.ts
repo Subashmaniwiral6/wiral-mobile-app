@@ -2,7 +2,7 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => {
   // Build plugins array conditionally
-  const plugins: (string | [string] | [string, any])[] = [
+  const plugins: (string | [string] | [string, unknown])[] = [
     'expo-font',
     ['react-native-permissions', { iosPermissions: ['Camera', 'PhotoLibrary', 'MediaLibrary'] }],
   ];
@@ -45,13 +45,17 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     orientation: 'portrait',
     icon: './assets/icon.jpg',
     userInterfaceStyle: 'light',
+    backgroundColor: '#ffffff',
     newArchEnabled: false,
     scheme: 'wiralapp',
     splash: {
       image: './assets/splash.jpeg',
-      resizeMode: 'contain',
+      resizeMode: 'cover', 
       backgroundColor: '#ffffff',
-      enableFullScreenImage_legacy: true,
+      // 2025-12-09 thouseef-hamza: Added padding-safe logo to avoid side clipping
+      imageStyle: {
+        resizeMode: 'cover',
+      },
     },
     ios: {
       supportsTablet: true,
@@ -68,24 +72,26 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         ITSAppUsesNonExemptEncryption: false,
       },
       // Please use the relative path to the google-services.json file
-      googleServicesFile: process.env.EXPO_PUBLIC_IOS_GOOGLE_SERVICES_FILE || './google-services.json',
+      googleServicesFile:
+        process.env.EXPO_PUBLIC_IOS_GOOGLE_SERVICES_FILE || './google-services.json',
       entitlements: { 'aps-environment': 'production' },
-      associatedDomains: ['applinks:app.wiral.ai']
+      associatedDomains: ['applinks:172.30.8.37'],
     },
     android: {
       adaptiveIcon: { foregroundImage: './assets/icon.jpg', backgroundColor: '#ffffff' },
       package: 'com.wiral.app',
       permissions: ['android.permission.CAMERA', 'android.permission.RECORD_AUDIO'],
       // Please use the relative path to the google-services.json file
-      googleServicesFile: process.env.EXPO_PUBLIC_ANDROID_GOOGLE_SERVICES_FILE || './google-services.json',
+      googleServicesFile:
+        process.env.EXPO_PUBLIC_ANDROID_GOOGLE_SERVICES_FILE || './google-services.json',
       intentFilters: [
         {
           action: 'VIEW',
           autoVerify: true,
           data: [
             {
-              scheme: "https",
-              host: "app.wiral.ai",
+              scheme: 'http',
+              host: '172.30.8.37',
               pathPrefix: '/app/accounts/',
               pathPattern: '/*/conversations/*',
             },

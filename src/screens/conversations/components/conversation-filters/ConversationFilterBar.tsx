@@ -1,27 +1,29 @@
 import React from 'react';
+import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { selectAllInboxes } from '@/store/inbox/inboxSelectors';
 import { BottomSheetType, setBottomSheetState } from '@/store/conversation/conversationHeaderSlice';
 import { selectFilters } from '@/store/conversation/conversationFilterSlice';
 import { BaseFilterOption, FilterBar } from '@/components-next';
-import { AssigneeOptions, StatusOptions, SortOptions } from '@/types/common/ConversationStatus';
+import { selectAssignableAgents } from '@/store/assignable-agent/assignableAgentSelectors';
+import { selectAllLabels } from '@/store/label/labelSelectors';
 import i18n from '@/i18n';
 
 export const ConversationFilterOptions: BaseFilterOption[] = [
   {
-    type: 'assignee_type',
-    options: AssigneeOptions,
-    defaultFilter: 'All',
+    type: 'assignee_id',
+    options: { all: 'All agents' },
+    defaultFilter: 'All agents',
   },
   {
-    type: 'status',
-    options: StatusOptions,
-    defaultFilter: 'Open',
+    type: 'label',
+    options: { all: 'All labels' },
+    defaultFilter: 'All labels',
   },
   {
-    type: 'sort_by',
-    options: SortOptions,
-    defaultFilter: 'Latest',
+    type: 'pipeline',
+    options: { all: 'All pipelines' },
+    defaultFilter: 'All pipelines',
   },
 ];
 
@@ -29,6 +31,8 @@ export const ConversationFilterBar = () => {
   const dispatch = useAppDispatch();
   const inboxes = useAppSelector(selectAllInboxes);
   const selectedFilters = useAppSelector(selectFilters);
+  const assignableAgents = useAppSelector(selectAssignableAgents);
+  const labels = useAppSelector(selectAllLabels);
 
   const getInboxOptions = (inboxes: { id: number; name: string }[]) => {
     const options: Record<string, string> = {
@@ -40,8 +44,53 @@ export const ConversationFilterBar = () => {
     return options;
   };
 
+  const agentOptions = useMemo(() => {
+    const options: Record<string, string> = { all: 'All agents' };
+    const uniqueAgents = new Map<number, string>();
+    Object.values(assignableAgents).forEach(agentsList => {
+      agentsList.forEach(agent => {
+        if (agent?.id !== undefined && !uniqueAgents.has(agent.id)) {
+          uniqueAgents.set(agent.id, agent.name || 'Unknown');
+        }
+      });
+    });
+    uniqueAgents.forEach((name, id) => {
+      options[id.toString()] = name;
+    });
+    return options;
+  }, [assignableAgents]);
+
+  const { labelOptions, pipelineOptions } = useMemo(() => {
+    const labelMap: Record<string, string> = { all: 'All labels' };
+    const pipelineMap: Record<string, string> = { all: 'All pipelines' };
+
+    labels.forEach(label => {
+      const isPipelineTag = !!label.is_pipeline_tag;
+      const labelTitle = label.title ?? '';
+      if (!labelTitle) return;
+      if (isPipelineTag) {
+        pipelineMap[labelTitle] = labelTitle;
+      } else {
+        labelMap[labelTitle] = labelTitle;
+      }
+    });
+
+    return { labelOptions: labelMap, pipelineOptions: pipelineMap };
+  }, [labels]);
+
   const dynamicFilterOptions = [
-    ...ConversationFilterOptions,
+    {
+      ...ConversationFilterOptions[0],
+      options: agentOptions,
+    },
+    {
+      ...ConversationFilterOptions[1],
+      options: labelOptions,
+    },
+    {
+      ...ConversationFilterOptions[2],
+      options: pipelineOptions,
+    },
     {
       type: 'inbox_id' as const,
       options: getInboxOptions(inboxes),

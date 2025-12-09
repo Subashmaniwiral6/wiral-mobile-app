@@ -5,18 +5,7 @@ import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { tailwind } from '@/theme';
 import { Icon } from '@/components-next/common';
 import { CloseIcon } from '@/svg-icons';
-
-interface CalendarEvent {
-  id: string;
-  title: string;
-  startTime: Date;
-  endTime: Date;
-  color: string;
-  link?: string;
-  contact_person_name?: string;
-  contact_person_phone_number?: string;
-  customAttributes?: Record<string, any>;
-}
+import type { CalendarEvent } from '@/types/Calendar';
 
 interface EventDetailsViewProps {
   event: CalendarEvent;
@@ -24,14 +13,12 @@ interface EventDetailsViewProps {
 }
 
 export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
-  const formatDateTime = (date: Date) => {
-    return date.toLocaleString('en-US', {
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
       year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
     });
   };
 
@@ -42,10 +29,10 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
     });
   };
 
-  const handleLinkPress = () => {
-    if (event.link) {
-      Linking.openURL(event.link).catch(err => {
-        console.error('Failed to open link:', err);
+  const handleMeetLinkPress = () => {
+    if (event.meetLink) {
+      Linking.openURL(event.meetLink).catch(err => {
+        console.error('Failed to open meet link:', err);
       });
     }
   };
@@ -68,49 +55,21 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
       <BottomSheetScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={tailwind.style('px-4 pb-6')}>
-        {/* Color Indicator */}
-        <View
-          style={[
-            tailwind.style('h-2 rounded-full mb-6'),
-            { backgroundColor: event.color },
-          ]}
-        />
-
         {/* Title */}
-        <View style={tailwind.style('mb-6')}>
+        {/* <View style={tailwind.style('mb-6')}>
           <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
             Title
           </Text>
           <Text style={tailwind.style('text-base font-inter-medium-24 text-gray-950')}>
             {event.title}
           </Text>
-        </View>
-
-        {/* Date */}
-        <View style={tailwind.style('mb-6')}>
-          <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
-            Date
-          </Text>
-          <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
-            {formatDateTime(event.startTime)}
-          </Text>
-        </View>
-
-        {/* Time Range */}
-        <View style={tailwind.style('mb-6')}>
-          <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
-            Time
-          </Text>
-          <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
-            {formatTime(event.startTime)} - {formatTime(event.endTime)}
-          </Text>
-        </View>
+        </View> */}
 
         {/* Contact Person Name */}
         {event.contact_person_name && (
           <View style={tailwind.style('mb-6')}>
             <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
-              Contact Person Name
+              Person Name
             </Text>
             <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
               {event.contact_person_name}
@@ -122,7 +81,7 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {event.contact_person_phone_number && (
           <View style={tailwind.style('mb-6')}>
             <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
-              Contact Person Phone Number
+              Phone Number
             </Text>
             <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
               {event.contact_person_phone_number}
@@ -130,18 +89,46 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
           </View>
         )}
 
-        {/* Link */}
-        {event.link && (
+        {/* Date */}
+        <View style={tailwind.style('mb-6')}>
+          <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>Date</Text>
+          <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
+            {formatDate(event.startTime)}
+          </Text>
+        </View>
+
+        {/* Time Range */}
+        <View style={tailwind.style('mb-6')}>
+          <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>Time</Text>
+          <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
+            {formatTime(event.startTime)} - {formatTime(event.endTime)}
+          </Text>
+        </View>
+
+        {/* Location */}
+        {event.location && (
           <View style={tailwind.style('mb-6')}>
             <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
-              Link
+              Location
             </Text>
-            <Pressable onPress={handleLinkPress}>
+            <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
+              {event.location}
+            </Text>
+          </View>
+        )}
+
+        {/* Meet Link */}
+        {event.meetLink && (
+          <View style={tailwind.style('mb-6')}>
+            <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
+              Meet Link
+            </Text>
+            <Pressable onPress={handleMeetLinkPress}>
               <Text
                 style={tailwind.style('text-base font-inter-normal-20 text-blue-600')}
                 numberOfLines={2}
                 ellipsizeMode="tail">
-                {event.link}
+                {event.meetLink}
               </Text>
             </Pressable>
           </View>
@@ -151,20 +138,22 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {event.customAttributes && Object.keys(event.customAttributes).length > 0 && (
           <View style={tailwind.style('mb-6')}>
             <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-3')}>
-              Additional Information
+              Custom Attributes
             </Text>
             {Object.entries(event.customAttributes)
-              .filter(([key]) => key !== 'contact_person_name' && key !== 'contact_person_phone_number')
+              .filter(
+                ([key]) => key !== 'contact_person_name' && key !== 'contact_person_phone_number',
+              )
               .map(([key, value]) => {
                 // Format key to be more readable (convert snake_case to Title Case)
                 const formattedKey = key
                   .split('_')
                   .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                   .join(' ');
-                
+
                 // Handle different value types
-                const displayValue = Array.isArray(value) 
-                  ? value.join(', ') 
+                const displayValue = Array.isArray(value)
+                  ? value.join(', ')
                   : value?.toString() || '';
 
                 return (
@@ -180,26 +169,7 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
               })}
           </View>
         )}
-
-        {/* Color */}
-        <View style={tailwind.style('mb-6')}>
-          <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
-            Color
-          </Text>
-          <View style={tailwind.style('flex-row items-center gap-3')}>
-            <View
-              style={[
-                tailwind.style('w-8 h-8 rounded-full'),
-                { backgroundColor: event.color },
-              ]}
-            />
-            <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
-              {event.color}
-            </Text>
-          </View>
-        </View>
       </BottomSheetScrollView>
     </View>
   );
 };
-

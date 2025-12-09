@@ -21,12 +21,12 @@ describe('conversationFilter reducer', () => {
 
       const nextState = conversationFilterReducer(
         initialState,
-        setFilters({ key: 'status', value: 'resolved' }),
+        setFilters({ key: 'label', value: 'urgent' }),
       );
 
-      expect(nextState.filters.status).toBe('resolved');
-      expect(nextState.filters.assignee_type).toBe(defaultFilterState.assignee_type);
-      expect(nextState.filters.sort_by).toBe(defaultFilterState.sort_by);
+      expect(nextState.filters.label).toBe('urgent');
+      expect(nextState.filters.assignee_id).toBe(defaultFilterState.assignee_id);
+      expect(nextState.filters.pipeline).toBe(defaultFilterState.pipeline);
       expect(nextState.filters.inbox_id).toBe(defaultFilterState.inbox_id);
     });
   });
@@ -36,8 +36,8 @@ describe('conversationFilter reducer', () => {
       const modifiedState = {
         filters: {
           ...defaultFilterState,
-          status: 'resolved',
-          assignee_type: 'all',
+          label: 'urgent',
+          assignee_id: '12',
         },
       };
 

@@ -33,7 +33,10 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('[FCM DEBUG] Background message received:', JSON.stringify(remoteMessage, null, 2));
   try {
     const notification = findNotificationFromFCM({ message: remoteMessage });
-    console.log('[FCM DEBUG] Background notification extracted:', JSON.stringify(notification, null, 2));
+    console.log(
+      '[FCM DEBUG] Background notification extracted:',
+      JSON.stringify(notification, null, 2),
+    );
   } catch (error) {
     console.error('[FCM ERROR] Background message handler error:', error);
   }
@@ -60,11 +63,17 @@ export const AppNavigationContainer = () => {
 
     // Foreground message handler - when app is in foreground
     const unsubscribeForeground = messaging().onMessage(async remoteMessage => {
-      console.log('[FCM DEBUG] Foreground message received:', JSON.stringify(remoteMessage, null, 2));
+      console.log(
+        '[FCM DEBUG] Foreground message received:',
+        JSON.stringify(remoteMessage, null, 2),
+      );
       try {
         const notification = findNotificationFromFCM({ message: remoteMessage });
         if (notification) {
-          console.log('[FCM DEBUG] Foreground notification processed:', JSON.stringify(notification, null, 2));
+          console.log(
+            '[FCM DEBUG] Foreground notification processed:',
+            JSON.stringify(notification, null, 2),
+          );
           // You can show a local notification here if needed
           // For now, we just log it
         }
@@ -115,9 +124,8 @@ export const AppNavigationContainer = () => {
         },
       },
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // getStateFromPath: App running, receives deep link - handles SSO callbacks and conversation navigation
-    getStateFromPath: (path: string, config: any) => {
+    getStateFromPath: (path: string, config: Parameters<typeof getStateFromPath>[1]) => {
       // Handle SSO callback - App running, receives deep link
       if (path.includes(SSO_CALLBACK_URL) || path.includes('auth/saml')) {
         const ssoParams = SsoUtils.parseCallbackUrl(`wiralapp://${path}`);
@@ -185,17 +193,20 @@ export const AppNavigationContainer = () => {
             console.warn('[FCM DEBUG] No notification extracted from initial message');
             return undefined;
           }
-        const camelCaseNotification = transformNotification(notification);
-          console.log('[FCM DEBUG] Transformed notification:', JSON.stringify(camelCaseNotification, null, 2));
-          
-        const conversationLink = findConversationLinkFromPush({
-          notification: camelCaseNotification,
-          installationUrl,
-        });
+          const camelCaseNotification = transformNotification(notification);
+          console.log(
+            '[FCM DEBUG] Transformed notification:',
+            JSON.stringify(camelCaseNotification, null, 2),
+          );
+
+          const conversationLink = findConversationLinkFromPush({
+            notification: camelCaseNotification,
+            installationUrl,
+          });
           console.log('[FCM DEBUG] Conversation link:', conversationLink);
-        if (conversationLink) {
-          return conversationLink;
-        }
+          if (conversationLink) {
+            return conversationLink;
+          }
         } catch (error) {
           console.error('[FCM ERROR] Error processing initial notification:', error);
         }
@@ -222,24 +233,30 @@ export const AppNavigationContainer = () => {
 
       //onNotificationOpenedApp: When the application is running, but in the background.
       const unsubscribeNotification = messaging().onNotificationOpenedApp(message => {
-        console.log('[FCM DEBUG] Notification opened app (background -> foreground):', JSON.stringify(message, null, 2));
+        console.log(
+          '[FCM DEBUG] Notification opened app (background -> foreground):',
+          JSON.stringify(message, null, 2),
+        );
         if (message) {
           try {
-          const notification = findNotificationFromFCM({ message });
+            const notification = findNotificationFromFCM({ message });
             if (!notification) {
               console.warn('[FCM DEBUG] No notification extracted from background message');
               return;
             }
-          const camelCaseNotification = transformNotification(notification);
-            console.log('[FCM DEBUG] Transformed notification:', JSON.stringify(camelCaseNotification, null, 2));
+            const camelCaseNotification = transformNotification(notification);
+            console.log(
+              '[FCM DEBUG] Transformed notification:',
+              JSON.stringify(camelCaseNotification, null, 2),
+            );
 
-          const conversationLink = findConversationLinkFromPush({
-            notification: camelCaseNotification,
-            installationUrl,
-          });
+            const conversationLink = findConversationLinkFromPush({
+              notification: camelCaseNotification,
+              installationUrl,
+            });
             console.log('[FCM DEBUG] Conversation link:', conversationLink);
-          if (conversationLink) {
-            listener(conversationLink);
+            if (conversationLink) {
+              listener(conversationLink);
             } else {
               console.warn('[FCM DEBUG] No conversation link generated from notification');
             }

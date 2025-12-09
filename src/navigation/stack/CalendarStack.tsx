@@ -20,4 +20,3 @@ export const CalendarStack = () => {
     </Stack.Navigator>
   );
 };
-

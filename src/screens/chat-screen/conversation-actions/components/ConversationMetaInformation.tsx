@@ -38,7 +38,7 @@ export const ConversationMetaInformation = ({ conversation }: { conversation: Co
   const initiatedAt = additionalAttributes.initiatedAt?.timestamp;
   const referer = additionalAttributes.referer;
   const browser = additionalAttributes.browser;
-  const sender = conversation.meta.sender;
+  const sender = conversation.meta?.sender;
 
   const browserName = browser?.browserName
     ? `${browser?.browserName} ${browser?.browserVersion}`
@@ -48,7 +48,7 @@ export const ConversationMetaInformation = ({ conversation }: { conversation: Co
     : '';
 
   const conversationCustomAttributes = useAppSelector(getConversationCustomAttributes);
-  const { additionalAttributes: { createdAtIp = '' } = {} } = sender;
+  const { additionalAttributes: { createdAtIp = '' } = {} } = sender || {};
 
   const usedConversationCustomAttributes = processContactAttributes(
     conversationCustomAttributes,

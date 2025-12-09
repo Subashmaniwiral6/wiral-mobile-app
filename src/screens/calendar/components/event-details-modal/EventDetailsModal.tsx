@@ -3,18 +3,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { tailwind } from '@/theme';
 import { BottomSheetBackdrop } from '@/components-next/common/bottomsheet/BottomSheetBackdrop';
 import { EventDetailsView } from '../event-details-view/EventDetailsView';
-
-interface CalendarEvent {
-  id: string;
-  title: string;
-  startTime: Date;
-  endTime: Date;
-  color: string;
-  link?: string;
-  contact_person_name?: string;
-  contact_person_phone_number?: string;
-  customAttributes?: Record<string, any>;
-}
+import type { CalendarEvent } from '@/types/Calendar';
 
 interface EventDetailsModalProps {
   event: CalendarEvent | null;
@@ -57,4 +46,3 @@ export const EventDetailsModal = ({ event, onClose }: EventDetailsModalProps) =>
     </BottomSheetModal>
   );
 };
-

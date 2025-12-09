@@ -45,7 +45,7 @@ export interface AttributeListType {
  * The types of Filter for Conversation List
  */
 
-export type ConversationFilterOptions = 'assignee_type' | 'status' | 'sort_by' | 'inbox_id';
+export type ConversationFilterOptions = 'assignee_id' | 'label' | 'pipeline' | 'inbox_id';
 
 // Defining the specific options for each filter type
 export type AssigneeFilterOptions = Record<AssigneeTypes, string>;
@@ -54,15 +54,7 @@ export type SortFilterOptions = Record<SortTypes, string>;
 
 export type FilterOption<T extends ConversationFilterOptions> = {
   type: T;
-  options: T extends 'assignee_type'
-    ? AssigneeFilterOptions
-    : T extends 'status'
-      ? StatusFilterOptions
-      : T extends 'sort_by'
-        ? SortFilterOptions
-        : T extends 'inbox_id'
-          ? Record<number, string>
-          : never;
+  options: Record<string, string>;
   defaultFilter: string;
 };
 

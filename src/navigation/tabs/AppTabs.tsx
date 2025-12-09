@@ -19,7 +19,7 @@ import { selectWebSocketUrl } from '@/store/settings/settingsSelectors';
 import { getUserPermissions } from '@/utils/permissionUtils';
 import { CONVERSATION_PERMISSIONS } from 'constants/permissions';
 
-import { AuthStack, CalendarStack, ConversationStack, SettingsStack, InboxStack } from '../stack';
+import { AuthStack, CalendarStack, ConversationStack, SettingsStack } from '../stack';
 import ChatScreen from '@/screens/chat-screen/ChatScreen';
 import ContactDetailsScreen from '@/screens/contact-details/ContactDetailsScreen';
 import DashboardScreen from '@/screens/dashboard/DashboardScreen';
@@ -43,14 +43,13 @@ const Tab = createBottomTabNavigator();
 
 export type TabParamList = {
   Conversations: undefined;
-  Inbox: undefined;
+  Calendar: undefined;
   Settings: undefined;
   Login: undefined;
   ConfigInstallationURL: undefined;
   ForgotPassword: undefined;
   Search: undefined;
   Notifications: undefined;
-  Calendar: undefined;
 };
 
 export type TabBarExcludedScreenParamList = {
@@ -154,16 +153,12 @@ const Tabs = () => {
   }, []);
 
   return (
-    <Tab.Navigator tabBar={CustomTabBar} initialRouteName="Inbox">
-      {hasConversationPermission && (
-        <Tab.Screen name="Inbox" component={InboxStack} options={{ headerShown: false }} />
-      )}
-      <Tab.Screen name="Setting" options={{ headerShown: false }} component={SettingsStack} />
+    <Tab.Navigator tabBar={CustomTabBar} initialRouteName="Conversations">
       {hasConversationPermission && (
         <Tab.Screen
-        name="Conversations"
-        options={{ headerShown: false }}
-        component={ConversationStack}
+          name="Conversations"
+          options={{ headerShown: false }}
+          component={ConversationStack}
         />
       )}
       <Tab.Screen name="Calendar" options={{ headerShown: false }} component={CalendarStack} />

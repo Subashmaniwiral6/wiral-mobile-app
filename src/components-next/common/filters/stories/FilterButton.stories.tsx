@@ -24,9 +24,9 @@ export const FilterButton: Story = {
   args: {
     allFilters: ConversationFilterOptions[0],
     selectedFilters: {
-      assignee_type: 'me',
-      status: 'open',
-      sort_by: 'latest',
+      assignee_id: 'all',
+      label: 'all',
+      pipeline: 'all',
     },
     handleOnPress: () => {},
   },
