@@ -104,9 +104,10 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
     <Animated.View>
       <Animated.View style={tailwind.style('pl-4')}>
         <Animated.Text
-          style={tailwind.style(
-            'text-sm font-inter-medium-24 leading-[16px] tracking-[0.32px] text-gray-700',
-          )}>
+          style={[
+            tailwind.style('text-sm font-inter-medium-24 leading-[16px] tracking-[0.32px]'),
+            { color: '#E8E9EB' },
+          ]}>
           Labels
         </Animated.Text>
       </Animated.View>
@@ -118,16 +119,15 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
           onPress={handleAddLabelPress}
           style={({ pressed }) => [
             styles.labelShadow,
-            tailwind.style(
-              'flex flex-row items-center bg-white px-3 py-[7px] rounded-lg mr-2 mt-3',
-              pressed ? 'bg-blue-100' : '',
-            ),
+            tailwind.style('flex flex-row items-center px-3 py-[7px] rounded-lg mr-2 mt-3'),
+            { backgroundColor: pressed ? 'rgba(86, 70, 139, 0.3)' : '#22242C' },
           ]}>
           <Icon icon={<LabelTag />} size={16} />
           <Animated.Text
-            style={tailwind.style(
-              'text-md font-inter-medium-24 leading-[17px] tracking-[0.24px] pl-1.5 text-blue-800',
-            )}>
+            style={[
+              tailwind.style('text-md font-inter-medium-24 leading-[17px] tracking-[0.24px] pl-1.5'),
+              { color: '#56468B' },
+            ]}>
             Add
           </Animated.Text>
         </Pressable>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
       },
       android: {
         elevation: 4,
-        backgroundColor: 'white',
+        backgroundColor: '#22242C',
       },
     }) || {}, // Add fallback empty object
 });

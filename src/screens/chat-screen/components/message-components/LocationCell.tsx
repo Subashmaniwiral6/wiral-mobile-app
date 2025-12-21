@@ -71,8 +71,8 @@ export const LocationCell: React.FC<LocationCellProps> = props => {
               tailwind.style(
                 'relative pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
                 `max-w-[${TEXT_MAX_WIDTH}px]`,
-                isIncoming ? 'bg-blue-700' : '',
-                isOutgoing ? 'bg-gray-100' : '',
+                isIncoming ? '' : '',
+                isOutgoing ? '' : '',
                 isMessageFailed ? 'bg-ruby-400' : '',
                 shouldRenderAvatar
                   ? isOutgoing
@@ -82,19 +82,23 @@ export const LocationCell: React.FC<LocationCellProps> = props => {
                       : ''
                   : '',
               ),
+              { backgroundColor: isIncoming ? '#1E3A5F' : isOutgoing ? '#2A2A2A' : '#2A2A2A' },
             ]}>
             <Animated.View
               style={tailwind.style('flex flex-row justify-center items-center gap-1')}>
               <Icon icon={<MapIcon fill="white" />} size={24} />
               <Text
                 onPress={() => openURL({ URL: mapUrl })}
-                style={tailwind.style(
-                  isIncoming || isOutgoing
-                    ? 'text-base tracking-[0.32px] leading-[22px] font-inter-normal-20 underline'
-                    : '',
-                  isIncoming ? 'text-white' : '',
-                  isOutgoing ? 'text-gray-950' : '',
-                )}>
+                style={[
+                  tailwind.style(
+                    isIncoming || isOutgoing
+                      ? 'text-base tracking-[0.32px] leading-[22px] font-inter-normal-20 underline'
+                      : '',
+                    isIncoming ? '' : '',
+                    isOutgoing ? '' : '',
+                  ),
+                  { color: isIncoming ? '#E8E9EB' : '#E8E9EB' },
+                ]}>
                 See on map
               </Text>
             </Animated.View>
@@ -104,12 +108,15 @@ export const LocationCell: React.FC<LocationCellProps> = props => {
                 'h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
               )}>
               <Text
-                style={tailwind.style(
-                  'text-xs font-inter-420-20 tracking-[0.32px] pr-1',
-                  isIncoming ? 'text-whiteA-A11' : '',
-                  isOutgoing ? 'text-gray-700' : '',
-                  isMessageFailed ? 'text-ruby-900' : '',
-                )}>
+                style={[
+                  tailwind.style(
+                    'text-xs font-inter-420-20 tracking-[0.32px] pr-1',
+                    isIncoming ? '' : '',
+                    isOutgoing ? '' : '',
+                    isMessageFailed ? 'text-ruby-900' : '',
+                  ),
+                  { color: isIncoming ? 'rgba(255, 255, 255, 0.7)' : 'rgba(255, 255, 255, 0.5)' },
+                ]}>
                 {unixTimestampToReadableTime(timeStamp)}
               </Text>
               <DeliveryStatus
@@ -119,8 +126,8 @@ export const LocationCell: React.FC<LocationCellProps> = props => {
                 channel={channel}
                 sourceId={sourceId}
                 errorMessage={errorMessage || ''}
-                deliveredColor="text-gray-700"
-                sentColor="text-gray-700"
+                deliveredColor="rgba(255, 255, 255, 0.5)"
+                sentColor="rgba(255, 255, 255, 0.5)"
               />
             </Animated.View>
           </Animated.View>

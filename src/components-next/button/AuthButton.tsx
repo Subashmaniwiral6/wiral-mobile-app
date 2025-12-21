@@ -24,17 +24,25 @@ export const AuthButton = ({
 }: AuthButtonProps) => {
   const getButtonStyles = () => {
     const baseStyles = 'py-[11px] flex-row items-center justify-center rounded-[13px]';
-    const variantStyles = variant === 'filled' ? 'bg-blue-800' : 'bg-gray-50';
     const disabledStyles = disabled ? 'opacity-50' : '';
-
-    return tailwind.style(baseStyles, variantStyles, disabledStyles);
+    const baseStyle = tailwind.style(baseStyles, disabledStyles);
+    
+    if (variant === 'filled') {
+      return [baseStyle, { backgroundColor: '#56468B' }];
+    } else {
+      return [baseStyle, { backgroundColor: 'rgba(255, 255, 255, 0.1)', borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.2)' }];
+    }
   };
 
   const getTextStyles = () => {
     const baseStyles = 'ml-2 text-base font-medium';
-    const colorStyles = variant === 'filled' ? 'text-white' : 'text-gray-950';
-
-    return tailwind.style(baseStyles, colorStyles);
+    const baseStyle = tailwind.style(baseStyles);
+    
+    if (variant === 'filled') {
+      return [baseStyle, { color: '#FFFFFF' }];
+    } else {
+      return [baseStyle, { color: '#E8E9EB' }];
+    }
   };
 
   return (

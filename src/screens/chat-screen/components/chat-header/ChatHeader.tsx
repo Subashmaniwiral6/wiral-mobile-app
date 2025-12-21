@@ -48,7 +48,11 @@ export const ChatHeader = ({
   });
 
   return (
-    <Animated.View style={[tailwind.style('border-b-[1px] border-b-blackA-A3')]}>
+    <Animated.View
+      style={[
+        tailwind.style('border-b-[1px]'),
+        { backgroundColor: '#121213', borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+      ]}>
       <Animated.View style={tailwind.style('flex flex-row justify-between items-center px-4 py-2')}>
         <Animated.View style={tailwind.style('flex-1 flex-row gap-2 items-center justify-center')}>
           <Pressable
@@ -64,9 +68,10 @@ export const ChatHeader = ({
             <Animated.View style={tailwind.style('pl-2')}>
               <Animated.Text
                 numberOfLines={1}
-                style={tailwind.style(
-                  'text-[17px] font-inter-medium-24 tracking-[0.32px] text-gray-950',
-                )}>
+                style={[
+                  tailwind.style('text-[17px] font-inter-medium-24 tracking-[0.32px]'),
+                  { color: '#E8E9EB' },
+                ]}>
                 {name}
               </Animated.Text>
             </Animated.View>

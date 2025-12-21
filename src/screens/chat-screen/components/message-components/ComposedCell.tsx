@@ -155,14 +155,20 @@ export const ComposedCell = (props: ComposedCellProps) => {
                     if (attachment.fileType === 'image') {
                       return isAnInstagramStory && isInstagramStoryExpired ? (
                         <Animated.View
-                          style={tailwind.style(
-                            'flex flex-row items-center justify-center py-8 bg-slate-100 gap-1',
-                          )}>
-                          <Icon icon={<FileErrorIcon fill={tailwind.color('text-gray-900')} />} />
+                          style={[
+                            tailwind.style(
+                              'flex flex-row items-center justify-center py-8 gap-1',
+                            ),
+                            { backgroundColor: '#22242C' },
+                          ]}>
+                          <Icon icon={<FileErrorIcon fill="#E8E9EB" />} />
                           <Animated.Text
-                            style={tailwind.style(
-                              'text-cxs font-inter-420-20 text-gray-900 mt-[1px]',
-                            )}>
+                            style={[
+                              tailwind.style(
+                                'text-cxs font-inter-420-20 mt-[1px]',
+                              ),
+                              { color: '#E8E9EB' },
+                            ]}>
                             {i18n.t('CONVERSATION.STORY_NOT_AVAILABLE')}
                           </Animated.Text>
                         </Animated.View>

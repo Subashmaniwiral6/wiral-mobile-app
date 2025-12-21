@@ -42,14 +42,15 @@ const LanguageCell = (props: LanguageCellProps) => {
     <Pressable onPress={handlePress}>
       <Animated.View style={tailwind.style('flex flex-row items-center')}>
         <Animated.View
-          style={tailwind.style(
-            'flex-1 ml-3 flex-row justify-between py-[11px] pr-3',
-            !isLastItem && 'border-b-[1px] border-blackA-A3',
-          )}>
+          style={[
+            tailwind.style('flex-1 ml-3 flex-row justify-between py-[11px] pr-3'),
+            !isLastItem && { borderBottomWidth: 1, borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+          ]}>
           <Animated.Text
-            style={tailwind.style(
-              'text-base capitalize text-gray-950 font-inter-420-20 leading-[21px] tracking-[0.16px]',
-            )}>
+            style={[
+              tailwind.style('text-base capitalize font-inter-420-20 leading-[21px] tracking-[0.16px]'),
+              { color: '#E8E9EB' },
+            ]}>
             {item.title}
           </Animated.Text>
           {isSelected && <Icon icon={<TickIcon />} size={20} />}

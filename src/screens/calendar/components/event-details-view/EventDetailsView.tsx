@@ -42,9 +42,10 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
       {/* Header with Close Button */}
       <View style={tailwind.style('flex-row justify-between items-center px-4 pt-2 pb-4')}>
         <Text
-          style={tailwind.style(
-            'text-[20px] font-inter-medium-24 tracking-[0.32px] text-gray-950',
-          )}>
+          style={[
+            tailwind.style('text-[20px] font-inter-medium-24 tracking-[0.32px]'),
+            { color: '#E8E9EB' },
+          ]}>
           Event Details
         </Text>
         <Pressable onPress={onClose} style={tailwind.style('p-2')}>
@@ -68,10 +69,10 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {/* Contact Person Name */}
         {event.contact_person_name && (
           <View style={tailwind.style('mb-6')}>
-            <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
+            <Text style={[tailwind.style('text-sm font-inter-420-20 mb-2'), { color: 'rgba(255, 255, 255, 0.6)' }]}>
               Person Name
             </Text>
-            <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
+            <Text style={[tailwind.style('text-base font-inter-normal-20'), { color: '#E8E9EB' }]}>
               {event.contact_person_name}
             </Text>
           </View>
@@ -80,10 +81,10 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {/* Contact Person Phone Number */}
         {event.contact_person_phone_number && (
           <View style={tailwind.style('mb-6')}>
-            <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
+            <Text style={[tailwind.style('text-sm font-inter-420-20 mb-2'), { color: 'rgba(255, 255, 255, 0.6)' }]}>
               Phone Number
             </Text>
-            <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
+            <Text style={[tailwind.style('text-base font-inter-normal-20'), { color: '#E8E9EB' }]}>
               {event.contact_person_phone_number}
             </Text>
           </View>
@@ -91,16 +92,16 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
 
         {/* Date */}
         <View style={tailwind.style('mb-6')}>
-          <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>Date</Text>
-          <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
+          <Text style={[tailwind.style('text-sm font-inter-420-20 mb-2'), { color: 'rgba(255, 255, 255, 0.6)' }]}>Date</Text>
+          <Text style={[tailwind.style('text-base font-inter-normal-20'), { color: '#E8E9EB' }]}>
             {formatDate(event.startTime)}
           </Text>
         </View>
 
         {/* Time Range */}
         <View style={tailwind.style('mb-6')}>
-          <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>Time</Text>
-          <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
+          <Text style={[tailwind.style('text-sm font-inter-420-20 mb-2'), { color: 'rgba(255, 255, 255, 0.6)' }]}>Time</Text>
+          <Text style={[tailwind.style('text-base font-inter-normal-20'), { color: '#E8E9EB' }]}>
             {formatTime(event.startTime)} - {formatTime(event.endTime)}
           </Text>
         </View>
@@ -108,10 +109,10 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {/* Location */}
         {event.location && (
           <View style={tailwind.style('mb-6')}>
-            <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
+            <Text style={[tailwind.style('text-sm font-inter-420-20 mb-2'), { color: 'rgba(255, 255, 255, 0.6)' }]}>
               Location
             </Text>
-            <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
+            <Text style={[tailwind.style('text-base font-inter-normal-20'), { color: '#E8E9EB' }]}>
               {event.location}
             </Text>
           </View>
@@ -120,12 +121,12 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {/* Meet Link */}
         {event.meetLink && (
           <View style={tailwind.style('mb-6')}>
-            <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-2')}>
+            <Text style={[tailwind.style('text-sm font-inter-420-20 mb-2'), { color: 'rgba(255, 255, 255, 0.6)' }]}>
               Meet Link
             </Text>
             <Pressable onPress={handleMeetLinkPress}>
               <Text
-                style={tailwind.style('text-base font-inter-normal-20 text-blue-600')}
+                style={[tailwind.style('text-base font-inter-normal-20'), { color: '#56468B' }]}
                 numberOfLines={2}
                 ellipsizeMode="tail">
                 {event.meetLink}
@@ -137,7 +138,7 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {/* Custom Attributes - Exclude contact_person_name and contact_person_phone_number */}
         {event.customAttributes && Object.keys(event.customAttributes).length > 0 && (
           <View style={tailwind.style('mb-6')}>
-            <Text style={tailwind.style('text-sm font-inter-420-20 text-gray-500 mb-3')}>
+            <Text style={[tailwind.style('text-sm font-inter-420-20 mb-3'), { color: 'rgba(255, 255, 255, 0.6)' }]}>
               Custom Attributes
             </Text>
             {Object.entries(event.customAttributes)
@@ -158,10 +159,10 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
 
                 return (
                   <View key={key} style={tailwind.style('mb-4')}>
-                    <Text style={tailwind.style('text-xs font-inter-420-20 text-gray-500 mb-1')}>
+                    <Text style={[tailwind.style('text-xs font-inter-420-20 mb-1'), { color: 'rgba(255, 255, 255, 0.6)' }]}>
                       {formattedKey}
                     </Text>
-                    <Text style={tailwind.style('text-base font-inter-normal-20 text-gray-950')}>
+                    <Text style={[tailwind.style('text-base font-inter-normal-20'), { color: '#E8E9EB' }]}>
                       {displayValue}
                     </Text>
                   </View>

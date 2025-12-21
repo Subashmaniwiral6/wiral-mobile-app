@@ -36,21 +36,25 @@ export const LabelFilters = () => {
     <Animated.View>
       <BottomSheetHeader headerText="Labels" />
       {/* 2025-12-09 thouseef-hamza: Label filter excludes pipeline tags */}
-      <Animated.View style={tailwind.style('py-1 pl-3')}>
+      <Animated.View style={tailwind.style('py-1')}>
         {labelOptions.map((option, index) => (
           <Pressable
             key={option.id}
             onPress={() => handleLabelPress(option.id)}
             style={tailwind.style('flex flex-row items-center')}>
             <Animated.View
-              style={tailwind.style(
-                'flex-1 ml-3 flex-row justify-between py-[11px] pr-3',
-                index !== labelOptions.length - 1 ? 'border-b-[1px] border-blackA-A3' : '',
-              )}>
+              style={[
+                tailwind.style('flex-1 flex-row justify-between py-[11px] px-3'),
+                index !== labelOptions.length - 1 && {
+                  borderBottomWidth: 1,
+                  borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              ]}>
               <Animated.Text
-                style={tailwind.style(
-                  'text-base text-gray-950 font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize',
-                )}>
+                style={[
+                  tailwind.style('text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize'),
+                  { color: '#E8E9EB' },
+                ]}>
                 {option.title}
               </Animated.Text>
               {filters.label === option.id ? <Icon icon={<TickIcon />} size={20} /> : null}

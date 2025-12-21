@@ -3,5 +3,9 @@ import { BottomSheetView } from '@gorhom/bottom-sheet';
 
 export const BottomSheetWrapper = (props: PropsWithChildren) => {
   const { children } = props;
-  return <BottomSheetView>{children}</BottomSheetView>;
+  return (
+    <BottomSheetView style={{ backgroundColor: '#808080', flex: 1 }}>
+      {children}
+    </BottomSheetView>
+  );
 };

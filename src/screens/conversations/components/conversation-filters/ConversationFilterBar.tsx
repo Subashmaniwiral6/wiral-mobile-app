@@ -20,11 +20,6 @@ export const ConversationFilterOptions: BaseFilterOption[] = [
     options: { all: 'All labels' },
     defaultFilter: 'All labels',
   },
-  {
-    type: 'pipeline',
-    options: { all: 'All pipelines' },
-    defaultFilter: 'All pipelines',
-  },
 ];
 
 export const ConversationFilterBar = () => {
@@ -60,22 +55,20 @@ export const ConversationFilterBar = () => {
     return options;
   }, [assignableAgents]);
 
-  const { labelOptions, pipelineOptions } = useMemo(() => {
+  const labelOptions = useMemo(() => {
     const labelMap: Record<string, string> = { all: 'All labels' };
-    const pipelineMap: Record<string, string> = { all: 'All pipelines' };
 
     labels.forEach(label => {
       const isPipelineTag = !!label.is_pipeline_tag;
       const labelTitle = label.title ?? '';
       if (!labelTitle) return;
-      if (isPipelineTag) {
-        pipelineMap[labelTitle] = labelTitle;
-      } else {
+      // Only include non-pipeline labels
+      if (!isPipelineTag) {
         labelMap[labelTitle] = labelTitle;
       }
     });
 
-    return { labelOptions: labelMap, pipelineOptions: pipelineMap };
+    return labelMap;
   }, [labels]);
 
   const dynamicFilterOptions = [
@@ -86,10 +79,6 @@ export const ConversationFilterBar = () => {
     {
       ...ConversationFilterOptions[1],
       options: labelOptions,
-    },
-    {
-      ...ConversationFilterOptions[2],
-      options: pipelineOptions,
     },
     {
       type: 'inbox_id' as const,

@@ -98,7 +98,7 @@ export const FileBubblePreview = (props: FilePreviewProps) => {
                 variant === MESSAGE_VARIANTS.USER
                   ? 'text-white'
                   : variant === MESSAGE_VARIANTS.AGENT
-                    ? 'text-gray-700'
+                    ? 'text-white'
                     : '',
               ),
               style.androidTextOnlyStyle,
@@ -109,9 +109,9 @@ export const FileBubblePreview = (props: FilePreviewProps) => {
             style={[
               tailwind.style(
                 'border-b-[1px] absolute left-0 right-0 ios:bottom-[1px] android:bottom-0',
-                variant === MESSAGE_VARIANTS.USER ? 'border-white' : '',
-                variant === MESSAGE_VARIANTS.AGENT ? 'border-blue-800' : '',
               ),
+              variant === MESSAGE_VARIANTS.USER && { borderColor: 'rgba(255, 255, 255, 0.3)' },
+              variant === MESSAGE_VARIANTS.AGENT && { borderColor: 'rgba(255, 255, 255, 0.3)' },
             ]}
           />
         </Animated.View>

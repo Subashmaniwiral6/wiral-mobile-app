@@ -271,11 +271,11 @@ const SettingsScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={tailwind.style('flex-1 bg-white font-inter-normal-20')}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#121213' }}>
       <StatusBar
         translucent
-        backgroundColor={tailwind.color('bg-white')}
-        barStyle={'dark-content'}
+        backgroundColor="#121213"
+        barStyle="light-content"
       />
       <SettingsHeader />
       <Animated.ScrollView
@@ -285,18 +285,21 @@ const SettingsScreen = () => {
           <Animated.View>
             <UserAvatar src={avatarUrl} name={name} status={availabilityStatus} />
             <Animated.View
-              style={tailwind.style(
-                'absolute border-[2px] border-white rounded-full -bottom-[2px] right-[10px]',
-              )}></Animated.View>
+              style={[
+                tailwind.style('absolute border-[2px] rounded-full -bottom-[2px] right-[10px]'),
+                { borderColor: '#121213' },
+              ]}></Animated.View>
           </Animated.View>
           <Animated.View style={tailwind.style('flex flex-col items-center gap-1')}>
-            <Animated.Text style={tailwind.style('text-[22px] font-inter-580-24 text-gray-950')}>
+            <Animated.Text
+              style={[tailwind.style('text-[22px] font-inter-580-24'), { color: '#E8E9EB' }]}>
               {name}
             </Animated.Text>
             <Animated.Text
-              style={tailwind.style(
-                'text-[15px] font-inter-420-20 leading-[17.25px] text-gray-900',
-              )}>
+              style={[
+                tailwind.style('text-[15px] font-inter-420-20 leading-[17.25px]'),
+                { color: '#E8E9EB' },
+              ]}>
               {email}
             </Animated.Text>
           </Animated.View>

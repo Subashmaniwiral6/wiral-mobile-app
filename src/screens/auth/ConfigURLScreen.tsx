@@ -40,13 +40,13 @@ const ConfigURLScreen = () => {
   };
 
   return (
-    <SafeAreaView style={tailwind.style('flex-1 bg-white')}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#121213' }}>
       <StatusBar
         translucent
-        backgroundColor={tailwind.color('bg-white')}
-        barStyle={'dark-content'}
+        backgroundColor="#121213"
+        barStyle="light-content"
       />
-      <View style={tailwind.style('flex-1 bg-white')}>
+      <View style={{ flex: 1, backgroundColor: '#121213' }}>
         <Animated.ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={tailwind.style('px-6 pt-16')}>
@@ -79,19 +79,24 @@ const ConfigURLScreen = () => {
                   style={[
                     tailwind.style(
                       'text-base font-inter-normal-20 tracking-[0.24px] leading-[20px] android:leading-[18px]',
-                      'py-2 px-3 rounded-xl text-gray-950 bg-blackA-A4',
+                      'py-2 px-3 rounded-xl text-white',
                       'h-10',
                     ),
+                    {
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      borderWidth: 1,
+                      borderColor: 'rgba(255, 255, 255, 0.2)',
+                    },
                   ]}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  placeholderTextColor={tailwind.color('text-gray-900')}
-                  keyboardType="email-address"
+                  placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                  keyboardType="url"
                   autoCapitalize="none"
                 />
                 {errors.url && (
-                  <Animated.Text style={tailwind.style('text-ruby-900')}>
+                  <Animated.Text style={tailwind.style('text-ruby-400')}>
                     {errors.url.message}
                   </Animated.Text>
                 )}
@@ -100,7 +105,12 @@ const ConfigURLScreen = () => {
             name="url"
           />
 
-          <Button text={i18n.t('CONFIGURE_URL.CONNECT')} handlePress={handleSubmit(onSubmit)} />
+          <Button
+            text={i18n.t('CONFIGURE_URL.CONNECT')}
+            handlePress={handleSubmit(onSubmit)}
+            variant="primary"
+            style={{ backgroundColor: '#56468B' }}
+          />
         </Animated.ScrollView>
       </View>
     </SafeAreaView>

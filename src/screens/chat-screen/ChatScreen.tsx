@@ -138,7 +138,7 @@ const ChatScreen = (props: ChatScreenProps) => {
 
   if (conversation) {
     return (
-      <SafeAreaView edges={['top']} style={tailwind.style('flex-1 bg-white')}>
+      <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
         <LightBoxProvider>
           <ChatWindowProvider conversationId={conversationId}>
             <ChatScreenWrapper {...props} />
@@ -160,24 +160,28 @@ const ChatScreen = (props: ChatScreenProps) => {
 
   if (conversationError || !conversation) {
     return (
-      <SafeAreaView edges={['top']} style={tailwind.style('flex-1 bg-white')}>
+      <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
         <Animated.View
-          style={tailwind.style(
-            'flex-1 items-center justify-center gap-8 px-4',
-            `pb-[${TAB_BAR_HEIGHT}px]`,
-          )}>
+          style={[
+            tailwind.style('flex-1 items-center justify-center gap-8 px-4'),
+            { paddingBottom: TAB_BAR_HEIGHT },
+          ]}>
           <ErrorIcon />
           <Animated.View style={tailwind.style('flex items-center justify-center gap-4')}>
             <Animated.Text
-              style={tailwind.style(
-                'text-2xl font-inter-420-20 text-gray-950 font-inter-semibold-20',
-              )}>
+              style={[
+                tailwind.style('text-2xl font-inter-420-20 font-inter-semibold-20'),
+                { color: '#E8E9EB' },
+              ]}>
               {conversationError || i18n.t('CONVERSATION.NOT_FOUND.TITLE')}
             </Animated.Text>
             <Animated.Text
-              style={tailwind.style(
-                'font-inter-normal-20 font-base leading-[18px] tracking-[0.32px] text-gray-950 text-center',
-              )}>
+              style={[
+                tailwind.style(
+                  'font-inter-normal-20 font-base leading-[18px] tracking-[0.32px] text-center',
+                ),
+                { color: '#E8E9EB' },
+              ]}>
               {i18n.t('CONVERSATION.NOT_FOUND.DESCRIPTION')}
             </Animated.Text>
           </Animated.View>
@@ -186,11 +190,13 @@ const ChatScreen = (props: ChatScreenProps) => {
               variant="primary"
               text={i18n.t('CONVERSATION.NOT_FOUND.RETRY')}
               handlePress={fetchConversation}
+              style={{ backgroundColor: '#56468B' }}
             />
             <Pressable
               style={tailwind.style('flex-row justify-center items-center')}
               onPress={handleBackPress}>
-              <Animated.Text style={tailwind.style('text-base font-inter-medium-24 text-gray-900')}>
+              <Animated.Text
+                style={[tailwind.style('text-base font-inter-medium-24'), { color: '#E8E9EB' }]}>
                 {i18n.t('CONVERSATION.NOT_FOUND.BACK_TO_HOME')}
               </Animated.Text>
             </Pressable>

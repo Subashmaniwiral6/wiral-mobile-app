@@ -35,21 +35,23 @@ const AccountCell = ({
     <Pressable onPress={handlePress}>
       <Animated.View style={tailwind.style('flex flex-row items-center')}>
         <Animated.View
-          style={tailwind.style(
-            'flex-1 ml-3 flex-row justify-between py-[11px] pr-3',
-            !isLastItem && 'border-b-[1px] border-blackA-A3',
-          )}>
+          style={[
+            tailwind.style('flex-1 ml-3 flex-row justify-between py-[11px] pr-3'),
+            !isLastItem && { borderBottomWidth: 1, borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+          ]}>
           <View>
             <Text
-              style={tailwind.style(
-                'text-base capitalize text-gray-950 font-inter-420-20 leading-[21px] tracking-[0.16px]',
-              )}>
+              style={[
+                tailwind.style('text-base capitalize font-inter-420-20 leading-[21px] tracking-[0.16px]'),
+                { color: '#E8E9EB' },
+              ]}>
               {item.name}
             </Text>
             <Text
-              style={tailwind.style(
-                'text-sm text-gray-900 font-inter-420-20 leading-[18px] tracking-[0.16px] capitalize',
-              )}>
+              style={[
+                tailwind.style('text-sm font-inter-420-20 leading-[18px] tracking-[0.16px] capitalize'),
+                { color: '#E8E9EB' },
+              ]}>
               {item.role}
             </Text>
           </View>

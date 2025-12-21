@@ -23,9 +23,10 @@ export const ContactDetailsScreenHeader = (props: ContactDetailsScreenHeaderProp
 
   return (
     <Animated.View
-      style={tailwind.style(
-        'flex flex-row items-start px-4 border-b-[1px] border-b-blackA-A3 py-[13px]',
-      )}>
+      style={[
+        tailwind.style('flex flex-row items-start px-4 border-b-[1px] py-[13px]'),
+        { borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+      ]}>
       <Pressable hitSlop={16} onPress={handleBackPress} style={tailwind.style('flex-1')}>
         <Animated.View>
           <Icon icon={<CloseIcon />} size={24} />
@@ -35,13 +36,15 @@ export const ContactDetailsScreenHeader = (props: ContactDetailsScreenHeaderProp
         <Animated.View style={tailwind.style('flex items-center')}>
           <Avatar size="4xl" src={thumbnail ? { uri: thumbnail } : undefined} name={name} />
           <Animated.View style={tailwind.style('flex flex-col items-center gap-1 pt-3')}>
-            <Animated.Text style={tailwind.style('text-[21px] font-inter-580-24 text-gray-950')}>
+            <Animated.Text
+              style={[tailwind.style('text-[21px] font-inter-580-24'), { color: '#E8E9EB' }]}>
               {name}
             </Animated.Text>
             <Animated.Text
-              style={tailwind.style(
-                'text-[15px] font-inter-420-20 leading-[17.25px] text-gray-900',
-              )}>
+              style={[
+                tailwind.style('text-[15px] font-inter-420-20 leading-[17.25px]'),
+                { color: '#E8E9EB' },
+              ]}>
               {bio}
             </Animated.Text>
           </Animated.View>

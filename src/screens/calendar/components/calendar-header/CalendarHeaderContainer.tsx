@@ -28,7 +28,12 @@ export const CalendarHeader = ({ onAddEvent }: CalendarHeaderProps) => {
   }, []);
 
   return (
-    <Animated.View style={[tailwind.style('border-b-[1px]'), headerBorderAnimation]}>
+    <Animated.View
+      style={[
+        tailwind.style('border-b-[1px]'),
+        { backgroundColor: '#121213', borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+        headerBorderAnimation,
+      ]}>
       <CalendarHeaderPresenter onAddEvent={onAddEvent} />
     </Animated.View>
   );

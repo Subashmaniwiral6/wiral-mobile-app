@@ -35,14 +35,14 @@ export const FilterBar = ({ allFilters, selectedFilters, onFilterPress }: Filter
   return (
     <Animated.View
       exiting={exiting}
-      style={tailwind.style('px-3 pt-2 pb-1.5 h-[46px] flex flex-row')}>
+      style={tailwind.style('pt-2 pb-1.5 h-[46px] flex flex-row')}>
       {allFilters.map((value, index) => {
         if (value.type === 'inbox_id') {
           return (
             <Animated.View
               layout={LinearTransition.springify().stiffness(200).damping(24)}
               key={index}
-              style={tailwind.style('pr-2')}>
+              style={tailwind.style('pr-2', index === 0 ? 'pl-3' : '')}>
               <FilterButton
                 handleOnPress={() => onFilterPress(value.type)}
                 value={value.options[selectedFilters[value.type]] ?? value.defaultFilter}
@@ -54,7 +54,7 @@ export const FilterBar = ({ allFilters, selectedFilters, onFilterPress }: Filter
           <Animated.View
             layout={LinearTransition.springify().stiffness(200).damping(24)}
             key={index}
-            style={tailwind.style('pr-2')}>
+            style={tailwind.style('pr-2', index === 0 ? 'pl-3' : '')}>
             <FilterButton
               handleOnPress={() => onFilterPress(value.type)}
               value={value.options[selectedFilters[value.type]] ?? value.defaultFilter}

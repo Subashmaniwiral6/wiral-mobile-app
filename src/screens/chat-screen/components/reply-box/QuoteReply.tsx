@@ -41,14 +41,14 @@ export const QuoteReply = () => {
 
   const { messageListRef } = useRefsContext();
 
-  const textStyle = tailwind.style('text-gray-950');
+  const textStyle = { color: '#E8E9EB' };
 
   const styles = StyleSheet.create({
     text: {
       fontSize: 16,
       letterSpacing: 0.32,
       lineHeight: 22,
-      ...textStyle,
+      color: '#E8E9EB',
     },
     strong: {
       fontFamily: 'Inter-600-20',
@@ -104,7 +104,10 @@ export const QuoteReply = () => {
   return (
     <Pressable
       onPress={handleScrollToMessage}
-      style={tailwind.style('flex flex-row items-center px-2.5 pb-[14px] bg-white -z-10')}>
+      style={[
+        tailwind.style('flex flex-row items-center px-2.5 pb-[14px] -z-10'),
+        { backgroundColor: '#22242C' },
+      ]}>
       {quoteMessage?.attachments?.length && quoteMessage?.attachments?.length > 0 ? (
         <Animated.View style={tailwind.style('h-9.5 w-9.5 mr-3 rounded-lg overflow-hidden')}>
           {quoteMessage?.attachments?.length > 0 &&
@@ -129,9 +132,10 @@ export const QuoteReply = () => {
       <Animated.View style={tailwind.style('flex-1')}>
         <Animated.View>
           <Animated.Text
-            style={tailwind.style(
-              'text-cxs tracking-[0.32px] leading-[15px] font-inter-420-20 text-blackA-A11',
-            )}>
+            style={[
+              tailwind.style('text-cxs tracking-[0.32px] leading-[15px] font-inter-420-20'),
+              { color: 'rgba(255, 255, 255, 0.8)' },
+            ]}>
             Replying to {quoteMessage?.sender?.name}
           </Animated.Text>
         </Animated.View>
@@ -154,13 +158,19 @@ export const QuoteReply = () => {
             ) : (
               <Text
                 numberOfLines={1}
-                style={tailwind.style('text-md font-inter-normal-20 tracking-[0.32px] capitalize')}>
+                style={[
+                  tailwind.style('text-md font-inter-normal-20 tracking-[0.32px] capitalize'),
+                  { color: '#E8E9EB' },
+                ]}>
                 {quoteMessage?.content}
               </Text>
             )
           ) : (
             <Text
-              style={tailwind.style('text-md font-inter-normal-20 tracking-[0.32px] capitalize')}>
+              style={[
+                tailwind.style('text-md font-inter-normal-20 tracking-[0.32px] capitalize'),
+                { color: '#E8E9EB' },
+              ]}>
               {quoteMessage?.attachments?.[0]?.fileType}
             </Text>
           )}

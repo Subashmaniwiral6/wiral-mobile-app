@@ -48,6 +48,35 @@ function getInitials(name: string, size: AvatarSizes) {
     : initials.toUpperCase();
 }
 
+// Generate a light colorful background color based on the name
+function getColorfulBackground(name: string): string {
+  if (!name) return '#A78BFA'; // Default light purple color
+  
+  // Light colorful colors palette (pastel colors)
+  const colors = [
+    '#A78BFA', // Light Purple
+    '#93C5FD', // Light Blue
+    '#86EFAC', // Light Green
+    '#FCA5A5', // Light Red/Pink
+    '#FCD34D', // Light Yellow/Orange
+    '#C4B5FD', // Light Lavender
+    '#7DD3FC', // Light Sky Blue
+    '#F9A8D4', // Light Pink
+    '#6EE7B7', // Light Mint
+    '#FBBF24', // Light Amber
+    '#FDB88C', // Light Peach
+    '#A5F3FC', // Light Cyan
+  ];
+  
+  // Simple hash function to get consistent color for the same name
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  return colors[Math.abs(hash) % colors.length];
+}
+
 export interface AvatarProps extends ViewProps {
   /**
    * React Native Image component Props, except for source
@@ -112,6 +141,9 @@ export const Avatar: React.FC<Partial<AvatarProps>> = props => {
   const [imageAvailable, setImageAvailable] = useState(isSourceAvailable);
   const loadFallback = () => setImageAvailable(false);
 
+  // Get colorful background when there's no image
+  const backgroundColor = !imageAvailable && name ? getColorfulBackground(name) : undefined;
+
   return (
     <View
       style={[
@@ -120,6 +152,7 @@ export const Avatar: React.FC<Partial<AvatarProps>> = props => {
           cx(avatarTheme.base, avatarTheme.size[size], !isSquared ? avatarTheme.circular : ''),
         ),
         styleAdapter(style),
+        backgroundColor ? { backgroundColor } : {},
       ]}
       {...boxProps}>
       {imageAvailable && src ? (
@@ -140,6 +173,7 @@ export const Avatar: React.FC<Partial<AvatarProps>> = props => {
                 'font-inter-medium-24',
               ),
             ),
+            { color: '#FFFFFF' }, // White text for visibility on colorful backgrounds
           ]}
           adjustsFontSizeToFit
           allowFontScaling={false}>

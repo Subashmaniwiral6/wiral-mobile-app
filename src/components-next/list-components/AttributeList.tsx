@@ -50,10 +50,10 @@ const AttributeItem = (props: AttributeItemProps) => {
       key={index}
       style={({ pressed }) => [
         tailwind.style(
-          pressed ? 'bg-gray-100' : '',
           index === 0 ? 'rounded-t-[13px]' : '',
           isLastItem ? 'rounded-b-[13px]' : '',
         ),
+        pressed && { backgroundColor: 'rgba(255, 255, 255, 0.05)' },
       ]}>
       <Animated.View style={tailwind.style('flex flex-row items-center px-3')}>
         {listItem.icon ? (
@@ -62,16 +62,19 @@ const AttributeItem = (props: AttributeItemProps) => {
           </Animated.View>
         ) : null}
         <Animated.View
-          style={tailwind.style(
-            'flex-1 flex-row items-center justify-between py-[11px]',
-            listItem.icon ? 'ml-3' : '',
-            !isLastItem ? 'border-b-[1px] border-b-blackA-A3' : '',
-          )}>
+          style={[
+            tailwind.style(
+              'flex-1 flex-row items-center justify-between py-[11px]',
+              listItem.icon ? 'ml-3' : '',
+            ),
+            !isLastItem && { borderBottomWidth: 1, borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+          ]}>
           <Animated.View>
             <Animated.Text
-              style={tailwind.style(
-                'text-base font-inter-420-20 leading-[22px] tracking-[0.16px] text-gray-950',
-              )}>
+              style={[
+                tailwind.style('text-base font-inter-420-20 leading-[22px] tracking-[0.16px]'),
+                { color: '#E8E9EB' },
+              ]}>
               {listItem.title}
             </Animated.Text>
           </Animated.View>
@@ -79,11 +82,13 @@ const AttributeItem = (props: AttributeItemProps) => {
             <Animated.Text
               numberOfLines={1}
               ellipsizeMode="tail"
-              style={tailwind.style(
-                'text-base font-inter-normal-20 leading-[22px] tracking-[0.16px] overflow-hidden',
-                listItem.subtitleType === 'light' ? 'text-gray-900' : 'text-gray-950',
-                listItem.type === 'link' ? 'text-blue-800 underline' : '',
-              )}>
+              style={[
+                tailwind.style(
+                  'text-base font-inter-normal-20 leading-[22px] tracking-[0.16px] overflow-hidden',
+                ),
+                { color: '#E8E9EB' },
+                listItem.type === 'link' && { color: '#56468B', textDecorationLine: 'underline' },
+              ]}>
               {formattedValue}
             </Animated.Text>
             {listItem.hasChevron ? <Icon icon={<CaretRight />} size={20} /> : null}
@@ -106,14 +111,16 @@ export const AttributeList = (props: AttributeListProps) => {
       {sectionTitle ? (
         <Animated.View style={tailwind.style('pl-4 pb-3')}>
           <Animated.Text
-            style={tailwind.style(
-              'text-sm font-inter-medium-24 leading-[16px] tracking-[0.32px] text-gray-700',
-            )}>
+            style={[
+              tailwind.style('text-sm font-inter-medium-24 leading-[16px] tracking-[0.32px]'),
+              { color: '#E8E9EB' },
+            ]}>
             {sectionTitle}
           </Animated.Text>
         </Animated.View>
       ) : null}
-      <Animated.View style={[tailwind.style('rounded-[13px] mx-4 bg-white'), styles.listShadow]}>
+      <Animated.View
+        style={[tailwind.style('rounded-[13px] mx-4'), { backgroundColor: '#22242C' }, styles.listShadow]}>
         {list.map(
           (listItem, index) =>
             !listItem.disabled &&
@@ -143,7 +150,7 @@ const styles = StyleSheet.create({
       },
       android: {
         elevation: 4,
-        backgroundColor: 'white',
+        backgroundColor: '#22242C',
       },
     }) || {}, // Add fallback empty object
 });

@@ -208,9 +208,10 @@ const ContactDetailsScreen = (props: ContactDetailsScreenProps) => {
 
   return (
     <View
-      style={tailwind.style(
-        `flex-1 bg-white pt-6 ${Platform.OS === 'android' ? 'pt-12' : 'pt-6'}`,
-      )}>
+      style={[
+        tailwind.style(`flex-1 pt-6 ${Platform.OS === 'android' ? 'pt-12' : 'pt-6'}`),
+        { backgroundColor: '#121213' },
+      ]}>
       <ContactDetailsScreenHeader
         name={name || contactName || ''}
         thumbnail={thumbnail || contactThumbnail || ''}

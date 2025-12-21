@@ -20,9 +20,10 @@ export const CalendarHeaderPresenter = ({ onAddEvent }: CalendarHeaderPresenterP
       <Animated.View style={tailwind.style('flex-1')} />
       <Animated.View style={tailwind.style('flex-1')}>
         <Text
-          style={tailwind.style(
-            'text-[17px] font-inter-medium-24 tracking-[0.32px] leading-[17px] text-center text-gray-950',
-          )}>
+          style={[
+            tailwind.style('text-[17px] font-inter-medium-24 tracking-[0.32px] leading-[17px] text-center'),
+            { color: '#E8E9EB' },
+          ]}>
           {i18n.t('CALENDAR.HEADER.TITLE') || 'Calendar'}
         </Text>
       </Animated.View>
@@ -30,7 +31,7 @@ export const CalendarHeaderPresenter = ({ onAddEvent }: CalendarHeaderPresenterP
         {onAddEvent && (
           <Pressable onPress={onAddEvent}>
             <Animated.View style={addIconHandlers.animatedStyle} {...addIconHandlers.handlers}>
-              <Icon size={24} icon={<AddIcon stroke="#171717" />} />
+              <Icon size={24} icon={<AddIcon stroke="#E8E9EB" />} />
             </Animated.View>
           </Pressable>
         )}

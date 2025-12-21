@@ -51,11 +51,12 @@ const DashboardScreen = () => {
   )}}));`;
 
   return (
-    <Animated.View style={tailwind.style('flex-1')}>
+    <Animated.View style={{ flex: 1, backgroundColor: '#121213' }}>
       <Animated.View
-        style={tailwind.style(
-          'flex flex-row items-center justify-between px-4 border-b-[1px] border-b-blackA-A3 py-[12px] bg-white',
-        )}>
+        style={[
+          tailwind.style('flex flex-row items-center justify-between px-4 border-b-[1px] py-[12px]'),
+          { backgroundColor: '#121213', borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+        ]}>
         <Pressable hitSlop={16} onPress={handleBackPress}>
           <Animated.View>
             <Icon icon={<CloseIcon />} size={24} />
@@ -63,9 +64,10 @@ const DashboardScreen = () => {
         </Pressable>
         <Animated.View>
           <Animated.Text
-            style={tailwind.style(
-              'text-[17px] font-inter-medium-24 tracking-[0.32px] text-gray-950',
-            )}>
+            style={[
+              tailwind.style('text-[17px] font-inter-medium-24 tracking-[0.32px]'),
+              { color: '#E8E9EB' },
+            ]}>
             {title}
           </Animated.Text>
         </Animated.View>
@@ -81,6 +83,7 @@ const DashboardScreen = () => {
         source={{ uri: url }}
         startInLoadingState={true}
         javaScriptEnabled={true}
+        style={{ backgroundColor: '#121213' }}
         onLoadEnd={() => {
           webviewRef.current?.injectJavaScript(INJECTED_JAVASCRIPT);
         }}

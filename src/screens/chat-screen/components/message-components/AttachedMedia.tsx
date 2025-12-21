@@ -89,8 +89,9 @@ const AttachedImage = (props: AttachedImageProps) => {
         <Animated.View
           style={[
             tailwind.style(
-              'absolute h-[19px] w-[19px] border-[1px] border-blackA-A6 bg-whiteA-A11 rounded-full justify-center items-center right-[2px] top-[2px] z-50',
+              'absolute h-[19px] w-[19px] border-[1px] rounded-full justify-center items-center right-[2px] top-[2px] z-50',
             ),
+            { backgroundColor: '#22242C', borderColor: 'rgba(255, 255, 255, 0.3)' },
             animatedStyle,
           ]}>
           <Pressable onPress={handleOnDelete} hitSlop={8} {...handlers}>
@@ -143,8 +144,9 @@ const AttachedVideo = (props: AttachedVideoProps) => {
         <Animated.View
           style={[
             tailwind.style(
-              'absolute h-[19px] w-[19px] border-[1px] border-blackA-A6 bg-whiteA-A11 rounded-full justify-center items-center right-[2px] top-[2px] z-50',
+              'absolute h-[19px] w-[19px] border-[1px] rounded-full justify-center items-center right-[2px] top-[2px] z-50',
             ),
+            { backgroundColor: '#22242C', borderColor: 'rgba(255, 255, 255, 0.3)' },
             animatedStyle,
           ]}>
           <Pressable onPress={handleOnDelete} hitSlop={8} {...handlers}>
@@ -207,8 +209,9 @@ const AttachedFile = (props: AttachedFileProps) => {
             ellipsizeMode={'middle'}
             style={[
               tailwind.style(
-                'text-base tracking-[0.32px] leading-[22px] font-inter-normal-20 pt-1 text-gray-950',
+                'text-base tracking-[0.32px] leading-[22px] font-inter-normal-20 pt-1',
               ),
+              { color: '#E8E9EB' },
             ]}>
             {item.fileName}
           </Animated.Text>
@@ -222,8 +225,9 @@ const AttachedFile = (props: AttachedFileProps) => {
         <Animated.View
           style={[
             tailwind.style(
-              'absolute h-[19px] w-[19px] border-[1px] border-blackA-A6 bg-whiteA-A11 rounded-full justify-center items-center right-[2px] top-[2px] z-50',
+              'absolute h-[19px] w-[19px] border-[1px] rounded-full justify-center items-center right-[2px] top-[2px] z-50',
             ),
+            { backgroundColor: '#22242C', borderColor: 'rgba(255, 255, 255, 0.3)' },
             animatedStyle,
           ]}>
           <Pressable onPress={handleOnDelete} hitSlop={8} {...handlers}>

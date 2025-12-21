@@ -47,11 +47,17 @@ export const SearchBar = (props: SearchBarProps) => {
       <SearchTextInput
         style={[
           tailwind.style(
-            'h-9 px-8.5 py-[7px] bg-blackA-A3 text-black text-base font-inter-normal-20 leading-[19.5px] rounded-[11px]',
+            'h-9 px-8.5 py-[7px] text-base font-inter-normal-20 leading-[19.5px] rounded-[11px]',
             isLoading ? 'px-8.5' : 'pl-8.5 pr-4',
           ),
+          {
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            borderWidth: 1,
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+            color: '#E8E9EB',
+          },
         ]}
-        placeholderTextColor={tailwind.color('text-gray-800')}
+        placeholderTextColor="rgba(255, 255, 255, 0.5)"
         {...otherProps}
       />
       {isLoading ? (

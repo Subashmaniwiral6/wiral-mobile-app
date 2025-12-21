@@ -89,9 +89,6 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
         tailwind.style(
           'relative pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
           isEmailMessage ? `max-w-[${EMAIL_MESSAGE_WIDTH}px]` : `max-w-[${TEXT_MAX_WIDTH}px]`,
-          isIncoming ? 'bg-blue-700' : '',
-          isOutgoing ? 'bg-gray-100' : '',
-          isMessageFailed ? 'bg-ruby-700' : '',
           isAvatarRendered
             ? isOutgoing
               ? 'rounded-br-none'
@@ -100,6 +97,9 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
                 : ''
             : '',
         ),
+        isIncoming && { backgroundColor: '#1E3A5F' },
+        isOutgoing && { backgroundColor: '#2A2A2A' },
+        isMessageFailed && { backgroundColor: '#8B2E3D' },
       ]}>
       {contentAttributes && <EmailMeta {...{ contentAttributes, sender }} />}
       <MarkdownDisplay {...{ isIncoming, isOutgoing, isMessageFailed }} messageContent={text} />
@@ -123,12 +123,11 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
           // multiLineShortText ? " absolute bottom-0.5 right-2.5" : "",
         )}>
         <Text
-          style={tailwind.style(
-            'text-xs font-inter-420-20 tracking-[0.32px] pr-1',
-            isIncoming ? 'text-whiteA-A11' : '',
-            isOutgoing ? 'text-gray-700' : '',
-            isMessageFailed ? 'text-whiteA-A11' : '',
-          )}>
+          style={[
+            tailwind.style('text-xs font-inter-420-20 tracking-[0.32px] pr-1'),
+            (isIncoming || isMessageFailed) && { color: 'rgba(255, 255, 255, 0.7)' },
+            isOutgoing && { color: 'rgba(255, 255, 255, 0.6)' },
+          ]}>
           {unixTimestampToReadableTime(timeStamp)}
         </Text>
         <DeliveryStatus
@@ -138,8 +137,8 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
           channel={channel}
           sourceId={sourceId}
           errorMessage={errorMessage}
-          deliveredColor="text-gray-700"
-          sentColor="text-gray-700"
+          deliveredColor="rgba(255, 255, 255, 0.6)"
+          sentColor="rgba(255, 255, 255, 0.6)"
         />
       </Animated.View>
     </Animated.View>

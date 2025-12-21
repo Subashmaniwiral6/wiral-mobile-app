@@ -154,8 +154,8 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
             <Icon
               icon={
                 <PauseIcon
-                  fillOpacity={isIncoming ? '1' : '0.565'}
-                  fill={isIncoming ? 'white' : 'black'}
+                  fillOpacity={isIncoming ? '1' : '0.8'}
+                  fill={isIncoming ? 'white' : '#E8E9EB'}
                 />
               }
               size={13}
@@ -167,16 +167,16 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
             entering={FadeIn}
             exiting={FadeOut}>
             <PlayIcon
-              fillOpacity={isIncoming ? '1' : '0.565'}
-              fill={isIncoming ? 'white' : 'black'}
+              fillOpacity={isIncoming ? '1' : '0.8'}
+              fill={isIncoming ? 'white' : '#E8E9EB'}
             />
           </Animated.View>
         )}
       </Pressable>
       <Slider
-        trackColor={isIncoming ? 'bg-whiteA-A9' : 'bg-gray-500'}
-        filledTrackColor={isIncoming ? 'bg-white' : 'bg-blue-700'}
-        knobStyle={isIncoming ? 'border-blue-300' : 'border-blue-700'}
+        trackColor={isIncoming ? 'bg-whiteA-A9' : 'rgba(255, 255, 255, 0.2)'}
+        filledTrackColor={isIncoming ? 'bg-white' : 'rgba(255, 255, 255, 0.5)'}
+        knobStyle={isIncoming ? 'border-blue-300' : 'border-white'}
         {...{ manualSeekTo, currentPosition, totalDuration, pauseAudio }}
       />
     </View>

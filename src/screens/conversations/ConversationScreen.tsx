@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, AppState, RefreshControl, StatusBar } from 'react-native';
+import { ActivityIndicator, AppState, RefreshControl, StatusBar, View } from 'react-native';
 import Animated, {
   LinearTransition,
   runOnJS,
@@ -234,39 +234,46 @@ const ConversationList = () => {
 
   const shouldShowEmptyLoader = isConversationsLoading && allConversations.length === 0;
 
-  return shouldShowEmptyLoader ? (
-    <Animated.View
-      style={tailwind.style('flex-1 items-center justify-center', `pb-[${TAB_BAR_HEIGHT}px]`)}>
-      <ActivityIndicator />
-    </Animated.View>
-  ) : allConversations.length === 0 ? (
-    <Animated.ScrollView
-      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
-      contentContainerStyle={tailwind.style(
-        'flex-1 items-center justify-center',
-        `pb-[${TAB_BAR_HEIGHT}px]`,
-      )}>
-      <EmptyStateIcon />
-      <Animated.Text style={tailwind.style('pt-6 text-md  tracking-[0.32px] text-gray-800')}>
-        {i18n.t('CONVERSATION.EMPTY')}
-      </Animated.Text>
-    </Animated.ScrollView>
-  ) : (
-    <AnimatedFlashList
-      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
-      layout={LinearTransition.springify().damping(18).stiffness(120)}
-      showsVerticalScrollIndicator={false}
-      data={allConversations}
-      estimatedItemSize={91}
-      onScroll={scrollHandler}
-      onEndReached={handleOnEndReached}
-      onEndReachedThreshold={0.5}
-      ListFooterComponent={ListFooterComponent}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      renderItem={handleRender}
-      contentContainerStyle={tailwind.style(`pb-[${TAB_BAR_HEIGHT - 1}px]`)}
-    />
+  return (
+    <View style={{ flex: 1, backgroundColor: '#121213' }}>
+      {shouldShowEmptyLoader ? (
+        <Animated.View
+          style={[
+            tailwind.style('flex-1 items-center justify-center', `pb-[${TAB_BAR_HEIGHT}px]`),
+          ]}>
+          <ActivityIndicator />
+        </Animated.View>
+      ) : allConversations.length === 0 ? (
+        <Animated.ScrollView
+          refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
+          style={{ flex: 1 }}
+          contentContainerStyle={tailwind.style(
+            'flex-1 items-center justify-center',
+            `pb-[${TAB_BAR_HEIGHT}px]`,
+          )}>
+          <EmptyStateIcon />
+          <Animated.Text style={tailwind.style('pt-6 text-md  tracking-[0.32px] text-gray-800')}>
+            {i18n.t('CONVERSATION.EMPTY')}
+          </Animated.Text>
+        </Animated.ScrollView>
+      ) : (
+        <AnimatedFlashList
+          refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
+          layout={LinearTransition.springify().damping(18).stiffness(120)}
+          showsVerticalScrollIndicator={false}
+          data={allConversations}
+          estimatedItemSize={91}
+          onScroll={scrollHandler}
+          onEndReached={handleOnEndReached}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={ListFooterComponent}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          renderItem={handleRender}
+          contentContainerStyle={tailwind.style(`pb-[${TAB_BAR_HEIGHT - 1}px]`)}
+        />
+      )}
+    </View>
   );
 };
 
@@ -297,8 +304,6 @@ const ConversationScreen = () => {
         return [340];
       case 'label':
         return [340];
-      case 'pipeline':
-        return [340];
       case 'inbox_id':
         return ['70%'];
       default:
@@ -307,15 +312,17 @@ const ConversationScreen = () => {
   }, [currentBottomSheet]);
 
   return (
-    <SafeAreaView edges={['top']} style={tailwind.style('flex-1 bg-white')}>
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
       <StatusBar
         translucent
-        backgroundColor={tailwind.color('bg-white')}
-        barStyle={'dark-content'}
+        backgroundColor="#121213"
+        barStyle="light-content"
       />
       <ConversationListStateProvider>
-        <ConversationHeader />
-        <ConversationList />
+        <View style={{ flex: 1 }}>
+          <ConversationHeader />
+          <ConversationList />
+        </View>
         <BottomSheetModal
           ref={filtersModalSheetRef}
           backdropComponent={BottomSheetBackdrop}
@@ -331,7 +338,6 @@ const ConversationScreen = () => {
           <BottomSheetWrapper>
             {currentBottomSheet === 'assignee_id' ? <AgentFilters /> : null}
             {currentBottomSheet === 'label' ? <LabelFilters /> : null}
-            {currentBottomSheet === 'pipeline' ? <PipelineFilters /> : null}
             {currentBottomSheet === 'inbox_id' ? <InboxFilters /> : null}
           </BottomSheetWrapper>
         </BottomSheetModal>

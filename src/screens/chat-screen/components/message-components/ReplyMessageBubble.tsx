@@ -17,8 +17,8 @@ type ReplyMessageBubbleProps = {
 };
 
 const variantBaseMap = {
-  [MESSAGE_VARIANTS.AGENT]: 'bg-white',
-  [MESSAGE_VARIANTS.USER]: 'bg-blackA-A7',
+  [MESSAGE_VARIANTS.AGENT]: { backgroundColor: '#2A2A2A' },
+  [MESSAGE_VARIANTS.USER]: { backgroundColor: 'rgba(0, 0, 0, 0.4)' },
 };
 
 export const ReplyMessageBubble = (props: ReplyMessageBubbleProps) => {
@@ -62,25 +62,33 @@ export const ReplyMessageBubble = (props: ReplyMessageBubbleProps) => {
         tailwind.style(
           'relative max-w-[300px] pl-2 pr-2.5 py-2 mb-2 rounded-[10px] overflow-hidden -ml-[5px]',
           `max-w-[${TEXT_MAX_WIDTH}px]`,
-          variantBaseMap[props.variant],
         ),
+        variantBaseMap[props.variant],
       ]}>
       <Animated.View style={tailwind.style('flex flex-row')}>
-        <Animated.View style={tailwind.style('w-[3px] bg-gray-300 h-auto rounded-[4px]')} />
+        <Animated.View
+          style={[tailwind.style('w-[3px] h-auto rounded-[4px]'), { backgroundColor: 'rgba(255, 255, 255, 0.4)' }]}
+        />
         <Animated.View style={tailwind.style('pl-2.5')}>
           <Animated.Text
-            style={tailwind.style(
-              'text-cxs font-inter-420-20 leading-[14.95px] tracking-[0.32px] text-blackA-A11',
-            )}>
+            style={[
+              tailwind.style(
+                'text-cxs font-inter-420-20 leading-[14.95px] tracking-[0.32px]',
+              ),
+              { color: 'rgba(255, 255, 255, 0.8)' },
+            ]}>
             Replying to {replyMessageItem?.sender?.name}
           </Animated.Text>
           {hasAttachments ? (
             <Animated.View style={tailwind.style('py-[3px] flex flex-row items-center')}>
               {renderAttachmentSection()}
               <Animated.Text
-                style={tailwind.style(
-                  'text-[14px] font-inter-normal-20 leading-[19.6px] tracking-[0.16px] text-gray-950 capitalize pl-1.5',
-                )}>
+                style={[
+                  tailwind.style(
+                    'text-[14px] font-inter-normal-20 leading-[19.6px] tracking-[0.16px] capitalize pl-1.5',
+                  ),
+                  { color: 'rgba(255, 255, 255, 0.7)' },
+                ]}>
                 {replyMessageItem?.attachments[0].fileType}
               </Animated.Text>
             </Animated.View>
@@ -95,9 +103,12 @@ export const ReplyMessageBubble = (props: ReplyMessageBubbleProps) => {
             ) : (
               <Animated.Text
                 numberOfLines={1}
-                style={tailwind.style(
-                  'text-[14px] font-inter-normal-20 leading-[19.6px] tracking-[0.16px] text-gray-950 capitalize',
-                )}>
+                style={[
+                  tailwind.style(
+                    'text-[14px] font-inter-normal-20 leading-[19.6px] tracking-[0.16px] capitalize',
+                  ),
+                  { color: 'rgba(255, 255, 255, 0.7)' },
+                ]}>
                 {replyMessageItem?.content}
               </Animated.Text>
             )

@@ -39,25 +39,30 @@ const ForgotPassword = () => {
   };
 
   return (
-    <SafeAreaView style={tailwind.style('flex-1 bg-white')}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#121213' }}>
       <StatusBar
         translucent
-        backgroundColor={tailwind.color('bg-white')}
-        barStyle={'dark-content'}
+        backgroundColor="#121213"
+        barStyle="light-content"
       />
-      <View style={tailwind.style('flex-1 bg-white')}>
+      <View style={{ flex: 1, backgroundColor: '#121213' }}>
         <Animated.ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={tailwind.style('px-6 pt-16')}>
           <Icon icon={<KeyRoundIcon />} size={40} />
           <View style={tailwind.style('pt-6 gap-4')}>
-            <Animated.Text style={tailwind.style('text-2xl text-gray-950 font-inter-semibold-20')}>
+            <Animated.Text
+              style={[
+                tailwind.style('text-2xl font-inter-semibold-20'),
+                { color: '#E8E9EB' },
+              ]}>
               {i18n.t('FORGOT_PASSWORD.TITLE')}
             </Animated.Text>
             <Animated.Text
-              style={tailwind.style(
-                'font-inter-normal-20 leading-[18px] tracking-[0.32px] text-gray-900',
-              )}>
+              style={[
+                tailwind.style('font-inter-normal-20 leading-[18px] tracking-[0.32px]'),
+                { color: '#E8E9EB' },
+              ]}>
               {i18n.t('FORGOT_PASSWORD.SUB_TITLE')}
             </Animated.Text>
           </View>
@@ -73,26 +78,31 @@ const ForgotPassword = () => {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <View style={tailwind.style('pt-8 mb-8 gap-2')}>
-                <Animated.Text style={tailwind.style('font-inter-420-20 text-gray-950')}>
+                <Animated.Text style={[tailwind.style('font-inter-420-20'), { color: '#E8E9EB' }]}>
                   {i18n.t('LOGIN.EMAIL')}
                 </Animated.Text>
                 <TextInput
                   style={[
                     tailwind.style(
                       'text-base font-inter-normal-20 tracking-[0.24px] leading-[20px] android:leading-[18px]',
-                      'py-2 px-3 rounded-xl text-gray-950 bg-blackA-A4',
+                      'py-2 px-3 rounded-xl text-white',
                       'h-10',
                     ),
+                    {
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      borderWidth: 1,
+                      borderColor: 'rgba(255, 255, 255, 0.2)',
+                    },
                   ]}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  placeholderTextColor={tailwind.color('text-gray-900')}
+                  placeholderTextColor="rgba(255, 255, 255, 0.5)"
                   keyboardType="email-address"
                   autoCapitalize="none"
                 />
                 {errors.email && (
-                  <Animated.Text style={tailwind.style('text-ruby-900')}>
+                  <Animated.Text style={tailwind.style('text-ruby-400')}>
                     {errors.email.message}
                   </Animated.Text>
                 )}
@@ -104,6 +114,8 @@ const ForgotPassword = () => {
           <Button
             text={i18n.t('FORGOT_PASSWORD.RESET_HERE')}
             handlePress={handleSubmit(onSubmit)}
+            variant="primary"
+            style={{ backgroundColor: '#56468B' }}
           />
         </Animated.ScrollView>
       </View>

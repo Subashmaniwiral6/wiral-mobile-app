@@ -38,10 +38,10 @@ const InboxCell = (props: InboxCellProps) => {
       onPress={handlePreferredAssigneeTypePress}
       style={tailwind.style('flex flex-row items-center')}>
       <Animated.View
-        style={tailwind.style(
-          'flex-1 ml-3 flex-row justify-between py-[11px] pr-3',
-          !isLastItem ? 'border-b-[1px] border-blackA-A3' : '',
-        )}>
+        style={[
+          tailwind.style('flex-1 flex-row justify-between py-[11px] px-3'),
+          !isLastItem && { borderBottomWidth: 1, borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+        ]}>
         <Animated.View style={tailwind.style('flex-row items-center')}>
           <Icon
             icon={getChannelIcon(value.channelType, value.medium, '')}
@@ -50,9 +50,10 @@ const InboxCell = (props: InboxCellProps) => {
           />
 
           <Animated.Text
-            style={tailwind.style(
-              'text-base text-gray-950 font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize ml-2',
-            )}>
+            style={[
+              tailwind.style('text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize ml-2'),
+              { color: '#E8E9EB' },
+            ]}>
             {value.name}
           </Animated.Text>
         </Animated.View>
@@ -70,7 +71,7 @@ const InboxStack = (props: InboxStackProps) => {
   const { list } = props;
   return (
     <Animated.ScrollView
-      style={tailwind.style('pl-3 pb-4')}
+      style={tailwind.style('pb-4')}
       bounces={false}
       showsVerticalScrollIndicator={true}
       scrollEventThrottle={16}

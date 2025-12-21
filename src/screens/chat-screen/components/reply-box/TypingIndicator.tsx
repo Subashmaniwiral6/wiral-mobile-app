@@ -12,13 +12,17 @@ export const TypingIndicator = ({ typingText }: TypingIndicatorProps) => {
   return (
     <View style={tailwind.style('absolute w-full items-center -top-14')}>
       <View
-        style={tailwind.style(
-          'flex-row items-center py-1 px-4 shadow-md rounded-full bg-white my-1 mx-auto',
-        )}>
+        style={[
+          tailwind.style('flex-row items-center py-1 px-4 shadow-md rounded-full my-1 mx-auto'),
+          { backgroundColor: '#22242C' },
+        ]}>
         <Text
-          style={tailwind.style(
-            'text-cxs font-inter-medium-24 tracking-[0.32px] leading-[18px] text-blackA-A11 text-center',
-          )}>
+          style={[
+            tailwind.style(
+              'text-cxs font-inter-medium-24 tracking-[0.32px] leading-[18px] text-center',
+            ),
+            { color: '#E8E9EB' },
+          ]}>
           {typingText}
         </Text>
         <Image

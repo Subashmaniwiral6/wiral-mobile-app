@@ -50,7 +50,11 @@ export const InboxItemComponent = (props: InboxItemProps) => {
   const hasAssignee = assignee?.name || assignee?.thumbnail;
 
   return (
-    <Animated.View style={tailwind.style('ml-3 py-3 pr-4 border-b-[1px] border-b-blackA-A3')}>
+    <Animated.View
+      style={[
+        tailwind.style('ml-3 py-3 pr-4 border-b-[1px]'),
+        { borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+      ]}>
       <Animated.View style={tailwind.style('')}>
         <AnimatedNativeView
           style={tailwind.style('flex flex-row justify-between items-center h-[24px]')}>
@@ -58,31 +62,35 @@ export const InboxItemComponent = (props: InboxItemProps) => {
             style={tailwind.style('flex flex-row items-center h-[24px] gap-[5px]')}>
             <Animated.Text
               numberOfLines={1}
-              style={tailwind.style(
-                'text-base font-inter-medium-24 tracking-[0.24px] text-gray-950 capitalize',
-                `max-w-[${width - 250}px]`,
-              )}>
+              style={[
+                tailwind.style(
+                  'text-base font-inter-medium-24 tracking-[0.24px] capitalize',
+                  `max-w-[${width - 250}px]`,
+                ),
+                { color: '#E8E9EB' },
+              ]}>
               {sender.name || ''}
             </Animated.Text>
             <NativeView style={tailwind.style('flex flex-row items-center gap-0.5')}>
-              <Animated.Text style={tailwind.style('text-sm font-inter-420-20 text-gray-700')}>
+              <Animated.Text style={[tailwind.style('text-sm font-inter-420-20'), { color: '#E8E9EB' }]}>
                 #
               </Animated.Text>
-              <Animated.Text style={tailwind.style('text-sm font-inter-420-20 text-gray-700')}>
+              <Animated.Text style={[tailwind.style('text-sm font-inter-420-20'), { color: '#E8E9EB' }]}>
                 {conversationId}
               </Animated.Text>
             </NativeView>
           </AnimatedNativeView>
           <AnimatedNativeView style={tailwind.style('flex flex-row items-center gap-2')}>
-            {priority ? <PriorityIndicator {...{ priority }} /> : null}
+            {/* {priority ? <PriorityIndicator {...{ priority }} /> : null} */}
             {inbox && (
               <ChannelIndicator inbox={inbox} additionalAttributes={additionalAttributes} />
             )}
             <NativeView>
               <Animated.Text
-                style={tailwind.style(
-                  'text-sm font-inter-420-20 leading-[16px] tracking-[0.32px] text-gray-700',
-                )}>
+                style={[
+                  tailwind.style('text-sm font-inter-420-20 leading-[16px] tracking-[0.32px]'),
+                  { color: '#E8E9EB' },
+                ]}>
                 {lastActivityAt()}
               </Animated.Text>
             </NativeView>
@@ -100,9 +108,12 @@ export const InboxItemComponent = (props: InboxItemProps) => {
             )}
 
             <Animated.Text
-              style={tailwind.style(
-                'font-inter-420-20 text-md text-gray-900 leading-[17px] tracking-[0.32px] flex-shrink',
-              )}
+              style={[
+                tailwind.style(
+                  'font-inter-420-20 text-md leading-[17px] tracking-[0.32px] flex-shrink',
+                ),
+                { color: '#E8E9EB' },
+              ]}
               numberOfLines={1}
               ellipsizeMode="tail">
               {pushMessageTitle}
@@ -112,7 +123,9 @@ export const InboxItemComponent = (props: InboxItemProps) => {
         </Animated.View>
       </Animated.View>
       {isRead && (
-        <Animated.View style={tailwind.style('absolute bg-white opacity-50 inset-0 z-20')} />
+        <Animated.View
+          style={[tailwind.style('absolute inset-0 z-20'), { backgroundColor: 'rgba(0, 0, 0, 0.3)' }]}
+        />
       )}
     </Animated.View>
   );

@@ -35,9 +35,12 @@ export const FilterButton = (props: FilterButtonProps) => {
         onPress={onPress}
         {...handlers}>
         <Animated.Text
-          style={tailwind.style(
-            'text-sm font-inter-medium-24 leading-[16px] tracking-[0.24px] pr-1 capitalize text-gray-950',
-          )}>
+          style={[
+            tailwind.style(
+              'text-sm font-inter-medium-24 leading-[16px] tracking-[0.24px] pr-1 capitalize',
+            ),
+            { color: '#E8E9EB' },
+          ]}>
           {value}
         </Animated.Text>
         <Icon icon={<CaretBottomSmall />} size={7.5} />

@@ -171,23 +171,25 @@ export const ActionTabs = () => {
   return (
     <ActionTabBarBackground
       blurAmount={25}
-      blurType="light"
+      blurType="dark"
       style={Platform.select({
         ios: [
           tailwind.style(
-            'flex flex-row rounded-[30px] items-center absolute justify-between w-[220px] px-6 py-[15px] bg-[#00000009]',
+            'flex flex-row rounded-[30px] items-center absolute justify-between w-[220px] px-6 py-[15px]',
             `h-[${ACTION_TAB_HEIGHT}px] bottom-[${bottom + 8}px] left-[${
               (SCREEN_WIDTH - 220) / 2
             }px]`,
           ),
+          { backgroundColor: 'rgba(18, 18, 19, 0.9)' },
         ],
         android: [
           tailwind.style(
-            'flex flex-row rounded-[30px] items-center absolute justify-between w-[220px] px-6 py-[15px] bg-white',
+            'flex flex-row rounded-[30px] items-center absolute justify-between w-[220px] px-6 py-[15px]',
             `h-[${ACTION_TAB_HEIGHT}px] bottom-[${bottom + 8}px] left-[${
               (SCREEN_WIDTH - 220) / 2
             }px]`,
           ),
+          { backgroundColor: '#121213' },
         ],
       })}>
       {bulkSelectActions.map(actionItem => {
@@ -209,7 +211,7 @@ const styles = StyleSheet.create({
       },
       android: {
         elevation: 4,
-        backgroundColor: 'white',
+        backgroundColor: '#121213',
       },
     }) || {}, // Add fallback empty object
 });

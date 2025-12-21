@@ -84,7 +84,7 @@ export const ConversationItem = memo(
     typingText,
   }: ConversationItemProps) => {
     return (
-      <NativeView style={tailwind.style('px-3 gap-3 flex-row justify-between')}>
+      <NativeView style={[tailwind.style('px-3 gap-3 flex-row justify-between'), { backgroundColor: '#17171A' }]}>
         <NativeView style={tailwind.style('py-3 flex flex-row')}>
           <ConversationSelect {...{ isSelected, currentState }} />
           <ConversationAvatar

@@ -617,16 +617,16 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
   // Show loading state on initial load
   if (loading && events.length === 0) {
     return (
-      <SafeAreaView edges={['top']} style={tailwind.style('flex-1 bg-white')}>
+      <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
         <StatusBar
           translucent
-          backgroundColor={tailwind.color('bg-white')}
-          barStyle="dark-content"
+          backgroundColor="#121213"
+          barStyle="light-content"
         />
         {/* <CalendarHeader onAddEvent={handleAddEvent} /> */}
         <View style={tailwind.style('flex-1 items-center justify-center')}>
-          <ActivityIndicator size="large" color={tailwind.color('bg-blue-500')} />
-          <Text style={tailwind.style('mt-4 text-md font-inter-normal-20 text-gray-600')}>
+          <ActivityIndicator size="large" color="#56468B" />
+          <Text style={[tailwind.style('mt-4 text-md font-inter-normal-20'), { color: '#E8E9EB' }]}>
             Loading appointments...
           </Text>
         </View>
@@ -637,15 +637,15 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
   // Show error state if there's an error and no events
   if (error && events.length === 0) {
     return (
-      <SafeAreaView edges={['top']} style={tailwind.style('flex-1 bg-white')}>
+      <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
         <StatusBar
           translucent
-          backgroundColor={tailwind.color('bg-white')}
-          barStyle="dark-content"
+          backgroundColor="#121213"
+          barStyle="light-content"
         />
         {/* <CalendarHeader onAddEvent={handleAddEvent} /> */}
         <View style={tailwind.style('flex-1 items-center justify-center px-4')}>
-          <Text style={tailwind.style('text-base font-inter-medium-24 text-gray-950 mb-2')}>
+          <Text style={[tailwind.style('text-base font-inter-medium-24 mb-2'), { color: '#E8E9EB' }]}>
             Error loading appointments
           </Text>
           <Text
@@ -667,12 +667,12 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
   }
 
   return (
-    <SafeAreaView edges={['top']} style={tailwind.style('flex-1 bg-white')}>
-      <StatusBar translucent backgroundColor={tailwind.color('bg-white')} barStyle="dark-content" />
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
+      <StatusBar translucent backgroundColor="#121213" barStyle="light-content" />
       <CalendarHeader />
       {loading && events.length > 0 && (
         <View style={tailwind.style('absolute top-16 right-4 z-10')}>
-          <ActivityIndicator size="small" color={tailwind.color('bg-blue-500')} />
+          <ActivityIndicator size="small" color="#56468B" />
         </View>
       )}
       <PagerView

@@ -66,7 +66,7 @@ export const NotificationPreferences = () => {
           key={item}
           style={tailwind.style('flex flex-row items-center justify-between ml-2 mt-2')}>
           <Animated.Text
-            style={tailwind.style('flex-1 leading-[17px] tracking-[0.24px] text-gray-950')}>
+            style={[tailwind.style('flex-1 leading-[17px] tracking-[0.24px]'), { color: '#E8E9EB' }]}>
             {i18n.t(`NOTIFICATION_PREFERENCE.${NOTIFICATION_PREFERENCE_TYPES[item]}`)}
           </Animated.Text>
           <Switch

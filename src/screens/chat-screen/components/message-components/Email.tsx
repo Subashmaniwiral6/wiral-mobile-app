@@ -54,7 +54,7 @@ export const Email = (props: EmailProps) => {
     <Animated.View
       style={[
         tailwind.style(
-          'relative pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden bg-gray-100',
+          'relative pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
           `max-w-[${WIDTH}px]`,
           isMessageFailed ? 'bg-ruby-700' : '',
           isAvatarRendered
@@ -65,9 +65,10 @@ export const Email = (props: EmailProps) => {
                 : ''
             : '',
         ),
+        { backgroundColor: isIncoming ? '#1E3A5F' : '#2A2A2A' },
       ]}>
       {contentAttributes && <EmailMeta {...{ contentAttributes, sender }} />}
-      <Animated.View style={[tailwind.style('flex bg-white rounded-2xl w-full')]}>
+      <Animated.View style={[tailwind.style('flex rounded-2xl w-full'), { backgroundColor: '#22242C' }]}>
         <Animated.View style={tailwind.style('px-4 py-2 w-full')}>
           <AutoHeightWebView
             style={{ width: '100%', minHeight: 1, minWidth: '100%' }}
@@ -91,10 +92,13 @@ export const Email = (props: EmailProps) => {
       <Animated.View
         style={tailwind.style('h-[21px] pt-[6px] pb-0.5 flex flex-row items-center justify-end')}>
         <Text
-          style={tailwind.style(
-            'text-xs font-inter-420-20 tracking-[0.32px] pr-1 text-gray-700',
-            isMessageFailed ? 'text-whiteA-A11' : '',
-          )}>
+          style={[
+            tailwind.style(
+              'text-xs font-inter-420-20 tracking-[0.32px] pr-1',
+              isMessageFailed ? 'text-whiteA-A11' : '',
+            ),
+            { color: isMessageFailed ? 'rgba(255, 255, 255, 0.7)' : 'rgba(255, 255, 255, 0.5)' },
+          ]}>
           {unixTimestampToReadableTime(timeStamp)}
         </Text>
         <DeliveryStatus
@@ -104,8 +108,8 @@ export const Email = (props: EmailProps) => {
           channel={channel}
           sourceId={sourceId}
           errorMessage={errorMessage}
-          deliveredColor="text-gray-700"
-          sentColor="text-gray-700"
+          deliveredColor="rgba(255, 255, 255, 0.5)"
+          sentColor="rgba(255, 255, 255, 0.5)"
         />
       </Animated.View>
     </Animated.View>

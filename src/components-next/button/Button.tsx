@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { tailwind } from '@/theme';
@@ -11,14 +11,17 @@ type ButtonProps = {
   handlePress?: () => void;
   variant?: 'primary' | 'secondary';
   disabled?: boolean;
+  style?: ViewStyle;
 };
 
-const getButtonStyles = (isPrimary: boolean, pressed: boolean) => {
+const getButtonStyles = (isPrimary: boolean, pressed: boolean, customStyle?: ViewStyle) => {
   const baseStyles = 'py-[11px] flex items-center justify-center rounded-[13px]';
   const variantStyles = isPrimary ? 'bg-blue-800' : 'bg-gray-50';
   const pressedStyles = isPrimary ? 'opacity-95' : pressed ? 'bg-gray-100' : '';
 
-  return tailwind.style(baseStyles, variantStyles, pressedStyles);
+  const tailwindStyles = tailwind.style(baseStyles, variantStyles, pressedStyles);
+  
+  return customStyle ? [tailwindStyles, customStyle] : tailwindStyles;
 };
 
 const getTextStyles = (isPrimary: boolean, isDestructive: boolean) => {
@@ -40,6 +43,7 @@ export const Button = ({
   handlePress,
   variant = 'primary',
   disabled = false,
+  style,
 }: ButtonProps) => {
   const { handlers, animatedStyle } = useScaleAnimation();
   const haptic = useHaptic(isDestructive ? 'medium' : 'selection');
@@ -61,7 +65,7 @@ export const Button = ({
         accessible
         accessibilityRole="button"
         accessibilityState={{ disabled }}
-        style={({ pressed }) => getButtonStyles(isPrimary, pressed)}
+        style={({ pressed }) => getButtonStyles(isPrimary, pressed, style)}
         {...handlers}>
         <Animated.Text style={getTextStyles(isPrimary, isDestructive)}>{text}</Animated.Text>
       </Pressable>

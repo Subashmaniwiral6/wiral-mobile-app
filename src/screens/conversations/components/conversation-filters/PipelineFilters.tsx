@@ -43,14 +43,18 @@ export const PipelineFilters = () => {
             onPress={() => handlePipelinePress(option.id)}
             style={tailwind.style('flex flex-row items-center')}>
             <Animated.View
-              style={tailwind.style(
-                'flex-1 ml-3 flex-row justify-between py-[11px] pr-3',
-                index !== pipelineOptions.length - 1 ? 'border-b-[1px] border-blackA-A3' : '',
-              )}>
+              style={[
+                tailwind.style('flex-1 ml-3 flex-row justify-between py-[11px] pr-3'),
+                index !== pipelineOptions.length - 1 && {
+                  borderBottomWidth: 1,
+                  borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              ]}>
               <Animated.Text
-                style={tailwind.style(
-                  'text-base text-gray-950 font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize',
-                )}>
+                style={[
+                  tailwind.style('text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize'),
+                  { color: '#E8E9EB' },
+                ]}>
                 {option.title}
               </Animated.Text>
               {filters.pipeline === option.id ? <Icon icon={<TickIcon />} size={20} /> : null}

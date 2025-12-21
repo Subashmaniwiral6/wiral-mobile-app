@@ -34,14 +34,15 @@ type TabBarIconsProps = {
 };
 
 const TabBarIcons = ({ focused, route }: TabBarIconsProps) => {
+  const iconColor = focused ? '#E8E9EB' : 'rgba(232, 233, 235, 0.6)';
   switch (route.name) {
     case 'Conversations':
       return focused ? <ConversationIconFilled /> : <ConversationIconOutline />;
     case 'Calendar':
       return focused ? (
-        <Calendar size={30} strokeWidth={2} style={{ marginBottom: 12 }} color="#171717" />
+        <Calendar size={30} strokeWidth={2} style={{ marginBottom: 12 }} color={iconColor} />
       ) : (
-        <Calendar size={30} strokeWidth={1} style={{ marginBottom: 12 }} color="#171717" />
+        <Calendar size={30} strokeWidth={1} style={{ marginBottom: 12 }} color={iconColor} />
       );
     case 'Settings':
       return focused ? <SettingsIconFilled /> : <SettingsIconOutline />;
@@ -153,22 +154,26 @@ export const BottomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
   return (
     <TabBarBackground
       blurAmount={25}
-      blurType="light"
+      blurType="dark"
       style={Platform.select({
         ios: [
           tailwind.style(
-            'flex flex-row absolute w-full bottom-0 px-20 pt-[11px] pb-8 bg-[#00000009]',
+            'flex flex-row absolute w-full bottom-0 px-20 pt-[11px] pb-8',
             `h-[${tabBarHeight}px]`,
           ),
+          { backgroundColor: 'rgba(18, 18, 19, 0.9)' },
         ],
         android: [
           tailwind.style(
-            'flex flex-row absolute w-full bottom-0 px-20 py-[11px] bg-white',
+            'flex flex-row absolute w-full bottom-0 px-20 py-[11px]',
             `h-[${tabBarHeight}px]`,
           ),
+          { backgroundColor: '#121213' },
         ],
       })}>
-      <Animated.View style={tailwind.style('absolute inset-0 h-[1px] bg-blackA-A3')} />
+      <Animated.View
+        style={[tailwind.style('absolute inset-0 h-[1px]'), { backgroundColor: 'rgba(255, 255, 255, 0.1)' }]}
+      />
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const isFocused = state.index === index;
