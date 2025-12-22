@@ -67,7 +67,7 @@ export const FilePreview = (props: FilePreviewProps) => {
         <Animated.View style={tailwind.style('pr-1.5')}>
           <Spinner
             size={20}
-            stroke={isIncoming ? tailwind.color('text-white') : tailwind.color('bg-blue-800')}
+            stroke={isIncoming ? tailwind.color('text-white') : '#6550B9'}
           />
         </Animated.View>
       ) : (
@@ -76,7 +76,7 @@ export const FilePreview = (props: FilePreviewProps) => {
             size={24}
             icon={
               <FileIcon
-                fill={isIncoming ? tailwind.color('bg-white') : tailwind.color('text-blue-800')}
+                fill={isIncoming ? tailwind.color('bg-white') : '#6550B9'}
               />
             }
           />
@@ -105,7 +105,7 @@ export const FilePreview = (props: FilePreviewProps) => {
               tailwind.style(
                 'border-b-[1px] absolute left-0 right-0 ios:bottom-[1px] android:bottom-0',
                 isIncoming ? 'border-white' : '',
-                isOutgoing ? 'border-blue-800' : '',
+                isOutgoing ? '' : '',
               ),
             ]}
           />
@@ -169,7 +169,6 @@ export const FileCell = (props: FileCellProps) => {
             style={[
               tailwind.style(
                 'flex flex-row items-center relative max-w-[300px] pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
-                isIncoming ? 'bg-blue-700' : '',
                 isOutgoing ? 'bg-gray-100' : '',
                 shouldRenderAvatar
                   ? isOutgoing
@@ -179,6 +178,8 @@ export const FileCell = (props: FileCellProps) => {
                       : ''
                   : '',
               ),
+              isIncoming && { backgroundColor: '#6550B9' },
+              isOutgoing && { borderColor: '#6550B9' },
             ]}>
             <FilePreview {...{ fileSrc, isIncoming, isOutgoing }} />
             <Animated.View

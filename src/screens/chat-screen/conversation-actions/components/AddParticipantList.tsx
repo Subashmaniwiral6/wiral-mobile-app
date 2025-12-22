@@ -104,13 +104,13 @@ export const AddParticipantList = (props: AddParticipantListProps) => {
           ]}>
           <Animated.View style={tailwind.style('flex flex-row items-center ml-3')}>
             <Animated.View style={tailwind.style('p-0.5')}>
-              <Icon icon={<AddParticipant stroke="#56468B" />} size={24} />
+              <Icon icon={<AddParticipant stroke="#6550B9" />} size={24} />
             </Animated.View>
             <Animated.View style={tailwind.style('flex-1 py-[11px] ml-2')}>
               <Animated.Text
                 style={[
                   tailwind.style('text-base font-inter-420-20 leading-[22px] tracking-[0.16px]'),
-                  { color: '#56468B' },
+                  { color: '#6550B9' },
                 ]}>
                 {i18n.t('CONVERSATION_PARTICIPANTS.ADD_PARTICIPANT')}
               </Animated.Text>

@@ -126,7 +126,7 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
           <Animated.Text
             style={[
               tailwind.style('text-md font-inter-medium-24 leading-[17px] tracking-[0.24px] pl-1.5'),
-              { color: '#56468B' },
+              { color: '#6550B9' },
             ]}>
             Add
           </Animated.Text>

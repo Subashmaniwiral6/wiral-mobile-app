@@ -59,7 +59,7 @@ const ConversationPagerView = (props: ChatScreenProps) => {
       orientation="horizontal"
       overdrag
       style={tailwind.style('flex-1')}
-      scrollEnabled
+      scrollEnabled={false}
       initialPage={0}
       onPageSelected={onPageSelected}>
       <ChatWindow {...props} />
@@ -190,7 +190,7 @@ const ChatScreen = (props: ChatScreenProps) => {
               variant="primary"
               text={i18n.t('CONVERSATION.NOT_FOUND.RETRY')}
               handlePress={fetchConversation}
-              style={{ backgroundColor: '#56468B' }}
+              style={{ backgroundColor: '#6550B9' }}
             />
             <Pressable
               style={tailwind.style('flex-row justify-center items-center')}

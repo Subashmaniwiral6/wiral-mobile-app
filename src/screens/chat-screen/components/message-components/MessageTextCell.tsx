@@ -125,8 +125,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
         <Text
           style={[
             tailwind.style('text-xs font-inter-420-20 tracking-[0.32px] pr-1'),
-            (isIncoming || isMessageFailed) && { color: 'rgba(255, 255, 255, 0.7)' },
-            isOutgoing && { color: 'rgba(255, 255, 255, 0.6)' },
+            { color: '#9CA3AF' },
           ]}>
           {unixTimestampToReadableTime(timeStamp)}
         </Text>

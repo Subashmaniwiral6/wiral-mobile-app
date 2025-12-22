@@ -64,7 +64,7 @@ export const FileBubblePreview = (props: FilePreviewProps) => {
             stroke={
               variant === MESSAGE_VARIANTS.USER
                 ? tailwind.color('text-white')
-                : tailwind.color('bg-blue-800')
+                : '#6550B9'
             }
           />
         </Animated.View>
@@ -77,7 +77,7 @@ export const FileBubblePreview = (props: FilePreviewProps) => {
                 fill={
                   variant === MESSAGE_VARIANTS.USER
                     ? tailwind.color('bg-white')
-                    : tailwind.color('text-blue-800')
+                    : '#6550B9'
                 }
               />
             }

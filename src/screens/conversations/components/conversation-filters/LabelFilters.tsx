@@ -33,10 +33,10 @@ export const LabelFilters = () => {
   };
 
   return (
-    <Animated.View>
+    <Animated.View style={{ backgroundColor: '#121213' }}>
       <BottomSheetHeader headerText="Labels" />
       {/* 2025-12-09 thouseef-hamza: Label filter excludes pipeline tags */}
-      <Animated.View style={tailwind.style('py-1')}>
+      <Animated.View style={[tailwind.style('py-1'), { backgroundColor: '#121213' }]}>
         {labelOptions.map((option, index) => (
           <Pressable
             key={option.id}

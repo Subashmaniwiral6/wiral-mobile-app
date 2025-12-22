@@ -10,7 +10,7 @@ type BottomSheetHeaderProps = {
 export const BottomSheetHeader = (props: BottomSheetHeaderProps) => {
   const { headerText } = props;
   return (
-    <Animated.View style={tailwind.style('flex-row justify-center items-center')}>
+    <Animated.View style={[tailwind.style('flex-row justify-center items-center'), { backgroundColor: '#121213' }]}>
       <Animated.Text
         style={[
           tailwind.style('text-md font-inter-medium-24 leading-[17px] tracking-[0.32px]'),

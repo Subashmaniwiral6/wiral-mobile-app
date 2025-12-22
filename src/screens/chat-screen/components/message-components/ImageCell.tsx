@@ -63,7 +63,6 @@ export const ImageCell = (props: ImageCellProps) => {
             style={[
               tailwind.style(
                 'relative pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
-                isIncoming ? 'bg-blue-700' : '',
                 isOutgoing ? 'bg-gray-100' : '',
                 isPrivate ? ' bg-amber-100' : '',
                 shouldRenderAvatar
@@ -74,6 +73,7 @@ export const ImageCell = (props: ImageCellProps) => {
                       : ''
                   : '',
               ),
+              isIncoming && { backgroundColor: '#6550B9' },
             ]}>
             <Animated.View
               style={tailwind.style(

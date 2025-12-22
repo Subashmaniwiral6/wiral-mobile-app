@@ -145,22 +145,22 @@ const handleAttachFile = async dispatch => {
 
 const ADD_MENU_OPTIONS = [
   {
-    icon: <PhotosIcon />,
+    icon: <PhotosIcon stroke="#9CA3AF" />,
     title: 'Photos',
     handlePress: handleOpenPhotosLibrary,
   },
   {
-    icon: <CameraIcon />,
+    icon: <CameraIcon stroke="#9CA3AF" />,
     title: 'Camera',
     handlePress: handleLaunchCamera,
   },
   {
-    icon: <AttachFileIcon />,
+    icon: <AttachFileIcon stroke="#9CA3AF" />,
     title: 'Attach File',
     handlePress: handleAttachFile,
   },
   {
-    icon: <MacrosIcon />,
+    icon: <MacrosIcon stroke="#9CA3AF" />,
     title: 'Macros',
     handlePress: () => {},
   },
@@ -204,9 +204,12 @@ const MenuOption = (props: MenuOptionProps) => {
             <Icon icon={menuOption.icon} size={24} />
           </Animated.View>
           <Text
-            style={tailwind.style(
-              'text-base font-inter-normal-20 leading-[18px] tracking-[0.24px] text-gray-950 pl-5',
-            )}>
+            style={[
+              tailwind.style(
+                'text-base font-inter-normal-20 leading-[18px] tracking-[0.24px] pl-5',
+              ),
+              { color: '#FFFFFF' },
+            ]}>
             {menuOption.title}
           </Text>
         </Animated.View>

@@ -108,15 +108,29 @@ export const Slider = (props: SliderProps) => {
     width: translationX.value + 8,
   }));
 
+  // Check if trackColor is a raw color value (rgba, rgb, hex) or a Tailwind class
+  const isTrackColorRaw = trackColor.startsWith('rgba(') || trackColor.startsWith('rgb(') || trackColor.startsWith('#');
+  const trackColorStyle = isTrackColorRaw ? { backgroundColor: trackColor } : {};
+  const trackColorClass = isTrackColorRaw ? '' : trackColor;
+
+  // Check if filledTrackColor is a raw color value (rgba, rgb, hex) or a Tailwind class
+  const isFilledTrackColorRaw = filledTrackColor.startsWith('rgba(') || filledTrackColor.startsWith('rgb(') || filledTrackColor.startsWith('#');
+  const filledTrackColorStyle = isFilledTrackColorRaw ? { backgroundColor: filledTrackColor } : {};
+  const filledTrackColorClass = isFilledTrackColorRaw ? '' : filledTrackColor;
+
   return (
     <Animated.View style={tailwind.style('flex flex-row flex-1 mx-1.5')}>
       <Animated.View
         onLayout={handleLayout}
-        style={tailwind.style('relative rounded-2xl flex-1 h-1', trackColor)}
+        style={[
+          tailwind.style('relative rounded-2xl flex-1 h-1', trackColorClass),
+          trackColorStyle,
+        ]}
       />
       <Animated.View
         style={[
-          tailwind.style('absolute rounded-2xl flex-1 w-1/2 h-1', filledTrackColor),
+          tailwind.style('absolute rounded-2xl flex-1 w-1/2 h-1', filledTrackColorClass),
+          filledTrackColorStyle,
           animatedFilledTrack,
         ]}
       />

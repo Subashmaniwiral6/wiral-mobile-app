@@ -113,7 +113,6 @@ export const ComposedCell = (props: ComposedCellProps) => {
               tailwind.style(
                 'relative pl-3 pr-2.5 py-2 h-full rounded-2xl overflow-hidden',
                 isEmailMessage ? `max-w-[${EMAIL_MESSAGE_WIDTH}px]` : `max-w-[${TEXT_MAX_WIDTH}px]`,
-                isIncoming ? 'bg-blue-700' : '',
                 isOutgoing ? 'bg-gray-100' : '',
                 isPrivate ? ' bg-amber-100' : '',
                 shouldRenderAvatar
@@ -124,6 +123,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
                       : ''
                   : '',
               ),
+              isIncoming && { backgroundColor: '#6550B9' },
             ]}>
             <Animated.View style={tailwind.style('flex flex-row')}>
               {isPrivate ? (

@@ -58,7 +58,7 @@ export const ReplyEmailHead = (props: EmailMetaProps) => {
           placeholderTextColor={tailwind.color('text-gray-300')}
         />
         <Pressable style={tailwind.style('')} onPress={() => setShowBcc(!showBcc)}>
-          <Animated.Text style={tailwind.style('text-blue-800')}>
+          <Animated.Text style={{ color: '#6550B9' }}>
             {i18n.t('CONVERSATION.EMAIL_HEAD.BCC')}
           </Animated.Text>
         </Pressable>

@@ -72,7 +72,7 @@ const variantTextMap = {
 const variantBaseMap = {
   [MESSAGE_VARIANTS.AGENT]: 'bg-gray-100',
   [MESSAGE_VARIANTS.PRIVATE]: 'bg-amber-100',
-  [MESSAGE_VARIANTS.USER]: 'bg-blue-700',
+  [MESSAGE_VARIANTS.USER]: '',
   [MESSAGE_VARIANTS.BOT]: 'bg-blue-100',
   [MESSAGE_VARIANTS.TEMPLATE]: 'bg-blue-100',
   [MESSAGE_VARIANTS.ERROR]: 'bg-ruby-700',
@@ -157,6 +157,7 @@ const MessageWrapper = ({
                     : 'rounded-br-none'
                   : '',
               ),
+              variant === MESSAGE_VARIANTS.USER && { backgroundColor: '#6550B9' },
             ]}>
             {children}
             {!shouldGroupWithPrevious && (

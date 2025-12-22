@@ -28,9 +28,12 @@ const DateSection = ({ item }: DateSectionProps) => {
     <Animated.View style={tailwind.style('flex flex-row justify-center items-center py-4')}>
       <Animated.View style={tailwind.style('rounded-lg py-1 px-[7px] bg-blackA-A3')}>
         <Animated.Text
-          style={tailwind.style(
-            'text-cxs font-inter-420-20 tracking-[0.32px] text-blackA-A11 leading-[15px]',
-          )}>
+          style={[
+            tailwind.style(
+              'text-cxs font-inter-420-20 tracking-[0.32px] leading-[15px]',
+            ),
+            { color: '#9CA3AF' },
+          ]}>
           {item.date}
         </Animated.Text>
       </Animated.View>

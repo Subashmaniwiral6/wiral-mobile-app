@@ -23,7 +23,7 @@ import {
   InboxFilters,
 } from './components';
 
-import { ActionTabs, BottomSheetBackdrop, BottomSheetWrapper } from '@/components-next';
+import { ActionTabs, BottomSheetBackdrop, BottomSheetBackground, BottomSheetWrapper } from '@/components-next';
 
 import { EmptyStateIcon } from '@/svg-icons';
 import {
@@ -326,6 +326,7 @@ const ConversationScreen = () => {
         <BottomSheetModal
           ref={filtersModalSheetRef}
           backdropComponent={BottomSheetBackdrop}
+          backgroundComponent={BottomSheetBackground}
           handleIndicatorStyle={tailwind.style(
             'overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]',
           )}

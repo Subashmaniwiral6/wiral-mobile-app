@@ -151,7 +151,7 @@ export const AudioBubblePlayer = React.memo((props: AudioPlayerProps) => {
     () => ({
       trackColor: variant === MESSAGE_VARIANTS.USER ? 'bg-whiteA-A9' : 'rgba(255, 255, 255, 0.2)',
       filledTrackColor: variant === MESSAGE_VARIANTS.USER ? 'bg-white' : 'rgba(255, 255, 255, 0.5)',
-      knobStyle: variant === MESSAGE_VARIANTS.USER ? 'border-blue-300' : 'border-white',
+      knobStyle: variant === MESSAGE_VARIANTS.USER ? '' : 'border-white',
       manualSeekTo,
       currentPosition,
       totalDuration,

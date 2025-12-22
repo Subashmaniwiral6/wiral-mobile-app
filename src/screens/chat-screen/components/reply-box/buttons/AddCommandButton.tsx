@@ -36,7 +36,7 @@ export const AddCommandButton = ({
             tailwind.style('flex items-center justify-center h-10 w-10 rounded-2xl'),
             addIconAnimation,
           ]}>
-          <Icon icon={<AddIcon />} size={24} />
+          <Icon icon={<AddIcon stroke="#9CA3AF" />} size={24} />
         </Animated.View>
       </Pressable>
     </Animated.View>

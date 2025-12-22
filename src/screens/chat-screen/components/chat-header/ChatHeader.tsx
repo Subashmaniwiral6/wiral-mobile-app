@@ -61,9 +61,7 @@ export const ChatHeader = ({
             onPress={onBackPress}>
             <Icon icon={<ChevronLeft />} size={24} />
           </Pressable>
-          <Pressable
-            onPress={onContactDetailsPress}
-            style={tailwind.style('flex flex-row items-center flex-1')}>
+          <Animated.View style={tailwind.style('flex flex-row items-center flex-1')}>
             <Avatar size="xl" src={imageSrc} name={name} />
             <Animated.View style={tailwind.style('pl-2')}>
               <Animated.Text
@@ -75,7 +73,7 @@ export const ChatHeader = ({
                 {name}
               </Animated.Text>
             </Animated.View>
-          </Pressable>
+          </Animated.View>
         </Animated.View>
 
         <Animated.View
