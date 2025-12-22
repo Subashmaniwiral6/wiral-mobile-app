@@ -38,7 +38,7 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
   };
 
   return (
-    <View style={tailwind.style('flex-1')}>
+    <View style={[tailwind.style('flex-1'), { backgroundColor: '#121213' }]}>
       {/* Header with Close Button */}
       <View style={tailwind.style('flex-row justify-between items-center px-4 pt-2 pb-4')}>
         <Text

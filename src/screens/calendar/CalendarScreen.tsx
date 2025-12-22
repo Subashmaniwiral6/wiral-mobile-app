@@ -79,6 +79,7 @@ interface CalendarViewProps {
   markedDates: MarkedDates;
   isAgendaMode: boolean;
   onEventPress?: (event: CalendarEvent) => void;
+  calendarListRef?: React.RefObject<CalendarList>;
 }
 
 // Memoized event item component for Agenda view
@@ -109,19 +110,19 @@ const AgendaEventItem = React.memo<{
 
     return (
       <Pressable onPress={() => onPress?.(event)} style={itemStyle}>
-        <Text style={tailwind.style('text-base font-inter-medium-24 text-gray-950 mb-1')}>
+        <Text style={[tailwind.style('text-base font-inter-medium-24 mb-1'), { color: '#E8E9EB' }]}>
           {event.title}
         </Text>
-        <Text style={tailwind.style('text-sm font-inter-normal-20 text-gray-600 mb-1')}>
+        <Text style={[tailwind.style('text-sm font-inter-normal-20 mb-1'), { color: '#9CA3AF' }]}>
           {timeString}
         </Text>
         {event.contact_person_name && (
-          <Text style={tailwind.style('text-xs font-inter-normal-20 text-gray-500 mb-1')}>
+          <Text style={[tailwind.style('text-xs font-inter-normal-20 mb-1'), { color: '#9CA3AF' }]}>
             {event.contact_person_name}
           </Text>
         )}
         {event.contact_person_phone_number && (
-          <Text style={tailwind.style('text-xs font-inter-normal-20 text-gray-500')}>
+          <Text style={[tailwind.style('text-xs font-inter-normal-20'), { color: '#9CA3AF' }]}>
             {event.contact_person_phone_number}
           </Text>
         )}
@@ -149,7 +150,7 @@ AgendaEventItem.displayName = 'AgendaEventItem';
 const AgendaEmptyDate = React.memo(() => {
   return (
     <View style={tailwind.style('flex-1 p-4')}>
-      <Text style={tailwind.style('text-center text-gray-500')}>No events</Text>
+      <Text style={[tailwind.style('text-center'), { color: '#9CA3AF' }]}>No events</Text>
     </View>
   );
 });
@@ -164,6 +165,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
   markedDates,
   isAgendaMode,
   onEventPress,
+  calendarListRef,
 }) => {
   // Use state for agenda items - Agenda component expects state updates
   // Must be at top level (not in conditional)
@@ -254,28 +256,28 @@ const CalendarView: React.FC<CalendarViewProps> = ({
 
   const agendaTheme = useMemo(
     () => ({
-      backgroundColor: '#ffffff',
-      calendarBackground: '#ffffff',
-      textSectionTitleColor: '#171717',
-      selectedDayBackgroundColor: tailwind.color('bg-blue-500'),
-      selectedDayTextColor: '#ffffff',
-      todayTextColor: tailwind.color('text-blue-500'),
-      dayTextColor: '#171717',
-      textDisabledColor: '#d9d9d9',
-      dotColor: tailwind.color('bg-blue-500'),
-      selectedDotColor: '#ffffff',
-      arrowColor: '#171717',
-      monthTextColor: '#171717',
+      backgroundColor: '#121213',
+      calendarBackground: '#121213',
+      textSectionTitleColor: '#E8E9EB',
+      selectedDayBackgroundColor: 'transparent',
+      selectedDayTextColor: '#FFFFFF',
+      todayTextColor: '#6550B9',
+      dayTextColor: '#E8E9EB',
+      textDisabledColor: '#6B7280',
+      dotColor: '#6550B9',
+      selectedDotColor: '#6550B9',
+      arrowColor: '#E8E9EB',
+      monthTextColor: '#E8E9EB',
       textDayFontFamily: 'Inter-400-20',
       textMonthFontFamily: 'Inter-500-24',
       textDayHeaderFontFamily: 'Inter-420-20',
       textDayFontSize: 15,
       textMonthFontSize: 17,
       textDayHeaderFontSize: 13,
-      agendaDayTextColor: '#171717',
-      agendaDayNumColor: '#171717',
-      agendaTodayColor: tailwind.color('text-blue-500'),
-      agendaKnobColor: '#d9d9d9',
+      agendaDayTextColor: '#E8E9EB',
+      agendaDayNumColor: '#E8E9EB',
+      agendaTodayColor: '#6550B9',
+      agendaKnobColor: '#6B7280',
     }),
     [],
   );
@@ -297,7 +299,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
   if (viewType === 'day') {
     const dayEvents = events[selectedDateString] || [];
     return (
-      <View style={tailwind.style('flex-1')}>
+      <View style={[tailwind.style('flex-1'), { backgroundColor: '#121213' }]}>
         <Calendar
           current={selectedDateString}
           onDayPress={(day: { dateString: string }) => {
@@ -308,22 +310,22 @@ const CalendarView: React.FC<CalendarViewProps> = ({
             [selectedDateString]: {
               ...markedDates[selectedDateString],
               selected: true,
-              selectedColor: tailwind.color('bg-blue-500'),
+              selectedColor: '#6550B9',
             },
           }}
           theme={{
-            backgroundColor: '#ffffff',
-            calendarBackground: '#ffffff',
-            textSectionTitleColor: '#171717',
-            selectedDayBackgroundColor: tailwind.color('bg-blue-500'),
-            selectedDayTextColor: '#ffffff',
-            todayTextColor: tailwind.color('text-blue-500'),
-            dayTextColor: '#171717',
-            textDisabledColor: '#d9d9d9',
-            dotColor: tailwind.color('bg-blue-500'),
-            selectedDotColor: '#ffffff',
-            arrowColor: '#171717',
-            monthTextColor: '#171717',
+            backgroundColor: '#121213',
+            calendarBackground: '#121213',
+            textSectionTitleColor: '#E8E9EB',
+            selectedDayBackgroundColor: 'transparent',
+            selectedDayTextColor: '#FFFFFF',
+            todayTextColor: '#6550B9',
+            dayTextColor: '#E8E9EB',
+            textDisabledColor: '#6B7280',
+            dotColor: '#6550B9',
+            selectedDotColor: '#6550B9',
+            arrowColor: '#E8E9EB',
+            monthTextColor: '#E8E9EB',
             textDayFontFamily: 'Inter-400-20',
             textMonthFontFamily: 'Inter-500-24',
             textDayHeaderFontFamily: 'Inter-420-20',
@@ -336,7 +338,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
           style={tailwind.style('flex-1 px-4')}
           contentContainerStyle={tailwind.style(`pb-[${TAB_BAR_HEIGHT}px] pt-4`)}>
           {dayEvents.length === 0 ? (
-            <Text style={tailwind.style('text-center text-gray-500 mt-4')}>
+            <Text style={[tailwind.style('text-center mt-4'), { color: '#9CA3AF' }]}>
               No events for this day
             </Text>
           ) : (
@@ -352,10 +354,10 @@ const CalendarView: React.FC<CalendarViewProps> = ({
                     borderLeftColor: event.color,
                   },
                 ]}>
-                <Text style={tailwind.style('text-base font-inter-medium-24 text-gray-950 mb-1')}>
+                <Text style={[tailwind.style('text-base font-inter-medium-24 mb-1'), { color: '#E8E9EB' }]}>
                   {event.title}
                 </Text>
-                <Text style={tailwind.style('text-sm font-inter-normal-20 text-gray-600 mb-1')}>
+                <Text style={[tailwind.style('text-sm font-inter-normal-20 mb-1'), { color: '#9CA3AF' }]}>
                   {event.startTime.toLocaleTimeString('en-US', {
                     hour: 'numeric',
                     minute: '2-digit',
@@ -372,7 +374,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
                   </Text>
                 )} */}
                 {event.contact_person_phone_number && (
-                  <Text style={tailwind.style('text-xs font-inter-normal-20 text-gray-500')}>
+                  <Text style={[tailwind.style('text-xs font-inter-normal-20'), { color: '#9CA3AF' }]}>
                     {event.contact_person_phone_number}
                   </Text>
                 )}
@@ -459,8 +461,9 @@ const CalendarView: React.FC<CalendarViewProps> = ({
 
   // Month view (scrollable calendar - default)
   return (
-    <View style={tailwind.style('flex-1')}>
+    <View style={[tailwind.style('flex-1'), { backgroundColor: '#121213' }]}>
       <CalendarList
+        ref={calendarListRef}
         current={selectedDateString}
         onDayPress={(day: { dateString: string }) => {
           onDateChange(new Date(day.dateString));
@@ -471,18 +474,18 @@ const CalendarView: React.FC<CalendarViewProps> = ({
         scrollEnabled
         showScrollIndicator
         theme={{
-          backgroundColor: '#ffffff',
-          calendarBackground: '#ffffff',
-          textSectionTitleColor: '#171717',
-          selectedDayBackgroundColor: tailwind.color('bg-blue-500'),
-          selectedDayTextColor: '#ffffff',
-          todayTextColor: tailwind.color('text-blue-500'),
-          dayTextColor: '#171717',
-          textDisabledColor: '#d9d9d9',
-          dotColor: tailwind.color('bg-blue-500'),
-          selectedDotColor: '#ffffff',
-          arrowColor: '#171717',
-          monthTextColor: '#171717',
+          backgroundColor: '#121213',
+          calendarBackground: '#121213',
+          textSectionTitleColor: '#E8E9EB',
+          selectedDayBackgroundColor: 'transparent',
+          selectedDayTextColor: '#FFFFFF',
+          todayTextColor: '#6550B9',
+          dayTextColor: '#E8E9EB',
+          textDisabledColor: '#6B7280',
+          dotColor: '#6550B9',
+          selectedDotColor: '#6550B9',
+          arrowColor: '#E8E9EB',
+          monthTextColor: '#E8E9EB',
           textDayFontFamily: 'Inter-400-20',
           textMonthFontFamily: 'Inter-500-24',
           textDayHeaderFontFamily: 'Inter-420-20',
@@ -519,6 +522,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const pagerViewRef = useRef<PagerView>(null);
+  const calendarListRef = useRef<CalendarList>(null);
 
   // Always use agenda mode
   const isAgendaMode = true;
@@ -588,6 +592,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
   const formattedEvents = useMemo(() => {
     const eventsByDate: Record<string, CalendarEvent[]> = {};
     const markedDates: Record<string, any> = {};
+    const selectedDateString = selectedDate ? selectedDate.toISOString().split('T')[0] : '';
 
     events.forEach(event => {
       const dateString = event.startTime.toISOString().split('T')[0];
@@ -600,19 +605,35 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
       if (!markedDates[dateString]) {
         markedDates[dateString] = {
           marked: true,
-          dots: [{ color: event.color }],
+          dots: [{ color: '#6550B9' }],
         };
       } else {
         // Add multiple dots for multiple events
         markedDates[dateString].dots = [
           ...(markedDates[dateString].dots || []),
-          { color: event.color },
+          { color: '#6550B9' },
         ];
       }
     });
 
+    // Mark selected date
+    if (selectedDateString) {
+      if (markedDates[selectedDateString]) {
+        markedDates[selectedDateString] = {
+          ...markedDates[selectedDateString],
+          selected: true,
+          selectedColor: '#6550B9',
+        };
+      } else {
+        markedDates[selectedDateString] = {
+          selected: true,
+          selectedColor: '#6550B9',
+        };
+      }
+    }
+
     return { eventsByDate, markedDates };
-  }, [events]);
+  }, [events, selectedDate]);
 
   // Show loading state on initial load
   if (loading && events.length === 0) {
@@ -691,6 +712,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
               markedDates={formattedEvents.markedDates}
               isAgendaMode={isAgendaMode}
               onEventPress={setSelectedEvent}
+              calendarListRef={calendarListRef}
             />
           </View>
         ))}

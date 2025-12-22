@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { tailwind } from '@/theme';
 import { BottomSheetBackdrop } from '@/components-next/common/bottomsheet/BottomSheetBackdrop';
+import { BottomSheetBackground } from '@/components-next/common/bottomsheet/BottomSheetBackground';
 import { EventDetailsView } from '../event-details-view/EventDetailsView';
 import type { CalendarEvent } from '@/types/Calendar';
 
@@ -35,6 +36,7 @@ export const EventDetailsModal = ({ event, onClose }: EventDetailsModalProps) =>
     <BottomSheetModal
       ref={modalRef}
       backdropComponent={BottomSheetBackdrop}
+      backgroundComponent={BottomSheetBackground}
       handleIndicatorStyle={tailwind.style('overflow-hidden w-8 h-1 rounded-[11px]')}
       handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
       style={tailwind.style('rounded-t-[26px] overflow-hidden')}
