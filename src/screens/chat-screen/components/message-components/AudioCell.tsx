@@ -231,7 +231,7 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
                       : ''
                   : '',
               ),
-              isIncoming && { backgroundColor: '#6550B9' },
+              isIncoming && { backgroundColor: '#873CF6' },
             ]}>
             <AudioPlayer {...{ audioSrc, isIncoming, isOutgoing }} />
             <Animated.View

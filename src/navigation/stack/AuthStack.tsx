@@ -32,6 +32,11 @@ export const AuthStack = () => {
           headerBackVisible: true,
           headerShadowVisible: false,
           title: '',
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
+          headerTransparent: true,
+          headerTintColor: '#E8E9EB',
         }}
         name="ResetPassword"
         component={ForgotPassword}

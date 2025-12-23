@@ -123,7 +123,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
                       : ''
                   : '',
               ),
-              isIncoming && { backgroundColor: '#6550B9' },
+              isIncoming && { backgroundColor: '#873CF6' },
             ]}>
             <Animated.View style={tailwind.style('flex flex-row')}>
               {isPrivate ? (

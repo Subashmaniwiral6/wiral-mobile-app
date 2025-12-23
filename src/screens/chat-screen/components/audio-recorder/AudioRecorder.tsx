@@ -236,7 +236,7 @@ export const AudioRecorder = ({
             'px-3 py-[7px] rounded-2xl min-h-9 flex flex-row items-center justify-between mx-1.5',
             `w-[${RecorderSegmentWidth}px]`,
           ),
-          { backgroundColor: '#6550B9' },
+          { backgroundColor: '#873CF6' },
         ]}>
         <Pressable onPress={toggleRecorder} hitSlop={12}>
           {isAudioRecording ? (
@@ -265,7 +265,7 @@ export const AudioRecorder = ({
             tailwind.style(
               'flex items-center justify-center h-7 w-7 rounded-full',
             ),
-            { backgroundColor: '#6550B9' },
+            { backgroundColor: '#873CF6' },
           ]}>
           <Icon icon={<SendIcon />} size={16} />
         </Animated.View>

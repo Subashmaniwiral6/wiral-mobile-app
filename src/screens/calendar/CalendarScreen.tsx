@@ -261,11 +261,11 @@ const CalendarView: React.FC<CalendarViewProps> = ({
       textSectionTitleColor: '#E8E9EB',
       selectedDayBackgroundColor: 'transparent',
       selectedDayTextColor: '#FFFFFF',
-      todayTextColor: '#6550B9',
+      todayTextColor: '#873CF6',
       dayTextColor: '#E8E9EB',
       textDisabledColor: '#6B7280',
-      dotColor: '#6550B9',
-      selectedDotColor: '#6550B9',
+      dotColor: '#873CF6',
+      selectedDotColor: '#873CF6',
       arrowColor: '#E8E9EB',
       monthTextColor: '#E8E9EB',
       textDayFontFamily: 'Inter-400-20',
@@ -276,7 +276,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
       textDayHeaderFontSize: 13,
       agendaDayTextColor: '#E8E9EB',
       agendaDayNumColor: '#E8E9EB',
-      agendaTodayColor: '#6550B9',
+      agendaTodayColor: '#873CF6',
       agendaKnobColor: '#6B7280',
     }),
     [],
@@ -310,7 +310,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
             [selectedDateString]: {
               ...markedDates[selectedDateString],
               selected: true,
-              selectedColor: '#6550B9',
+              selectedColor: '#873CF6',
             },
           }}
           theme={{
@@ -319,11 +319,11 @@ const CalendarView: React.FC<CalendarViewProps> = ({
             textSectionTitleColor: '#E8E9EB',
             selectedDayBackgroundColor: 'transparent',
             selectedDayTextColor: '#FFFFFF',
-            todayTextColor: '#6550B9',
+            todayTextColor: '#873CF6',
             dayTextColor: '#E8E9EB',
             textDisabledColor: '#6B7280',
-            dotColor: '#6550B9',
-            selectedDotColor: '#6550B9',
+            dotColor: '#873CF6',
+            selectedDotColor: '#873CF6',
             arrowColor: '#E8E9EB',
             monthTextColor: '#E8E9EB',
             textDayFontFamily: 'Inter-400-20',
@@ -479,11 +479,11 @@ const CalendarView: React.FC<CalendarViewProps> = ({
           textSectionTitleColor: '#E8E9EB',
           selectedDayBackgroundColor: 'transparent',
           selectedDayTextColor: '#FFFFFF',
-          todayTextColor: '#6550B9',
+          todayTextColor: '#873CF6',
           dayTextColor: '#E8E9EB',
           textDisabledColor: '#6B7280',
-          dotColor: '#6550B9',
-          selectedDotColor: '#6550B9',
+          dotColor: '#873CF6',
+          selectedDotColor: '#873CF6',
           arrowColor: '#E8E9EB',
           monthTextColor: '#E8E9EB',
           textDayFontFamily: 'Inter-400-20',
@@ -605,13 +605,13 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
       if (!markedDates[dateString]) {
         markedDates[dateString] = {
           marked: true,
-          dots: [{ color: '#6550B9' }],
+          dots: [{ color: '#873CF6' }],
         };
       } else {
         // Add multiple dots for multiple events
         markedDates[dateString].dots = [
           ...(markedDates[dateString].dots || []),
-          { color: '#6550B9' },
+          { color: '#873CF6' },
         ];
       }
     });
@@ -646,7 +646,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
         />
         {/* <CalendarHeader onAddEvent={handleAddEvent} /> */}
         <View style={tailwind.style('flex-1 items-center justify-center')}>
-          <ActivityIndicator size="large" color="#56468B" />
+          <ActivityIndicator size="large" color="#873CF6" />
           <Text style={[tailwind.style('mt-4 text-md font-inter-normal-20'), { color: '#E8E9EB' }]}>
             Loading appointments...
           </Text>
@@ -693,7 +693,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
       <CalendarHeader />
       {loading && events.length > 0 && (
         <View style={tailwind.style('absolute top-16 right-4 z-10')}>
-          <ActivityIndicator size="small" color="#56468B" />
+          <ActivityIndicator size="small" color="#873CF6" />
         </View>
       )}
       <PagerView

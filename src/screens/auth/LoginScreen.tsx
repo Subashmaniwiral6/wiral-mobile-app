@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Animated, Image, Pressable, StatusBar, TextInput, View } from 'react-native';
+import { Animated, Image, ImageBackground, Pressable, StatusBar, TextInput, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
   BottomSheetModal,
@@ -134,23 +134,28 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
+    <>
       <StatusBar
         translucent
-        backgroundColor="#121213"
+        backgroundColor="transparent"
         barStyle="light-content"
       />
-      <View style={{ flex: 1, backgroundColor: '#121213' }}>
-        <Animated.ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={tailwind.style('px-6 pt-24')}>
+      <ImageBackground
+        // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
+        source={require('../../../assets/login-bg.png')}
+        style={{ flex: 1, width: '100%', height: '100%' }}
+        resizeMode="cover">
+        <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+          <Animated.ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={tailwind.style('px-6 pt-24')}>
           <Image
               // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-              source={require('@/assets/images/wiral-label-logo.jpeg')}
+              source={require('../../../assets/login-logo.png')}
               style={tailwind.style('w-32 h-24')}
               resizeMode="contain"
             />
-            <View style={tailwind.style('pt-6 gap-4')}>
+            <View style={tailwind.style('pt-0 gap-0')}>
               <Animated.Text style={tailwind.style('text-2xl text-white font-inter-semibold-20')}>
                 {i18n.t('LOGIN.TITLE')}
               </Animated.Text>
@@ -281,7 +286,7 @@ const LoginScreen = () => {
               <Animated.Text
                 style={[
                   tailwind.style('font-inter-medium-24 text-right'),
-                  { color: '#56468B' },
+                  { color: '#873CF6' },
                 ]}>
                 {i18n.t('LOGIN.FORGOT_PASSWORD')}
               </Animated.Text>
@@ -291,7 +296,7 @@ const LoginScreen = () => {
               text={isLoggingIn ? i18n.t('LOGIN.LOGIN_LOADING') : i18n.t('LOGIN.LOGIN')}
               handlePress={handleSubmit(onSubmit)}
               variant="primary"
-              style={{ backgroundColor: '#56468B' }}
+              style={{ backgroundColor: '#873CF6' }}
             />
 
           {/* <Pressable
@@ -308,24 +313,25 @@ const LoginScreen = () => {
               {i18n.t('LOGIN.CHANGE_LANGUAGE')}
             </Animated.Text>
           </Pressable> */}
-        </Animated.ScrollView>
-      </View>
-      <BottomSheetModal
-        ref={languagesModalSheetRef}
-        backdropComponent={BottomSheetBackdrop}
-        handleIndicatorStyle={tailwind.style('overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]')}
-        detached
-        enablePanDownToClose
-        animationConfigs={animationConfigs}
-        handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
-        style={tailwind.style('rounded-[26px] overflow-hidden')}
-        snapPoints={['70%']}>
-        <BottomSheetScrollView showsVerticalScrollIndicator={false}>
-          <BottomSheetHeader headerText={i18n.t('SETTINGS.SET_LANGUAGE')} />
-          <LanguageList onChangeLanguage={onChangeLanguage} currentLanguage={activeLocale} />
-        </BottomSheetScrollView>
-      </BottomSheetModal>
-    </SafeAreaView>
+          </Animated.ScrollView>
+          <BottomSheetModal
+            ref={languagesModalSheetRef}
+            backdropComponent={BottomSheetBackdrop}
+            handleIndicatorStyle={tailwind.style('overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]')}
+            detached
+            enablePanDownToClose
+            animationConfigs={animationConfigs}
+            handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
+            style={tailwind.style('rounded-[26px] overflow-hidden')}
+            snapPoints={['70%']}>
+            <BottomSheetScrollView showsVerticalScrollIndicator={false}>
+              <BottomSheetHeader headerText={i18n.t('SETTINGS.SET_LANGUAGE')} />
+              <LanguageList onChangeLanguage={onChangeLanguage} currentLanguage={activeLocale} />
+            </BottomSheetScrollView>
+          </BottomSheetModal>
+        </SafeAreaView>
+      </ImageBackground>
+    </>
   );
 };
 

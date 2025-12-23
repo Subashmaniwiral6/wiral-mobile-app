@@ -261,7 +261,7 @@ const MFAScreen = () => {
                 uiFlags.isVerifyingMfa
               }
               variant="primary"
-              style={{ backgroundColor: '#56468B' }}
+              style={{ backgroundColor: '#873CF6' }}
             />
           </View>
         </ScrollView>

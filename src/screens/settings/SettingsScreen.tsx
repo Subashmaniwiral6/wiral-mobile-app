@@ -27,6 +27,7 @@ import { tailwind } from '@/theme';
 
 import {
   BottomSheetBackdrop,
+  BottomSheetBackground,
   BottomSheetHeader,
   BottomSheetWrapper,
   Button,
@@ -364,6 +365,7 @@ const SettingsScreen = () => {
       <BottomSheetModal
         ref={notificationPreferencesSheetRef}
         backdropComponent={BottomSheetBackdrop}
+        backgroundComponent={BottomSheetBackground}
         handleIndicatorStyle={tailwind.style('overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]')}
         // TODO: Fix this later
         // bottomInset={bottom === 0 ? 12 : bottom}

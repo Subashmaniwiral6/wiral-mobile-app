@@ -1,6 +1,6 @@
 diff --git a/ffmpeg-kit-react-native.podspec b/ffmpeg-kit-react-native.podspec
 index 889d3e8f308f94a338869afedc8c25d8b1ebb53a..d41913064e7da4511cbb9ebec7374fc24cc0a6c4 100644
---- a/ffmpeg-kit-react-native.podspec
+--- a/ffmpeg-kit-react-native.podspec  
 +++ b/ffmpeg-kit-react-native.podspec
 @@ -15,121 +15,13 @@ Pod::Spec.new do |s|
    s.static_framework  = true

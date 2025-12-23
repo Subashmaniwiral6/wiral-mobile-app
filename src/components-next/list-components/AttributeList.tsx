@@ -87,7 +87,7 @@ const AttributeItem = (props: AttributeItemProps) => {
                   'text-base font-inter-normal-20 leading-[22px] tracking-[0.16px] overflow-hidden',
                 ),
                 { color: '#E8E9EB' },
-                listItem.type === 'link' && { color: '#56468B', textDecorationLine: 'underline' },
+                listItem.type === 'link' && { color: '#873CF6', textDecorationLine: 'underline' },
               ]}>
               {formattedValue}
             </Animated.Text>

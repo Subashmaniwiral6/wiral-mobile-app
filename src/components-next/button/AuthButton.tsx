@@ -28,7 +28,7 @@ export const AuthButton = ({
     const baseStyle = tailwind.style(baseStyles, disabledStyles);
     
     if (variant === 'filled') {
-      return [baseStyle, { backgroundColor: '#56468B' }];
+      return [baseStyle, { backgroundColor: '#873CF6' }];
     } else {
       return [baseStyle, { backgroundColor: 'rgba(255, 255, 255, 0.1)', borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.2)' }];
     }

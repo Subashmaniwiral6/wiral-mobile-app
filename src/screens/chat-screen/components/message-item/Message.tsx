@@ -157,7 +157,7 @@ const MessageWrapper = ({
                     : 'rounded-br-none'
                   : '',
               ),
-              variant === MESSAGE_VARIANTS.USER && { backgroundColor: '#6550B9' },
+              variant === MESSAGE_VARIANTS.USER && { backgroundColor: '#873CF6' },
             ]}>
             {children}
             {!shouldGroupWithPrevious && (

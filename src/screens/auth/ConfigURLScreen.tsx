@@ -109,7 +109,7 @@ const ConfigURLScreen = () => {
             text={i18n.t('CONFIGURE_URL.CONNECT')}
             handlePress={handleSubmit(onSubmit)}
             variant="primary"
-            style={{ backgroundColor: '#56468B' }}
+            style={{ backgroundColor: '#873CF6' }}
           />
         </Animated.ScrollView>
       </View>

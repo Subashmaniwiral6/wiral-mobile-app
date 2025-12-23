@@ -34,7 +34,7 @@ type TabBarIconsProps = {
 };
 
 const TabBarIcons = ({ focused, route }: TabBarIconsProps) => {
-  const iconColor = focused ? '#E8E9EB' : 'rgba(232, 233, 235, 0.6)';
+  const iconColor = focused ? '#873CF6' : 'rgba(135, 60, 246, 0.6)';
   switch (route.name) {
     case 'Conversations':
       return focused ? <ConversationIconFilled /> : <ConversationIconOutline />;

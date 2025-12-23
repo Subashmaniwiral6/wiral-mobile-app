@@ -60,7 +60,7 @@ export const NotificationPreferences = () => {
   const typedPushFlags = allPushFlags as NotificationPreferenceType[];
 
   return (
-    <Animated.View style={tailwind.style('py-4 px-3')}>
+    <Animated.View style={[tailwind.style('py-4 px-3'), { backgroundColor: '#121213' }]}>
       {typedPushFlags.map((item: NotificationPreferenceType) => (
         <Animated.View
           key={item}
@@ -70,7 +70,7 @@ export const NotificationPreferences = () => {
             {i18n.t(`NOTIFICATION_PREFERENCE.${NOTIFICATION_PREFERENCE_TYPES[item]}`)}
           </Animated.Text>
           <Switch
-            trackColor={{ false: '#C9D7E3', true: '#1F93FF' }}
+            trackColor={{ false: '#C9D7E3', true: '#873CF6' }}
             thumbColor="#FFFFFF"
             style={styles.switch}
             ios_backgroundColor="#C9D7E3"

@@ -126,7 +126,7 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
             </Text>
             <Pressable onPress={handleMeetLinkPress}>
               <Text
-                style={[tailwind.style('text-base font-inter-normal-20'), { color: '#56468B' }]}
+                style={[tailwind.style('text-base font-inter-normal-20'), { color: '#873CF6' }]}
                 numberOfLines={2}
                 ellipsizeMode="tail">
                 {event.meetLink}

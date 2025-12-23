@@ -49,7 +49,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     newArchEnabled: false,
     scheme: 'wiralapp',
     splash: {
-      image: './assets/splash.jpeg',
+      image: './assets/splash.png',
       resizeMode: 'cover', 
       backgroundColor: '#ffffff',
       // 2025-12-09 thouseef-hamza: Added padding-safe logo to avoid side clipping

@@ -190,7 +190,7 @@ const ChatScreen = (props: ChatScreenProps) => {
               variant="primary"
               text={i18n.t('CONVERSATION.NOT_FOUND.RETRY')}
               handlePress={fetchConversation}
-              style={{ backgroundColor: '#6550B9' }}
+              style={{ backgroundColor: '#873CF6' }}
             />
             <Pressable
               style={tailwind.style('flex-row justify-center items-center')}

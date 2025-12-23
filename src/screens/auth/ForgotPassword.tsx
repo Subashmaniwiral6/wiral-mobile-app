@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Animated, StatusBar, TextInput, View } from 'react-native';
+import { Animated, ImageBackground, StatusBar, TextInput, View, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button, Icon } from '@/components-next';
@@ -39,16 +39,22 @@ const ForgotPassword = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#121213' }}>
+    <View style={styles.container}>
       <StatusBar
         translucent
-        backgroundColor="#121213"
+        backgroundColor="transparent"
         barStyle="light-content"
       />
-      <View style={{ flex: 1, backgroundColor: '#121213' }}>
-        <Animated.ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={tailwind.style('px-6 pt-16')}>
+      <ImageBackground
+        // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
+        source={require('../../../assets/login-bg.png')}
+        style={styles.backgroundImage}
+        resizeMode="cover">
+      </ImageBackground>
+      <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+          <Animated.ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={tailwind.style('px-6 pt-16')}>
           <Icon icon={<KeyRoundIcon />} size={40} />
           <View style={tailwind.style('pt-6 gap-4')}>
             <Animated.Text
@@ -115,12 +121,27 @@ const ForgotPassword = () => {
             text={i18n.t('FORGOT_PASSWORD.RESET_HERE')}
             handlePress={handleSubmit(onSubmit)}
             variant="primary"
-            style={{ backgroundColor: '#56468B' }}
+            style={{ backgroundColor: '#873CF6' }}
           />
-        </Animated.ScrollView>
-      </View>
-    </SafeAreaView>
+          </Animated.ScrollView>
+      </SafeAreaView>
+    </View>
   );
 };
+
+const { width, height } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: width,
+    height: height,
+  },
+});
 
 export default ForgotPassword;
