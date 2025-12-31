@@ -20,12 +20,12 @@ interface SettingsState {
   pushToken: string;
 }
 const initialState: SettingsState = {
-  baseUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'http://172.30.8.37:3000/',
-  installationUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'http://172.30.8.37:3000/',
+  baseUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'https://uat.wiral.ai/',
+  installationUrl: process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL || 'https://uat.wiral.ai/',
   uiFlags: {
     isSettingUrl: false,
     isUpdating: false,
-    isLocaleSet: false,
+    isLocaleSet: false, 
   },
   localeValue: 'en',
   notificationSettings: {
@@ -37,7 +37,7 @@ const initialState: SettingsState = {
     selected_push_flags: [],
     user_id: 0,
   },
-  webSocketUrl: 'wss://172.30.8.37:3000/cable',
+  webSocketUrl: 'wss://uat.wiral.ai/cable',
   theme: 'system',
   version: '',
   pushToken: '',

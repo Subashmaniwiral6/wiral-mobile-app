@@ -24,7 +24,7 @@ const ConfigURLScreen = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      url: 'http://172.30.8.37:3000',
+      url: 'https://uat.wiral.ai',
     },
   });
 

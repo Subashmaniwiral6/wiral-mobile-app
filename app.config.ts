@@ -75,7 +75,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       googleServicesFile:
         process.env.EXPO_PUBLIC_IOS_GOOGLE_SERVICES_FILE || './google-services.json',
       entitlements: { 'aps-environment': 'production' },
-      associatedDomains: ['applinks:172.30.8.37'],
+      associatedDomains: ['applinks:uat.wiral.ai'],
     },
     android: {
       adaptiveIcon: { foregroundImage: './assets/icon.jpg', backgroundColor: '#ffffff' },
@@ -90,8 +90,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
           autoVerify: true,
           data: [
             {
-              scheme: 'http',
-              host: '172.30.8.37',
+              scheme: 'https',
+              host: 'uat.wiral.ai',
               pathPrefix: '/app/accounts/',
               pathPattern: '/*/conversations/*',
             },
