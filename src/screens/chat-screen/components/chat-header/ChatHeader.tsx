@@ -5,6 +5,7 @@ import Animated from 'react-native-reanimated';
 
 import { Avatar, Icon } from '@/components-next';
 import { ChevronLeft } from '@/svg-icons';
+import { BookUser } from 'lucide-react-native';
 import { BottomSheetBackdrop, BottomSheetWrapper } from '@/components-next';
 import { tailwind } from '@/theme';
 import { DashboardList } from './DropdownMenu';
@@ -24,6 +25,7 @@ type ChatHeaderProps = {
   onBackPress: () => void;
   onContactDetailsPress: () => void;
   onToggleChatStatus: () => void;
+  onActionsPress?: () => void;
 };
 
 export const ChatHeader = ({
@@ -38,6 +40,7 @@ export const ChatHeader = ({
   onBackPress,
   onContactDetailsPress,
   onToggleChatStatus,
+  onActionsPress,
 }: ChatHeaderProps) => {
   const { slaEventsSheetRef } = useRefsContext();
 
@@ -80,8 +83,11 @@ export const ChatHeader = ({
           style={tailwind.style(
             `flex flex-row flex-1 justify-end ${Platform.OS === 'ios' ? 'gap-4' : ''}`,
           )}>
-          {/* 2025-12-09 thouseef-hamza: Hide header status toggle and overflow actions */}
-          <Animated.View style={tailwind.style('flex flex-row items-center gap-4')} />
+          {onActionsPress && (
+            <Pressable hitSlop={8} onPress={onActionsPress} style={tailwind.style('h-8 w-8 flex justify-center items-end')}>
+              <BookUser size={24} color="#E8E9EB" />
+            </Pressable>
+          )}
         </Animated.View>
       </Animated.View>
       <BottomSheetModal

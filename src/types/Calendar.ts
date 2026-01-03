@@ -9,4 +9,6 @@ export interface CalendarEvent {
   contact_person_name?: string;
   contact_person_phone_number?: string;
   customAttributes?: Record<string, unknown>;
+  conversationId?: number;
+  conversationDisplayId?: number;
 }

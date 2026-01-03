@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, Pressable, Linking } from 'react-native';
-import Animated from 'react-native-reanimated';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 import { tailwind } from '@/theme';
 import { Icon } from '@/components-next/common';
-import { CloseIcon } from '@/svg-icons';
+import { CloseIcon, CaretRight } from '@/svg-icons';
 import type { CalendarEvent } from '@/types/Calendar';
 
 interface EventDetailsViewProps {
@@ -13,6 +14,8 @@ interface EventDetailsViewProps {
 }
 
 export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
+  const navigation = useNavigation();
+
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
       weekday: 'long',
@@ -37,17 +40,47 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
     }
   };
 
+  const handleNavigateToConversation = () => {
+    if (event.conversationDisplayId) {
+      const pushToChatScreen = StackActions.push('ChatScreen', {
+        conversationId: event.conversationDisplayId,
+        isConversationOpenedExternally: false,
+      });
+      navigation.dispatch(pushToChatScreen);
+      onClose();
+    }
+  };
+
   return (
     <View style={[tailwind.style('flex-1'), { backgroundColor: '#121213' }]}>
       {/* Header with Close Button */}
       <View style={tailwind.style('flex-row justify-between items-center px-4 pt-2 pb-4')}>
-        <Text
-          style={[
-            tailwind.style('text-[20px] font-inter-medium-24 tracking-[0.32px]'),
-            { color: '#E8E9EB' },
-          ]}>
-          Event Details
-        </Text>
+        <View style={tailwind.style('flex-row items-center gap-3')}>
+          <Text
+            style={[
+              tailwind.style('text-[20px] font-inter-medium-24 tracking-[0.32px]'),
+              { color: '#E8E9EB' },
+            ]}>
+            Booking Details
+          </Text>
+          {event.conversationDisplayId && (
+            <Pressable
+              onPress={handleNavigateToConversation}
+              style={[
+                tailwind.style('px-3 py-1 rounded-lg flex-row items-center gap-1.5'),
+                {
+                  backgroundColor: 'transparent',
+                  borderWidth: 1,
+                  borderColor: '#873CF6',
+                },
+              ]}> 
+              <Text style={[tailwind.style('text-sm font-inter-medium-24'), { color: '#873CF6' }]}>
+                View Chat
+              </Text>
+              <Icon size={16} icon={<CaretRight stroke="#873CF6" />} />
+            </Pressable>
+          )}
+        </View>
         <Pressable onPress={onClose} style={tailwind.style('p-2')}>
           <Icon size={24} icon={<CloseIcon />} />
         </Pressable>
@@ -70,7 +103,7 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {event.contact_person_name && (
           <View style={tailwind.style('mb-6')}>
             <Text style={[tailwind.style('text-sm font-inter-420-20 mb-2'), { color: 'rgba(255, 255, 255, 0.6)' }]}>
-              Person Name
+              Name
             </Text>
             <Text style={[tailwind.style('text-base font-inter-normal-20'), { color: '#E8E9EB' }]}>
               {event.contact_person_name}
@@ -82,7 +115,7 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {event.contact_person_phone_number && (
           <View style={tailwind.style('mb-6')}>
             <Text style={[tailwind.style('text-sm font-inter-420-20 mb-2'), { color: 'rgba(255, 255, 255, 0.6)' }]}>
-              Phone Number
+              Phone
             </Text>
             <Text style={[tailwind.style('text-base font-inter-normal-20'), { color: '#E8E9EB' }]}>
               {event.contact_person_phone_number}
@@ -102,7 +135,7 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         <View style={tailwind.style('mb-6')}>
           <Text style={[tailwind.style('text-sm font-inter-420-20 mb-2'), { color: 'rgba(255, 255, 255, 0.6)' }]}>Time</Text>
           <Text style={[tailwind.style('text-base font-inter-normal-20'), { color: '#E8E9EB' }]}>
-            {formatTime(event.startTime)} - {formatTime(event.endTime)}
+            {formatTime(event.startTime)}
           </Text>
         </View>
 
@@ -138,8 +171,8 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
         {/* Custom Attributes - Exclude contact_person_name and contact_person_phone_number */}
         {event.customAttributes && Object.keys(event.customAttributes).length > 0 && (
           <View style={tailwind.style('mb-6')}>
-            <Text style={[tailwind.style('text-sm font-inter-420-20 mb-3'), { color: 'rgba(255, 255, 255, 0.6)' }]}>
-              Custom Attributes
+            <Text style={[tailwind.style('text-sm font-inter-semibold-20 mb-3'), { color: '#E8E9EB' }]}>
+              Customer Details
             </Text>
             {Object.entries(event.customAttributes)
               .filter(
@@ -170,6 +203,7 @@ export const EventDetailsView = ({ event, onClose }: EventDetailsViewProps) => {
               })}
           </View>
         )}
+
       </BottomSheetScrollView>
     </View>
   );

@@ -8,7 +8,7 @@
   },
   "FOOTER": {
     "HOME": "Home",
-    "CONVERSATION": "Conversations",
+    "CONVERSATION": "Chats",
     "NOTIFICATION": "Notifications",
     "SETTINGS": "Settings"
   },
@@ -74,7 +74,7 @@
   },
   "CONVERSATION": {
     "HEADER": {
-      "TITLE": "Conversations",
+      "TITLE": "Chats",
       "CLEAR_FILTER": "Clear"
     },
     "FILTERS": {
@@ -130,7 +130,7 @@
         }
       }
     },
-    "DEFAULT_HEADER_TITLE": "Conversations",
+    "DEFAULT_HEADER_TITLE": "Chats",
     "UPDATING": "Updating...",
     "MINE": "Mine",
     "UN_ASSIGNED": "Unassigned",
@@ -266,7 +266,7 @@
   },
 
   "FILTER": {
-    "ALL_INBOXES": "All inboxes",
+    "ALL_INBOXES": "Channels",
     "FILTER_BY_ASSIGNEE_TYPE": "Filter by assignee type",
     "FILTER_BY_CONVERSATION_STATUS": "Filter by conversation status",
     "SORT_BY": "Sort by",

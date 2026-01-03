@@ -8,14 +8,16 @@ import { CaretBottomSmall } from '@/svg-icons';
 import { tailwind } from '@/theme';
 import { useHaptic, useScaleAnimation } from '@/utils';
 import { Icon } from '../icon';
+import { ReactNode } from 'react';
 
 type FilterButtonProps = {
   value: string;
   handleOnPress: () => void;
+  icon?: ReactNode;
 };
 
 export const FilterButton = (props: FilterButtonProps) => {
-  const { value, handleOnPress } = props;
+  const { value, handleOnPress, icon } = props;
   const { handlers, animatedStyle } = useScaleAnimation();
   const { filtersModalSheetRef } = useRefsContext();
 
@@ -29,11 +31,16 @@ export const FilterButton = (props: FilterButtonProps) => {
   }, []);
 
   return (
-    <Animated.View style={animatedStyle}>
+    <Animated.View style={[animatedStyle, tailwind.style('flex-1')]}>
       <Pressable
-        style={tailwind.style('px-3 py-[7px] rounded-lg bg-gray-900 flex flex-row items-center')}
+        style={[tailwind.style('px-3 py-[7px] rounded-lg flex flex-row items-center justify-center'), { backgroundColor: '#873CF6' }]}
         onPress={onPress}
         {...handlers}>
+        {icon && (
+          <Animated.View style={tailwind.style('pr-1.5')}>
+            <Icon icon={icon} size={16} />
+          </Animated.View>
+        )}
         <Animated.Text
           style={[
             tailwind.style(
@@ -43,7 +50,7 @@ export const FilterButton = (props: FilterButtonProps) => {
           ]}>
           {value}
         </Animated.Text>
-        <Icon icon={<CaretBottomSmall />} size={7.5} />
+        <Icon icon={<CaretBottomSmall fill="#FFFFFF" />} size={7.5} />
       </Pressable>
     </Animated.View>
   );

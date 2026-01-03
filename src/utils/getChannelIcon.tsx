@@ -1,4 +1,5 @@
 import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
   ChatwootIcon,
@@ -14,6 +15,7 @@ import {
 
 import { Channel, InboxTypes } from '@/types';
 import { LineFilledIcon } from '@/svg-icons/channels/Line';
+import { View } from 'react-native';
 
 const isTwilioChannel = (channelType: Channel) => {
   return channelType === InboxTypes.TWILIO;
@@ -43,11 +45,11 @@ export const getChannelIcon = (channelType: Channel, medium: string, additionalT
     if (isATwilioSMSChannel(channelType, medium)) {
       return <SMSFilledIcon />;
     }
-    return <WhatsAppFilledIcon />;
+    return <Ionicons name="logo-whatsapp" color="#000" size={16} />;
   }
 
   if (isAWhatsAppChannel(channelType)) {
-    return <WhatsAppFilledIcon />;
+    return <Ionicons name="logo-whatsapp" color="#000" size={16} />;
   }
 
   if (channelType === InboxTypes.WEB) {
@@ -74,5 +76,17 @@ export const getChannelIcon = (channelType: Channel, medium: string, additionalT
     return <XFilledIcon />;
   }
 
-  return <ChatwootIcon />;
+  console.log('channelType', channelType);
+
+  return   <View
+  style={{
+    backgroundColor: '#873CF6',
+    borderRadius: 7, 
+    width: 16,
+    height: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }}>
+  <Ionicons name="logo-whatsapp" color="#ffff" size={16} />
+</View>
 };

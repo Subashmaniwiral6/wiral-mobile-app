@@ -115,6 +115,10 @@ export const ChatHeaderContainer = (props: ChatScreenHeaderProps) => {
     }
   };
 
+  const handleActionsPress = () => {
+    chatPagerView.current?.setPage(1);
+  };
+
   const toggleChatStatus = async () => {
     const updatedStatus =
       conversationStatus === CONVERSATION_STATUS.RESOLVED
@@ -171,6 +175,7 @@ export const ChatHeaderContainer = (props: ChatScreenHeaderProps) => {
       onBackPress={handleBackPress}
       onContactDetailsPress={handleNavigationToContactDetails}
       onToggleChatStatus={toggleChatStatus}
+      onActionsPress={handleActionsPress}
     />
   );
 };

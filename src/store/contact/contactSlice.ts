@@ -3,6 +3,7 @@
 // It also manages the availability status of the contacts
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { Contact } from '@/types/Contact';
+import { contactActions } from './contactActions';
 
 export const contactAdapter = createEntityAdapter<Contact>();
 
@@ -42,6 +43,14 @@ const contactSlice = createSlice({
         }
       });
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(contactActions.fetchContact.fulfilled, (state, action) => {
+      const { contact } = action.payload;
+      if (contact) {
+        contactAdapter.upsertOne(state, contact);
+      }
+    });
   },
 });
 

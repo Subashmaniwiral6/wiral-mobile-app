@@ -312,6 +312,11 @@ export const MessageComponent = (props: MessageComponentProps) => {
     if (isMyMessage()) {
       return ORIENTATION.RIGHT;
     }
+    // Check if it's a bot message that's outgoing - should be aligned to the right
+    const isBot = !sender || sender.type === SENDER_TYPES.AGENT_BOT;
+    if (isBot && messageType === MESSAGE_TYPES.OUTGOING) {
+      return ORIENTATION.RIGHT;
+    }
     if (messageType === MESSAGE_TYPES.ACTIVITY) return ORIENTATION.CENTER;
     return ORIENTATION.LEFT;
   };

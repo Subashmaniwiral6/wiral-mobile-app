@@ -59,7 +59,7 @@ const ConversationPagerView = (props: ChatScreenProps) => {
       orientation="horizontal"
       overdrag
       style={tailwind.style('flex-1')}
-      scrollEnabled={false}
+      scrollEnabled={true}
       initialPage={0}
       onPageSelected={onPageSelected}>
       <ChatWindow {...props} />
@@ -96,9 +96,17 @@ const ChatScreen = (props: ChatScreenProps) => {
   const { conversationId, primaryActorId, primaryActorType } = props.route.params;
   const dispatch = useAppDispatch();
 
+  // #region agent log
+  fetch('http://127.0.0.1:7243/ingest/c2f98694-5788-442a-896c-b31b54b1d0bb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ChatScreen.tsx:94',message:'ChatScreen rendered',data:{conversationId,conversationIdType:typeof conversationId,primaryActorId,primaryActorType},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+  // #endregion
+
   const conversationFetching = useAppSelector(state => selectConversationFetching(state));
   const conversationError = useAppSelector(state => selectConversationError(state));
   const conversation = useAppSelector(state => selectConversationById(state, conversationId));
+
+  // #region agent log
+  fetch('http://127.0.0.1:7243/ingest/c2f98694-5788-442a-896c-b31b54b1d0bb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ChatScreen.tsx:101',message:'ChatScreen state',data:{conversationId,conversationFetching,conversationError,hasConversation:!!conversation,conversationIdFromStore:conversation?.id},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+  // #endregion
 
   const fetchConversation = () => {
     dispatch(conversationActions.fetchConversation(conversationId));

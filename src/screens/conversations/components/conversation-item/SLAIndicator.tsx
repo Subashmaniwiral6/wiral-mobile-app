@@ -80,7 +80,11 @@ export const SLAIndicator = ({
   };
 
   return (
-    <NativeView style={tailwind.style('flex flex-row justify-center items-center')}>
+    <NativeView
+      style={[
+        tailwind.style('flex flex-row justify-center items-center py-[3px] px-2 rounded'),
+        { borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.3)' },
+      ]}>
       <SlaMissedIcon color={slaStatus?.isSlaMissed ? '#E13D45' : '#BBBBBB'} />
       <Text
         style={tailwind.style(

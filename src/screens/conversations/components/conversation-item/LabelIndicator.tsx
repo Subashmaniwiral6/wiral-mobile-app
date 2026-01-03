@@ -1,23 +1,56 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Text } from 'react-native';
+import { Image } from 'expo-image';
 import { tailwind } from '@/theme';
 import { AnimatedNativeView, NativeView } from '@/components-next/native-components';
 import { Label } from '@/types';
+import { useAppSelector } from '@/hooks';
+import { selectBaseUrl } from '@/store/settings/settingsSelectors';
 
-const LabelText = ({ labelText, labelColor }: { labelText: string; labelColor: string }) => (
-  <NativeView style={tailwind.style('flex-row items-center py-[3px]')}>
-    <NativeView style={tailwind.style('h-[5px] w-[5px] rounded-full', `bg-[${labelColor}]`)} />
-    <Text
-      style={tailwind.style(
-        'pl-1 text-sm font-inter-420-20 leading-[16px] tracking-[0.32px] text-gray-700',
-      )}>
-      {labelText}
-    </Text>
-  </NativeView>
-);
+const LabelText = ({
+  labelText,
+  labelColor,
+  labelIconUrl,
+  baseUrl,
+}: {
+  labelText: string;
+  labelColor: string;
+  labelIconUrl?: string;
+  baseUrl: string;
+}) => {
+  const [imageError, setImageError] = useState(false);
+  const shouldUseImage = labelIconUrl && !imageError;
+  const imageUri = labelIconUrl ? `${baseUrl.replace(/\/$/, '')}/${labelIconUrl.replace(/^\//, '')}` : null;
+
+  return (
+    <NativeView
+      style={[
+        tailwind.style('flex-row items-center py-[3px] px-2 rounded'),
+        { borderWidth: 1, borderColor: '#272A2D', backgroundColor: '#272A2D' },
+      ]}>
+      {shouldUseImage && imageUri ? (
+        <Image
+          source={{ uri: imageUri }}
+          style={tailwind.style('h-[9px] w-[9px] rounded-full')}
+          contentFit="cover"
+          onError={() => setImageError(true)}
+        />
+      ) : (
+        <NativeView style={tailwind.style('h-[9px] w-[9px] rounded-full', `bg-[${labelColor}]`)} />
+      )}
+      <Text
+        style={tailwind.style(
+          'pl-1 text-sm font-inter-420-20 leading-[16px] tracking-[0.32px] text-gray-700',
+        )}>
+        {labelText}
+      </Text>
+    </NativeView>
+  );
+};
 
 export const LabelIndicator = ({ labels, allLabels }: { labels: string[]; allLabels: Label[] }) => {
   // 2025-12-09 thouseef-hamza: Render all applicable labels with wrapping for responsiveness
+  const baseUrl = useAppSelector(selectBaseUrl);
   const activeLabels = useMemo(
     () => allLabels.filter(label => labels.includes(label.title)),
     [allLabels, labels],
@@ -32,7 +65,12 @@ export const LabelIndicator = ({ labels, allLabels }: { labels: string[]; allLab
       <NativeView style={tailwind.style('flex-row flex-wrap items-center gap-1')}>
         {activeLabels.map(label => (
           <NativeView key={label.id} style={tailwind.style('flex-row items-center')}>
-            <LabelText labelText={label.title} labelColor={label.color} />
+            <LabelText
+              labelText={label.title}
+              labelColor={label.color}
+              labelIconUrl={label.labelIconUrl}
+              baseUrl={baseUrl}
+            />
           </NativeView>
         ))}
       </NativeView>

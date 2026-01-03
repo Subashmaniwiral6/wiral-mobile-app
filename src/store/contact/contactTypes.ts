@@ -1,4 +1,4 @@
-import { Conversation } from '@/types';
+import { Conversation, Contact } from '@/types';
 export interface ContactLabelsAPIResponse {
   payload: string[];
 }
@@ -18,4 +18,12 @@ export interface ContactConversationPayload {
 
 export interface ContactConversationAPIResponse {
   payload: Conversation[];
+}
+
+export interface ContactAPIResponse {
+  payload: Contact;
+}
+
+export interface ContactResponse {
+  contact: Contact;
 }

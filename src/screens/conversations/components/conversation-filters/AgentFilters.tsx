@@ -25,7 +25,7 @@ export const AgentFilters = () => {
 
   const agentOptions: AgentOption[] = useMemo(() => {
     const agentsMap = new Map<string, string>();
-    agentsMap.set('all', 'All agents');
+    agentsMap.set('all', 'Agents');
 
     Object.values(assignableAgents).forEach(agentsList => {
       agentsList.forEach(agent => {

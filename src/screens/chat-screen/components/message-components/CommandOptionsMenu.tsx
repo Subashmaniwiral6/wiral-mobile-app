@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppDispatch } from '@/hooks';
 import { updateAttachments } from '@/store/conversation/sendMessageSlice';
 import { useRefsContext } from '@/context';
-import { AttachFileIcon, CameraIcon, MacrosIcon, PhotosIcon } from '@/svg-icons';
+import { AttachFileIcon, CameraIcon, PhotosIcon } from '@/svg-icons';
 import { tailwind } from '@/theme';
 import { useHaptic, useScaleAnimation } from '@/utils';
 import { Icon } from '@/components-next/common';
@@ -159,11 +159,6 @@ const ADD_MENU_OPTIONS = [
     title: 'Attach File',
     handlePress: handleAttachFile,
   },
-  {
-    icon: <MacrosIcon stroke="#9CA3AF" />,
-    title: 'Macros',
-    handlePress: () => {},
-  },
 ];
 
 export const validateFileAndSetAttachments = async (dispatch, attachment) => {
@@ -183,7 +178,6 @@ type MenuOptionProps = {
 const MenuOption = (props: MenuOptionProps) => {
   const { index, menuOption } = props;
   const dispatch = useAppDispatch();
-  const { macrosListSheetRef } = useRefsContext();
 
   const { animatedStyle, handlers } = useScaleAnimation();
   const hapticSelection = useHaptic();
@@ -191,9 +185,6 @@ const MenuOption = (props: MenuOptionProps) => {
   const handlePress = () => {
     hapticSelection?.();
     menuOption?.handlePress(dispatch);
-    if (menuOption.title === 'Macros') {
-      macrosListSheetRef.current?.present();
-    }
   };
 
   return (

@@ -50,10 +50,20 @@ export const conversationActions = {
   fetchConversation: createAsyncThunk<ConversationResponse, number>(
     'conversations/fetchConversation',
     async (conversationId, { rejectWithValue }) => {
+      // #region agent log
+      fetch('http://127.0.0.1:7243/ingest/c2f98694-5788-442a-896c-b31b54b1d0bb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'conversationActions.ts:51',message:'fetchConversation thunk started',data:{conversationId,conversationIdType:typeof conversationId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+      // #endregion
       try {
-        return await ConversationService.fetchConversation(conversationId);
+        const result = await ConversationService.fetchConversation(conversationId);
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/c2f98694-5788-442a-896c-b31b54b1d0bb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'conversationActions.ts:55',message:'fetchConversation thunk success',data:{conversationId,hasConversation:!!result.conversation,conversationIdFromResult:result.conversation?.id},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+        // #endregion
+        return result;
       } catch (error) {
         const { response } = error as AxiosError<ApiErrorResponse>;
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/c2f98694-5788-442a-896c-b31b54b1d0bb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'conversationActions.ts:59',message:'fetchConversation thunk error',data:{conversationId,hasResponse:!!response,status:response?.status,statusText:response?.statusText,errorMessage:(error as Error)?.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+        // #endregion
         if (!response) {
           throw error;
         }

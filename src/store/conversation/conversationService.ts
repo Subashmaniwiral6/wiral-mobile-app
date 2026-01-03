@@ -64,14 +64,39 @@ export class ConversationService {
   }
 
   static async fetchConversation(conversationId: number): Promise<ConversationResponse> {
-    const response = await apiService.get<ConversationAPIResponse>(
-      `conversations/${conversationId}`,
-    );
+    // #region agent log
+    fetch('http://127.0.0.1:7243/ingest/c2f98694-5788-442a-896c-b31b54b1d0bb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'conversationService.ts:69',message:'fetchConversation called',data:{conversationId,conversationIdType:typeof conversationId,url:`conversations/${conversationId}`},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+    // #endregion
+    try {
+      // #region agent log
+      console.log('[DEBUG] Making API call', { conversationId, url: `conversations/${conversationId}` });
+      // #endregion
+      const response = await apiService.get<ConversationAPIResponse>(
+        `conversations/${conversationId}`,
+      );
+      // #region agent log
+      console.log('[DEBUG] API call successful', { conversationId, status: response.status, hasData: !!response.data });
+      fetch('http://127.0.0.1:7243/ingest/c2f98694-5788-442a-896c-b31b54b1d0bb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'conversationService.ts:72',message:'API call successful',data:{conversationId,status:response.status,hasData:!!response.data},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(()=>{});
+      // #endregion
 
-    const { data: conversation } = response;
-    return {
-      conversation: transformConversation(conversation),
-    };
+      const { data: conversation } = response;
+      return {
+        conversation: transformConversation(conversation),
+      };
+    } catch (error: any) {
+      // #region agent log
+      console.log('[DEBUG] API call failed', { 
+        conversationId, 
+        errorMessage: error?.message,
+        status: error?.response?.status,
+        statusText: error?.response?.statusText,
+        hasResponse: !!error?.response,
+        errorCode: error?.code
+      });
+      fetch('http://127.0.0.1:7243/ingest/c2f98694-5788-442a-896c-b31b54b1d0bb',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'conversationService.ts:79',message:'API call failed',data:{conversationId,errorMessage:error?.message,status:error?.response?.status,statusText:error?.response?.statusText,hasResponse:!!error?.response,errorCode:error?.code},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
+      // #endregion
+      throw error;
+    }
   }
 
   static async fetchPreviousMessages(payload: MessagesPayload): Promise<MessagesResponse> {

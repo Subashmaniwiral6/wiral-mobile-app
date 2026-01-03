@@ -9,6 +9,8 @@ export interface CustomAttribute {
   attributeValues: string[];
   attributeModel: string;
   defaultValue: string;
+  mandatory?: boolean;
+  showInFilter?: boolean;
   createdAt: string;
   updatedAt: string;
   value: string;

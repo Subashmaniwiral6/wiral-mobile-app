@@ -33,6 +33,9 @@ const InboxCell = (props: InboxCellProps) => {
     setTimeout(() => filtersModalSheetRef.current?.dismiss({ overshootClamping: true }), 1);
   };
 
+  // Check if this is the "All Inboxes" option - don't show icon for it
+  const shouldShowIcon = value.id !== 0 && value.channelType !== 'Channel::All';
+
   return (
     <Pressable
       onPress={handlePreferredAssigneeTypePress}
@@ -43,15 +46,18 @@ const InboxCell = (props: InboxCellProps) => {
           !isLastItem && { borderBottomWidth: 1, borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
         ]}>
         <Animated.View style={tailwind.style('flex-row items-center')}>
-          <Icon
-            icon={getChannelIcon(value.channelType, value.medium, '')}
-            size={18}
-            style={tailwind.style('my-auto flex items-center justify-center')}
-          />
+          {shouldShowIcon && (
+            <Icon
+              icon={getChannelIcon(value.channelType, value.medium, '')}
+              size={18}
+              style={tailwind.style('my-auto flex items-center justify-center')}
+            />
+          )}
 
           <Animated.Text
             style={[
-              tailwind.style('text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize ml-2'),
+              tailwind.style('text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize'),
+              shouldShowIcon && tailwind.style('ml-2'),
               { color: '#E8E9EB' },
             ]}>
             {value.name}

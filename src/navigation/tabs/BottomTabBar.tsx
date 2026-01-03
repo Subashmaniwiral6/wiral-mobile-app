@@ -10,13 +10,7 @@ import { BlurView, BlurViewProps } from '@react-native-community/blur';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { RouteProp } from '@react-navigation/native';
 import { selectCurrentState } from '@/store/conversation/conversationHeaderSlice';
-import { Calendar } from 'lucide-react-native';
-import {
-  ConversationIconFilled,
-  ConversationIconOutline,
-  SettingsIconFilled,
-  SettingsIconOutline,
-} from '@/svg-icons';
+import { Calendar, MessageCircle, Settings } from 'lucide-react-native';
 import { tailwind } from '@/theme';
 import { useHaptic, useScaleAnimation, useTabBarHeight } from '@/utils';
 
@@ -35,17 +29,23 @@ type TabBarIconsProps = {
 
 const TabBarIcons = ({ focused, route }: TabBarIconsProps) => {
   const iconColor = focused ? '#873CF6' : 'rgba(135, 60, 246, 0.6)';
+  const strokeWidth = focused ? 2 : 1;
+  const iconStyle = { marginBottom: 12 };
+  const iconSize = 30;
+
   switch (route.name) {
     case 'Conversations':
-      return focused ? <ConversationIconFilled /> : <ConversationIconOutline />;
+      return (
+        <MessageCircle size={iconSize} strokeWidth={strokeWidth} style={iconStyle} color={iconColor} />
+      );
     case 'Calendar':
-      return focused ? (
-        <Calendar size={30} strokeWidth={2} style={{ marginBottom: 12 }} color={iconColor} />
-      ) : (
-        <Calendar size={30} strokeWidth={1} style={{ marginBottom: 12 }} color={iconColor} />
+      return (
+        <Calendar size={iconSize} strokeWidth={strokeWidth} style={iconStyle} color={iconColor} />
       );
     case 'Settings':
-      return focused ? <SettingsIconFilled /> : <SettingsIconOutline />;
+      return (
+        <Settings size={iconSize} strokeWidth={strokeWidth} style={iconStyle} color={iconColor} />
+      );
   }
 };
 

@@ -11,6 +11,8 @@ import {
   ConversationSettingsPanel,
   AddParticipantList,
   UpdateParticipant,
+  ConversationActionsHeader,
+  ContactDetailsSection,
 } from './components';
 import { TAB_BAR_HEIGHT } from '@/constants';
 import { tailwind } from '@/theme';
@@ -120,17 +122,23 @@ export const ConversationActions = () => {
     updateParticipantSheetRef.current?.present();
   };
 
+  const sender = conversation?.meta?.sender || null;
+
   return (
     <Animated.View style={tailwind.style('', `w-[${SCREEN_WIDTH}px]`)}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={tailwind.style(`pb-[${TAB_BAR_HEIGHT}]`)}>
-        <ConversationBasicActions
+        <ConversationActionsHeader contact={sender} />
+        <ContactDetailsSection conversation={conversation} />
+        {/* Conversation State section (open, pending, snoozed, resolved) */}
+        {/* <ConversationBasicActions
           status={status}
           updateConversationStatus={updateConversationStatus}
           isMuted={isMuted || false}
-        />
-        <Animated.View style={tailwind.style('pt-10')}>
+        /> */}
+        {/* Individual assign, team assign, and priority */}
+        {/* <Animated.View style={tailwind.style('pt-10')}>
           <ConversationSettingsPanel
             assignee={assignee || null}
             team={currentTeam || null}
@@ -139,22 +147,25 @@ export const ConversationActions = () => {
             onChangeTeamAssignee={onChangeTeamAssignee}
             onChangePriority={onChangePriority}
           />
-        </Animated.View>
-        <Animated.View style={tailwind.style('pt-10')}>
+        </Animated.View> */}
+        {/* <Animated.View style={tailwind.style('pt-10')}>
           <ConversationLabelActions labels={currentLabels} />
-        </Animated.View>
-        <Animated.View style={tailwind.style('pt-10')}>
+        </Animated.View> */}
+        {/* Participants Section */}
+        {/* <Animated.View style={tailwind.style('pt-10')}>
           <AddParticipantList
             conversationParticipants={conversationParticipants}
             onAddParticipant={onAddParticipant}
           />
-        </Animated.View>
-        <Animated.View style={tailwind.style('pt-10')}>
+        </Animated.View> */}
+        {/* Attributes section */}
+        {/* <Animated.View style={tailwind.style('pt-10')}>
           {conversation && <ConversationMetaInformation conversation={conversation} />}
-        </Animated.View>
-        <Animated.View style={tailwind.style('px-4 pt-10')}>
+        </Animated.View> */}
+        {/* Share Conversation Button */}
+        {/* <Animated.View style={tailwind.style('px-4 pt-10')}>
           <Button variant="secondary" handlePress={onShareConversation} text="Share conversation" />
-        </Animated.View>
+        </Animated.View> */}
       </ScrollView>
       <BottomSheetModal
         ref={updateParticipantSheetRef}

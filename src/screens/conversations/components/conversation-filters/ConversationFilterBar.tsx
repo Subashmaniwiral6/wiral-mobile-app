@@ -1,5 +1,6 @@
 import React from 'react';
 import { useMemo } from 'react';
+import { UsersRound, Funnel, Hash } from 'lucide-react-native';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { selectAllInboxes } from '@/store/inbox/inboxSelectors';
 import { BottomSheetType, setBottomSheetState } from '@/store/conversation/conversationHeaderSlice';
@@ -12,13 +13,15 @@ import i18n from '@/i18n';
 export const ConversationFilterOptions: BaseFilterOption[] = [
   {
     type: 'assignee_id',
-    options: { all: 'All agents' },
-    defaultFilter: 'All agents',
+    options: { all: 'Agents' },
+    defaultFilter: 'Agents',
+    icon: <UsersRound size={16} color="#E8E9EB" />,
   },
   {
     type: 'label',
-    options: { all: 'All labels' },
-    defaultFilter: 'All labels',
+    options: { all: 'Status' },
+    defaultFilter: 'Status',
+    icon: <Funnel size={16} color="#E8E9EB" />,
   },
 ];
 
@@ -40,7 +43,7 @@ export const ConversationFilterBar = () => {
   };
 
   const agentOptions = useMemo(() => {
-    const options: Record<string, string> = { all: 'All agents' };
+    const options: Record<string, string> = { all: 'Agents' };
     const uniqueAgents = new Map<number, string>();
     Object.values(assignableAgents).forEach(agentsList => {
       agentsList.forEach(agent => {
@@ -56,7 +59,7 @@ export const ConversationFilterBar = () => {
   }, [assignableAgents]);
 
   const labelOptions = useMemo(() => {
-    const labelMap: Record<string, string> = { all: 'All labels' };
+    const labelMap: Record<string, string> = { all: 'Status' };
 
     labels.forEach(label => {
       const isPipelineTag = !!label.is_pipeline_tag;
@@ -84,6 +87,7 @@ export const ConversationFilterBar = () => {
       type: 'inbox_id' as const,
       options: getInboxOptions(inboxes),
       defaultFilter: i18n.t('FILTER.ALL_INBOXES'),
+      icon: <Hash size={16} color="#E8E9EB" />,
     },
   ];
 

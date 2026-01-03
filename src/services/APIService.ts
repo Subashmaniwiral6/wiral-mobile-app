@@ -77,10 +77,28 @@ class APIService {
         return response;
       },
       async (error: AxiosError) => {
+        // #region agent log
+        console.log('[DEBUG] Axios interceptor error', { 
+          status: error.response?.status, 
+          url: error.config?.url,
+          method: error.config?.method,
+          statusText: error.response?.statusText
+        });
+        // #endregion
         if (error.response?.status === 401) {
           const store = getStore();
           store.dispatch({ type: 'auth/logout' });
+        } else if (error.response?.status === 404) {
+          // 404 is a valid "not found" response, not a connection error
+          // Don't show the generic connection error toast for 404s
+          // Let the calling code handle 404 errors appropriately
+          // #region agent log
+          console.log('[DEBUG] 404 error - skipping toast', { url: error.config?.url });
+          // #endregion
         } else {
+          // #region agent log
+          console.log('[DEBUG] Showing connection error toast', { status: error.response?.status, url: error.config?.url });
+          // #endregion
           showToast({ message: I18n.t('ERRORS.COMMON_ERROR') });
         }
         return Promise.reject(error);

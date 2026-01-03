@@ -29,6 +29,8 @@ export * from './Phone';
 export * from './Priority';
 export * from './Search';
 export * from './SendIcon';
+export * from './Shield';
+export * from './ArrowUpDown';
 export * from './Tick';
 export * from './Trash';
 export * from './MessageType';

@@ -72,5 +72,7 @@ export function transformAppointmentToCalendarEvent(
     contact_person_name: appointment.contact_name,
     contact_person_phone_number: appointment.contact_phone,
     customAttributes,
+    conversationId: appointment.conversation_id,
+    conversationDisplayId: appointment.conversation_display_id,
   };
 }
