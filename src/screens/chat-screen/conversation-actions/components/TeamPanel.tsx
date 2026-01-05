@@ -30,7 +30,9 @@ const TeamPanel = ({ team, onPress }: TeamPanelProps) => {
           ]}>
           <Animated.Text
             style={[
-              tailwind.style('text-base font-inter-420-20 leading-[22.4px] tracking-[0.16px] capitalize'),
+              tailwind.style(
+                'text-base font-inter-420-20 leading-[22.4px] tracking-[0.16px] capitalize',
+              ),
               { color: '#E8E9EB' },
             ]}>
             {teamName}

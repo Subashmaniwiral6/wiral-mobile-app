@@ -45,7 +45,9 @@ export const InboxHeader = (props: InboxHeaderProps) => {
         <Animated.View style={tailwind.style('flex-1')}>
           <Animated.Text
             style={[
-              tailwind.style('text-[17px] text-center leading-[17px] tracking-[0.32px] font-inter-medium-24'),
+              tailwind.style(
+                'text-[17px] text-center leading-[17px] tracking-[0.32px] font-inter-medium-24',
+              ),
               { color: '#E8E9EB' },
             ]}>
             {i18n.t('NOTIFICATION.INBOX')}

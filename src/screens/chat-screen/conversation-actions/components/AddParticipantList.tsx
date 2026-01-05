@@ -46,7 +46,8 @@ const ListItem = (props: ListItemProps) => {
 
 const ParticipantOverflowCell = ({ count }: { count: number }) => {
   return (
-    <Pressable style={({ pressed }) => [pressed && { backgroundColor: 'rgba(255, 255, 255, 0.05)' }]}>
+    <Pressable
+      style={({ pressed }) => [pressed && { backgroundColor: 'rgba(255, 255, 255, 0.05)' }]}>
       <Animated.View style={tailwind.style('flex flex-row items-center ml-3')}>
         <Animated.View>
           <Icon icon={<Overflow stroke="#E8E9EB" />} size={28} />
@@ -90,7 +91,11 @@ export const AddParticipantList = (props: AddParticipantListProps) => {
         </Animated.Text>
       </Animated.View>
       <Animated.View
-        style={[tailwind.style('rounded-[13px] mx-4'), { backgroundColor: '#22242C' }, styles.listShadow]}>
+        style={[
+          tailwind.style('rounded-[13px] mx-4'),
+          { backgroundColor: '#22242C' },
+          styles.listShadow,
+        ]}>
         {conversationParticipants &&
           conversationParticipants.slice(0, 4).map((listItem, index) => {
             return <ListItem key={index} {...{ listItem, index }} />;

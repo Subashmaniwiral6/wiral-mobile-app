@@ -78,11 +78,11 @@ class APIService {
       },
       async (error: AxiosError) => {
         // #region agent log
-        console.log('[DEBUG] Axios interceptor error', { 
-          status: error.response?.status, 
+        console.log('[DEBUG] Axios interceptor error', {
+          status: error.response?.status,
           url: error.config?.url,
           method: error.config?.method,
-          statusText: error.response?.statusText
+          statusText: error.response?.statusText,
         });
         // #endregion
         if (error.response?.status === 401) {
@@ -97,7 +97,10 @@ class APIService {
           // #endregion
         } else {
           // #region agent log
-          console.log('[DEBUG] Showing connection error toast', { status: error.response?.status, url: error.config?.url });
+          console.log('[DEBUG] Showing connection error toast', {
+            status: error.response?.status,
+            url: error.config?.url,
+          });
           // #endregion
           showToast({ message: I18n.t('ERRORS.COMMON_ERROR') });
         }

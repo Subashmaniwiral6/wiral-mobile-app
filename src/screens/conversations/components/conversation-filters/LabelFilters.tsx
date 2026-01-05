@@ -24,7 +24,9 @@ const StatusIcon = ({
 }) => {
   const [imageError, setImageError] = useState(false);
   const shouldUseImage = labelIconUrl && !imageError;
-  const imageUri = labelIconUrl ? `${baseUrl.replace(/\/$/, '')}/${labelIconUrl.replace(/^\//, '')}` : null;
+  const imageUri = labelIconUrl
+    ? `${baseUrl.replace(/\/$/, '')}/${labelIconUrl.replace(/^\//, '')}`
+    : null;
 
   if (shouldUseImage && imageUri) {
     return (
@@ -38,9 +40,7 @@ const StatusIcon = ({
   }
 
   return (
-    <Animated.View
-      style={tailwind.style('h-4 w-4 rounded-full mr-2', `bg-[${labelColor}]`)}
-    />
+    <Animated.View style={tailwind.style('h-4 w-4 rounded-full mr-2', `bg-[${labelColor}]`)} />
   );
 };
 
@@ -98,7 +98,9 @@ export const LabelFilters = () => {
                 )}
                 <Animated.Text
                   style={[
-                    tailwind.style('text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize'),
+                    tailwind.style(
+                      'text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize',
+                    ),
                     { color: '#E8E9EB' },
                   ]}>
                   {option.title}

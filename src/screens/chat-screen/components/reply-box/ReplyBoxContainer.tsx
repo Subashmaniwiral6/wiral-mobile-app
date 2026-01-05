@@ -378,8 +378,7 @@ const BottomSheetContent = () => {
   const shouldShowCannedResponses = messageContent?.charAt(0) === '/';
 
   return (
-    <AnimatedKeyboardStickyView
-      style={[{ backgroundColor: '#121213' }, animatedInputWrapperStyle]}>
+    <AnimatedKeyboardStickyView style={[{ backgroundColor: '#121213' }, animatedInputWrapperStyle]}>
       {!canReply && inbox && conversation && (
         <Animated.View entering={FadeIn.duration(250)} exiting={FadeOut.duration(10)}>
           <ReplyWarning inbox={inbox} conversation={conversation} />

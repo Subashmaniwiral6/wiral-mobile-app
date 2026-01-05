@@ -7,9 +7,7 @@ export const UnsupportedBubble = () => {
   return (
     <View
       style={[
-        tailwind.style(
-          'px-4 py-3 border border-dashed border-amber-700 rounded-lg',
-        ),
+        tailwind.style('px-4 py-3 border border-dashed border-amber-700 rounded-lg'),
         { backgroundColor: '#3A301F' },
       ]}>
       <Text style={[tailwind.style(''), { color: '#E8E9EB' }]}>

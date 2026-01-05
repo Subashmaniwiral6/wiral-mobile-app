@@ -21,7 +21,9 @@ export const CalendarHeaderPresenter = ({ onAddEvent }: CalendarHeaderPresenterP
       <Animated.View style={tailwind.style('flex-1')}>
         <Text
           style={[
-            tailwind.style('text-[17px] font-inter-medium-24 tracking-[0.32px] leading-[17px] text-center'),
+            tailwind.style(
+              'text-[17px] font-inter-medium-24 tracking-[0.32px] leading-[17px] text-center',
+            ),
             { color: '#E8E9EB' },
           ]}>
           {i18n.t('CALENDAR.HEADER.TITLE') || 'Calendar'}

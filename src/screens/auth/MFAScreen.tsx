@@ -99,11 +99,7 @@ const MFAScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#121213' }}>
-      <StatusBar
-        translucent
-        backgroundColor="#121213"
-        barStyle="light-content"
-      />
+      <StatusBar translucent backgroundColor="#121213" barStyle="light-content" />
       <View style={{ flex: 1, backgroundColor: '#121213' }}>
         <ScrollView
           showsVerticalScrollIndicator={false}

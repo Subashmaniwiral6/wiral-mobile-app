@@ -82,9 +82,7 @@ export const PrivateTextCell = (props: PrivateTextCellProps) => {
         <Icon icon={<LockIcon />} size={12} />
         <Text
           style={[
-            tailwind.style(
-              'text-xs font-inter-420-20 tracking-[0.32px] pl-1',
-            ),
+            tailwind.style('text-xs font-inter-420-20 tracking-[0.32px] pl-1'),
             { color: 'rgba(255, 255, 255, 0.7)' },
           ]}>
           {unixTimestampToReadableTime(timeStamp)}

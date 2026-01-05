@@ -109,4 +109,3 @@ export const ContactDetailsSection = ({ conversation }: ContactDetailsSectionPro
     </Animated.View>
   );
 };
-

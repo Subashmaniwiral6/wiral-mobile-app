@@ -56,14 +56,16 @@ const InboxCell = (props: InboxCellProps) => {
 
           <Animated.Text
             style={[
-              tailwind.style('text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize'),
+              tailwind.style(
+                'text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize',
+              ),
               shouldShowIcon && tailwind.style('ml-2'),
               { color: '#E8E9EB' },
             ]}>
             {value.name}
           </Animated.Text>
         </Animated.View>
-        {filters.inbox_id === value.id.toString() ? <Icon icon={<TickIcon />} size={20} /> : null}
+        {filters?.inbox_id === value.id.toString() ? <Icon icon={<TickIcon />} size={20} /> : null}
       </Animated.View>
     </Pressable>
   );

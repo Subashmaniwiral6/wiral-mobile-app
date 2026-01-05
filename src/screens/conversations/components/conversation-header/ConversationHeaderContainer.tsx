@@ -38,7 +38,7 @@ const getFiltersAppliedCount = (defaultState: FilterState, updatedState: FilterS
   return count;
 };
 
-export const ConversationHeader = () => {
+export const ConversationHeader = ({ isHelpMe = false }: { isHelpMe?: boolean }) => {
   const currentState = useAppSelector(selectCurrentState);
 
   const filters = useAppSelector(selectFilters);
@@ -123,6 +123,7 @@ export const ConversationHeader = () => {
         { backgroundColor: '#121213' },
       ]}>
       <ConversationHeaderPresenter
+        isHelpMe={isHelpMe}
         currentState={currentState}
         isSelectedAll={isSelectedAll}
         filtersAppliedCount={filtersAppliedCount}
@@ -130,7 +131,7 @@ export const ConversationHeader = () => {
         onRightIconPress={handleRightIconPress}
         onClearFilter={handleClearFilter}
       />
-      {/* 2025-12-09 thouseef-hamza: Always show filter bar per UI requirement */}
+      {/* 2025-12-09 thouseef-hamza: Always show filter bar per UI requirement, but hide for Help Me */}
       <ConversationFilterBar />
     </Animated.View>
   );

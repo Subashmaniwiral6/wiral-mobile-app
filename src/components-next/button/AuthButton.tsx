@@ -26,18 +26,25 @@ export const AuthButton = ({
     const baseStyles = 'py-[11px] flex-row items-center justify-center rounded-[13px]';
     const disabledStyles = disabled ? 'opacity-50' : '';
     const baseStyle = tailwind.style(baseStyles, disabledStyles);
-    
+
     if (variant === 'filled') {
       return [baseStyle, { backgroundColor: '#873CF6' }];
     } else {
-      return [baseStyle, { backgroundColor: 'rgba(255, 255, 255, 0.1)', borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.2)' }];
+      return [
+        baseStyle,
+        {
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          borderWidth: 1,
+          borderColor: 'rgba(255, 255, 255, 0.2)',
+        },
+      ];
     }
   };
 
   const getTextStyles = () => {
     const baseStyles = 'ml-2 text-base font-medium';
     const baseStyle = tailwind.style(baseStyles);
-    
+
     if (variant === 'filled') {
       return [baseStyle, { color: '#FFFFFF' }];
     } else {

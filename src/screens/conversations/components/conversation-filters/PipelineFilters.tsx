@@ -52,7 +52,9 @@ export const PipelineFilters = () => {
               ]}>
               <Animated.Text
                 style={[
-                  tailwind.style('text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize'),
+                  tailwind.style(
+                    'text-base font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize',
+                  ),
                   { color: '#E8E9EB' },
                 ]}>
                 {option.title}

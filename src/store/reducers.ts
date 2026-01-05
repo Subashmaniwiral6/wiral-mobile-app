@@ -26,6 +26,8 @@ import localRecordedAudioCacheSlice from '@/store/conversation/localRecordedAudi
 
 import cannedResponseSlice from '@/store/canned-response/cannedResponseSlice';
 import macroSlice from '@/store/macro/macroSlice';
+import helpMeSlice from '@/store/help-me/helpMeSlice';
+import helpMeConversationSlice from '@/store/help-me/helpMeConversationSlice';
 
 export const appReducer = combineReducers({
   auth: authSlice,
@@ -53,4 +55,6 @@ export const appReducer = combineReducers({
   conversationParticipants: conversationParticipantSlice,
   cannedResponses: cannedResponseSlice,
   localRecordedAudioCache: localRecordedAudioCacheSlice,
+  helpMe: helpMeSlice,
+  helpMeConversations: helpMeConversationSlice,
 });

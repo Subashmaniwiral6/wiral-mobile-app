@@ -72,10 +72,12 @@ export const InboxItemComponent = (props: InboxItemProps) => {
               {sender.name || ''}
             </Animated.Text>
             <NativeView style={tailwind.style('flex flex-row items-center gap-0.5')}>
-              <Animated.Text style={[tailwind.style('text-sm font-inter-420-20'), { color: '#E8E9EB' }]}>
+              <Animated.Text
+                style={[tailwind.style('text-sm font-inter-420-20'), { color: '#E8E9EB' }]}>
                 #
               </Animated.Text>
-              <Animated.Text style={[tailwind.style('text-sm font-inter-420-20'), { color: '#E8E9EB' }]}>
+              <Animated.Text
+                style={[tailwind.style('text-sm font-inter-420-20'), { color: '#E8E9EB' }]}>
                 {conversationId}
               </Animated.Text>
             </NativeView>
@@ -124,7 +126,10 @@ export const InboxItemComponent = (props: InboxItemProps) => {
       </Animated.View>
       {isRead && (
         <Animated.View
-          style={[tailwind.style('absolute inset-0 z-20'), { backgroundColor: 'rgba(0, 0, 0, 0.3)' }]}
+          style={[
+            tailwind.style('absolute inset-0 z-20'),
+            { backgroundColor: 'rgba(0, 0, 0, 0.3)' },
+          ]}
         />
       )}
     </Animated.View>

@@ -36,19 +36,23 @@ export const FilterBar = ({ allFilters, selectedFilters, onFilterPress }: Filter
   };
 
   return (
-    <Animated.View
-      exiting={exiting}
-      style={tailwind.style('pt-2 pb-1.5 h-[46px] flex flex-row')}>
+    <Animated.View exiting={exiting} style={tailwind.style('pt-2 pb-1.5 h-[46px] flex flex-row')}>
       {allFilters.map((value, index) => {
         if (value.type === 'inbox_id') {
           return (
             <Animated.View
               layout={LinearTransition.springify().stiffness(200).damping(24)}
               key={index}
-              style={[tailwind.style('flex-1', index === 0 ? 'pl-3 pr-2' : 'px-2', index === allFilters.length - 1 ? 'pr-3' : '')]}>
+              style={[
+                tailwind.style(
+                  'flex-1',
+                  index === 0 ? 'pl-3 pr-2' : 'px-2',
+                  index === allFilters.length - 1 ? 'pr-3' : '',
+                ),
+              ]}>
               <FilterButton
                 handleOnPress={() => onFilterPress(value.type)}
-                value={value.options[selectedFilters[value.type]] ?? value.defaultFilter}
+                value={value.options[selectedFilters?.[value.type]] ?? value.defaultFilter}
                 icon={value.icon}
               />
             </Animated.View>
@@ -58,10 +62,16 @@ export const FilterBar = ({ allFilters, selectedFilters, onFilterPress }: Filter
           <Animated.View
             layout={LinearTransition.springify().stiffness(200).damping(24)}
             key={index}
-            style={[tailwind.style('flex-1', index === 0 ? 'pl-3 pr-2' : 'px-2', index === allFilters.length - 1 ? 'pr-3' : '')]}>
+            style={[
+              tailwind.style(
+                'flex-1',
+                index === 0 ? 'pl-3 pr-2' : 'px-2',
+                index === allFilters.length - 1 ? 'pr-3' : '',
+              ),
+            ]}>
             <FilterButton
               handleOnPress={() => onFilterPress(value.type)}
-              value={value.options[selectedFilters[value.type]] ?? value.defaultFilter}
+              value={value.options[selectedFilters?.[value.type]] ?? value.defaultFilter}
               icon={value.icon}
             />
           </Animated.View>

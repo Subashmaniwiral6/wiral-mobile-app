@@ -20,10 +20,7 @@ import { Message } from '@/types';
 const AudioIcon = () => {
   return (
     <Animated.View style={tailwind.style('flex-1 justify-center items-center')}>
-      <Icon
-        icon={<VoiceNote stroke="#873CF6" strokeOpacity={1} />}
-        size={24}
-      />
+      <Icon icon={<VoiceNote stroke="#873CF6" strokeOpacity={1} />} size={24} />
     </Animated.View>
   );
 };

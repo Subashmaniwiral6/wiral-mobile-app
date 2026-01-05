@@ -68,7 +68,8 @@ export const Email = (props: EmailProps) => {
         { backgroundColor: isIncoming ? '#1E3A5F' : '#2A2A2A' },
       ]}>
       {contentAttributes && <EmailMeta {...{ contentAttributes, sender }} />}
-      <Animated.View style={[tailwind.style('flex rounded-2xl w-full'), { backgroundColor: '#22242C' }]}>
+      <Animated.View
+        style={[tailwind.style('flex rounded-2xl w-full'), { backgroundColor: '#22242C' }]}>
         <Animated.View style={tailwind.style('px-4 py-2 w-full')}>
           <AutoHeightWebView
             style={{ width: '100%', minHeight: 1, minWidth: '100%' }}

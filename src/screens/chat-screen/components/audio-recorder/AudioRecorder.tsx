@@ -262,9 +262,7 @@ export const AudioRecorder = ({
         style={tailwind.style('h-10 w-10 flex items-center justify-center')}>
         <Animated.View
           style={[
-            tailwind.style(
-              'flex items-center justify-center h-7 w-7 rounded-full',
-            ),
+            tailwind.style('flex items-center justify-center h-7 w-7 rounded-full'),
             { backgroundColor: '#873CF6' },
           ]}>
           <Icon icon={<SendIcon />} size={16} />

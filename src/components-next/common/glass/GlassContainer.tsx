@@ -54,4 +54,3 @@ export const GlassContainer: React.FC<GlassContainerProps> = ({
     </Animated.View>
   );
 };
-

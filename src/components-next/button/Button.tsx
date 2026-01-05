@@ -20,7 +20,7 @@ const getButtonStyles = (isPrimary: boolean, pressed: boolean, customStyle?: Vie
   const pressedStyles = isPrimary ? 'opacity-95' : pressed ? 'bg-gray-100' : '';
 
   const tailwindStyles = tailwind.style(baseStyles, variantStyles, pressedStyles);
-  
+
   return customStyle ? [tailwindStyles, customStyle] : tailwindStyles;
 };
 

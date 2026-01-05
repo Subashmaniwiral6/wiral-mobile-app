@@ -19,10 +19,11 @@ import { selectWebSocketUrl } from '@/store/settings/settingsSelectors';
 import { getUserPermissions } from '@/utils/permissionUtils';
 import { CONVERSATION_PERMISSIONS } from 'constants/permissions';
 
-import { AuthStack, CalendarStack, ConversationStack, SettingsStack } from '../stack';
+import { AuthStack, CalendarStack, ConversationStack, HelpMeStack, SettingsStack } from '../stack';
 import ChatScreen from '@/screens/chat-screen/ChatScreen';
 import ContactDetailsScreen from '@/screens/contact-details/ContactDetailsScreen';
 import DashboardScreen from '@/screens/dashboard/DashboardScreen';
+import i18n from '@/i18n';
 
 import { selectInstallationUrl } from '@/store/settings/settingsSelectors';
 import { BottomTabBar } from './BottomTabBar';
@@ -42,6 +43,7 @@ import { clearSelection } from '@/store/conversation/conversationSelectedSlice';
 const Tab = createBottomTabNavigator();
 
 export type TabParamList = {
+  HelpMe: undefined;
   Conversations: undefined;
   Calendar: undefined;
   Settings: undefined;
@@ -154,15 +156,40 @@ const Tabs = () => {
 
   return (
     <Tab.Navigator tabBar={CustomTabBar} initialRouteName="Conversations">
+      <Tab.Screen
+        name="HelpMe"
+        options={{
+          headerShown: false,
+          tabBarLabel: i18n.t('FOOTER.HELP_ME'),
+        }}
+        component={HelpMeStack}
+      />
       {hasConversationPermission && (
         <Tab.Screen
           name="Conversations"
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+            tabBarLabel: i18n.t('FOOTER.CONVERSATION'),
+          }}
           component={ConversationStack}
         />
       )}
-      <Tab.Screen name="Calendar" options={{ headerShown: false }} component={CalendarStack} />
-      <Tab.Screen name="Settings" options={{ headerShown: false }} component={SettingsStack} />
+      <Tab.Screen
+        name="Calendar"
+        options={{
+          headerShown: false,
+          tabBarLabel: i18n.t('FOOTER.HOME'),
+        }}
+        component={CalendarStack}
+      />
+      <Tab.Screen
+        name="Settings"
+        options={{
+          headerShown: false,
+          tabBarLabel: i18n.t('FOOTER.SETTINGS'),
+        }}
+        component={SettingsStack}
+      />
     </Tab.Navigator>
   );
 };

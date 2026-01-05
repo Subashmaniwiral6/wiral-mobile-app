@@ -25,10 +25,7 @@ export const ImageBubbleContainer = (props: ImageContainerProps) => {
       <AnimatedExpoImage
         source={{ uri: imageSrc }}
         contentFit="cover"
-        style={[
-          tailwind.style('h-full w-full overflow-hidden'),
-          { backgroundColor: '#2A2A2A' },
-        ]}
+        style={[tailwind.style('h-full w-full overflow-hidden'), { backgroundColor: '#2A2A2A' }]}
       />
     </LightBox>
   );

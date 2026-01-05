@@ -15,4 +15,3 @@ export const ArrowUpDownIcon = ({ stroke = '#858585' }: IconProps): JSX.Element 
     </Svg>
   );
 };
-

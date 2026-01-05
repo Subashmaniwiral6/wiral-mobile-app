@@ -25,7 +25,7 @@ const initialState: SettingsState = {
   uiFlags: {
     isSettingUrl: false,
     isUpdating: false,
-    isLocaleSet: false, 
+    isLocaleSet: false,
   },
   localeValue: 'en',
   notificationSettings: {

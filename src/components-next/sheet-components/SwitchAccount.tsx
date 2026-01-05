@@ -42,14 +42,18 @@ const AccountCell = ({
           <View>
             <Text
               style={[
-                tailwind.style('text-base capitalize font-inter-420-20 leading-[21px] tracking-[0.16px]'),
+                tailwind.style(
+                  'text-base capitalize font-inter-420-20 leading-[21px] tracking-[0.16px]',
+                ),
                 { color: '#E8E9EB' },
               ]}>
               {item.name}
             </Text>
             <Text
               style={[
-                tailwind.style('text-sm font-inter-420-20 leading-[18px] tracking-[0.16px] capitalize'),
+                tailwind.style(
+                  'text-sm font-inter-420-20 leading-[18px] tracking-[0.16px] capitalize',
+                ),
                 { color: '#E8E9EB' },
               ]}>
               {item.role}

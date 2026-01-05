@@ -49,10 +49,7 @@ const AttributeItem = (props: AttributeItemProps) => {
       onPress={handlePress}
       key={index}
       style={({ pressed }) => [
-        tailwind.style(
-          index === 0 ? 'rounded-t-[13px]' : '',
-          isLastItem ? 'rounded-b-[13px]' : '',
-        ),
+        tailwind.style(index === 0 ? 'rounded-t-[13px]' : '', isLastItem ? 'rounded-b-[13px]' : ''),
         pressed && { backgroundColor: 'rgba(255, 255, 255, 0.05)' },
       ]}>
       <Animated.View style={tailwind.style('flex flex-row items-center px-3')}>
@@ -120,7 +117,11 @@ export const AttributeList = (props: AttributeListProps) => {
         </Animated.View>
       ) : null}
       <Animated.View
-        style={[tailwind.style('rounded-[13px] mx-4'), { backgroundColor: '#22242C' }, styles.listShadow]}>
+        style={[
+          tailwind.style('rounded-[13px] mx-4'),
+          { backgroundColor: '#22242C' },
+          styles.listShadow,
+        ]}>
         {list.map(
           (listItem, index) =>
             !listItem.disabled &&

@@ -5,10 +5,7 @@ import { SharedValue } from 'react-native-reanimated';
 
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { Conversation } from '@/types';
-import {
-  toggleSelection,
-  selectSelected,
-} from '@/store/conversation/conversationSelectedSlice';
+import { toggleSelection, selectSelected } from '@/store/conversation/conversationSelectedSlice';
 import { selectCurrentState } from '@/store/conversation/conversationHeaderSlice';
 import { selectInboxById } from '@/store/inbox/inboxSelectors';
 import { selectContactById } from '@/store/contact/contactSelectors';

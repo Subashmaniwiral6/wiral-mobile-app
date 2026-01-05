@@ -1,6 +1,14 @@
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Animated, ImageBackground, StatusBar, TextInput, View, StyleSheet, Dimensions } from 'react-native';
+import {
+  Animated,
+  ImageBackground,
+  StatusBar,
+  TextInput,
+  View,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button, Icon } from '@/components-next';
@@ -40,28 +48,20 @@ const ForgotPassword = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
+      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
       <ImageBackground
         // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
         source={require('../../../assets/login-bg.png')}
         style={styles.backgroundImage}
-        resizeMode="cover">
-      </ImageBackground>
+        resizeMode="cover"></ImageBackground>
       <SafeAreaView edges={['top']} style={{ flex: 1 }}>
-          <Animated.ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={tailwind.style('px-6 pt-16')}>
+        <Animated.ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={tailwind.style('px-6 pt-16')}>
           <Icon icon={<KeyRoundIcon />} size={40} />
           <View style={tailwind.style('pt-6 gap-4')}>
             <Animated.Text
-              style={[
-                tailwind.style('text-2xl font-inter-semibold-20'),
-                { color: '#E8E9EB' },
-              ]}>
+              style={[tailwind.style('text-2xl font-inter-semibold-20'), { color: '#E8E9EB' }]}>
               {i18n.t('FORGOT_PASSWORD.TITLE')}
             </Animated.Text>
             <Animated.Text
@@ -123,7 +123,7 @@ const ForgotPassword = () => {
             variant="primary"
             style={{ backgroundColor: '#873CF6' }}
           />
-          </Animated.ScrollView>
+        </Animated.ScrollView>
       </SafeAreaView>
     </View>
   );

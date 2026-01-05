@@ -10,12 +10,13 @@ import { BlurView, BlurViewProps } from '@react-native-community/blur';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { RouteProp } from '@react-navigation/native';
 import { selectCurrentState } from '@/store/conversation/conversationHeaderSlice';
-import { Calendar, MessageCircle, Settings } from 'lucide-react-native';
+import { AlertCircle, Calendar, MessageCircle, Settings } from 'lucide-react-native';
 import { tailwind } from '@/theme';
 import { useHaptic, useScaleAnimation, useTabBarHeight } from '@/utils';
 
 import { TabParamList } from './AppTabs';
 import { useAppSelector } from '@/hooks';
+import { selectHelpMeCount } from '@/store/help-me/helpMeSelectors';
 
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
@@ -29,14 +30,45 @@ type TabBarIconsProps = {
 
 const TabBarIcons = ({ focused, route }: TabBarIconsProps) => {
   const iconColor = focused ? '#873CF6' : 'rgba(135, 60, 246, 0.6)';
+  const helpMeColor = '#ef4444';
   const strokeWidth = focused ? 2 : 1;
   const iconStyle = { marginBottom: 12 };
   const iconSize = 30;
+  const helpMeCount = useAppSelector(selectHelpMeCount);
 
   switch (route.name) {
+    case 'HelpMe':
+      return (
+        <Animated.View style={tailwind.style('relative')}>
+          <AlertCircle
+            size={iconSize}
+            strokeWidth={strokeWidth}
+            style={iconStyle}
+            color={helpMeColor}
+          />
+          {helpMeCount > 0 && (
+            <Animated.View
+              style={[
+                tailwind.style(
+                  'absolute -top-1 -right-1 bg-red-500 rounded-full min-w-[18px] h-[18px] items-center justify-center px-1',
+                ),
+                { backgroundColor: helpMeColor },
+              ]}>
+              <Animated.Text style={tailwind.style('text-white text-[10px] font-bold')}>
+                {helpMeCount > 99 ? '99+' : helpMeCount}
+              </Animated.Text>
+            </Animated.View>
+          )}
+        </Animated.View>
+      );
     case 'Conversations':
       return (
-        <MessageCircle size={iconSize} strokeWidth={strokeWidth} style={iconStyle} color={iconColor} />
+        <MessageCircle
+          size={iconSize}
+          strokeWidth={strokeWidth}
+          style={iconStyle}
+          color={iconColor}
+        />
       );
     case 'Calendar':
       return (
@@ -172,7 +204,10 @@ export const BottomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
         ],
       })}>
       <Animated.View
-        style={[tailwind.style('absolute inset-0 h-[1px]'), { backgroundColor: 'rgba(255, 255, 255, 0.1)' }]}
+        style={[
+          tailwind.style('absolute inset-0 h-[1px]'),
+          { backgroundColor: 'rgba(255, 255, 255, 0.1)' },
+        ]}
       />
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];

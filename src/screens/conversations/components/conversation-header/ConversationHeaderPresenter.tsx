@@ -11,6 +11,7 @@ import { useHeaderAnimation } from '@/hooks/useHeaderAnimation';
 type HeaderState = 'Search' | 'Filter' | 'Select' | 'none';
 
 type ConversationHeaderPresenterProps = {
+  isHelpMe?: boolean;
   currentState: HeaderState;
   isSelectedAll: boolean;
   filtersAppliedCount: number;
@@ -38,7 +39,7 @@ type RightSectionProps = {
   onRightIconPress: () => void;
 };
 
-const HeaderTitle = () => (
+const HeaderTitle = ({ isHelpMe = false }: { isHelpMe?: boolean }) => (
   <Animated.View style={tailwind.style('flex-1')}>
     <Text
       style={[
@@ -47,7 +48,7 @@ const HeaderTitle = () => (
         ),
         { color: '#E8E9EB' },
       ]}>
-      {i18n.t('CONVERSATION.HEADER.TITLE')}
+      {isHelpMe ? 'HelpMe' : i18n.t('CONVERSATION.HEADER.TITLE')}
     </Text>
   </Animated.View>
 );
@@ -123,6 +124,7 @@ const RightSection = ({
 };
 
 export const ConversationHeaderPresenter = ({
+  isHelpMe = false,
   currentState,
   isSelectedAll,
   filtersAppliedCount,
@@ -141,7 +143,7 @@ export const ConversationHeaderPresenter = ({
         onLeftIconPress={onLeftIconPress}
       />
       {/* 2025-12-09 thouseef-hamza: Clear filter hidden per request */}
-      <HeaderTitle />
+      <HeaderTitle isHelpMe={isHelpMe} />
       <RightSection
         currentState={currentState}
         filtersAppliedCount={filtersAppliedCount}

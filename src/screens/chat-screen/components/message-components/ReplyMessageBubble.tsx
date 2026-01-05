@@ -67,14 +67,15 @@ export const ReplyMessageBubble = (props: ReplyMessageBubbleProps) => {
       ]}>
       <Animated.View style={tailwind.style('flex flex-row')}>
         <Animated.View
-          style={[tailwind.style('w-[3px] h-auto rounded-[4px]'), { backgroundColor: 'rgba(255, 255, 255, 0.4)' }]}
+          style={[
+            tailwind.style('w-[3px] h-auto rounded-[4px]'),
+            { backgroundColor: 'rgba(255, 255, 255, 0.4)' },
+          ]}
         />
         <Animated.View style={tailwind.style('pl-2.5')}>
           <Animated.Text
             style={[
-              tailwind.style(
-                'text-cxs font-inter-420-20 leading-[14.95px] tracking-[0.32px]',
-              ),
+              tailwind.style('text-cxs font-inter-420-20 leading-[14.95px] tracking-[0.32px]'),
               { color: 'rgba(255, 255, 255, 0.8)' },
             ]}>
             Replying to {replyMessageItem?.sender?.name}

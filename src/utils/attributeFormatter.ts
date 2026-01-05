@@ -74,4 +74,3 @@ export function formatAttributeValue(
       return stringValue;
   }
 }
-

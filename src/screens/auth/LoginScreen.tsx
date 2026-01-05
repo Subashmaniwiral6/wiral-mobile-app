@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Animated, Image, ImageBackground, Pressable, StatusBar, TextInput, View } from 'react-native';
+import {
+  Animated,
+  Image,
+  ImageBackground,
+  Pressable,
+  StatusBar,
+  TextInput,
+  View,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
   BottomSheetModal,
@@ -135,11 +143,7 @@ const LoginScreen = () => {
 
   return (
     <>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
+      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
       <ImageBackground
         // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
         source={require('../../../assets/login-bg.png')}
@@ -149,7 +153,7 @@ const LoginScreen = () => {
           <Animated.ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={tailwind.style('px-6 pt-24')}>
-          <Image
+            <Image
               // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
               source={require('../../../assets/login-logo.png')}
               style={tailwind.style('w-32 h-24')}
@@ -284,10 +288,7 @@ const LoginScreen = () => {
 
             <Pressable style={tailwind.style('pt-1 mb-8')} onPress={openResetPassword}>
               <Animated.Text
-                style={[
-                  tailwind.style('font-inter-medium-24 text-right'),
-                  { color: '#873CF6' },
-                ]}>
+                style={[tailwind.style('font-inter-medium-24 text-right'), { color: '#873CF6' }]}>
                 {i18n.t('LOGIN.FORGOT_PASSWORD')}
               </Animated.Text>
             </Pressable>
@@ -299,14 +300,14 @@ const LoginScreen = () => {
               style={{ backgroundColor: '#873CF6' }}
             />
 
-          {/* <Pressable
+            {/* <Pressable
             style={tailwind.style('flex-row justify-center items-center mt-6')}
             onPress={openConfigInstallationURL}>
             <Animated.Text style={tailwind.style('text-sm text-gray-900')}>
               {i18n.t('LOGIN.CHANGE_URL')}
             </Animated.Text>
           </Pressable> */}
-          {/* <Pressable
+            {/* <Pressable
             style={tailwind.style('flex-row justify-center items-center mt-4')}
             onPress={() => languagesModalSheetRef.current?.present()}>
             <Animated.Text style={tailwind.style('text-sm text-gray-900')}>
@@ -317,7 +318,9 @@ const LoginScreen = () => {
           <BottomSheetModal
             ref={languagesModalSheetRef}
             backdropComponent={BottomSheetBackdrop}
-            handleIndicatorStyle={tailwind.style('overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]')}
+            handleIndicatorStyle={tailwind.style(
+              'overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]',
+            )}
             detached
             enablePanDownToClose
             animationConfigs={animationConfigs}

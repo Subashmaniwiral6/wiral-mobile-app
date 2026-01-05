@@ -109,12 +109,16 @@ export const Slider = (props: SliderProps) => {
   }));
 
   // Check if trackColor is a raw color value (rgba, rgb, hex) or a Tailwind class
-  const isTrackColorRaw = trackColor.startsWith('rgba(') || trackColor.startsWith('rgb(') || trackColor.startsWith('#');
+  const isTrackColorRaw =
+    trackColor.startsWith('rgba(') || trackColor.startsWith('rgb(') || trackColor.startsWith('#');
   const trackColorStyle = isTrackColorRaw ? { backgroundColor: trackColor } : {};
   const trackColorClass = isTrackColorRaw ? '' : trackColor;
 
   // Check if filledTrackColor is a raw color value (rgba, rgb, hex) or a Tailwind class
-  const isFilledTrackColorRaw = filledTrackColor.startsWith('rgba(') || filledTrackColor.startsWith('rgb(') || filledTrackColor.startsWith('#');
+  const isFilledTrackColorRaw =
+    filledTrackColor.startsWith('rgba(') ||
+    filledTrackColor.startsWith('rgb(') ||
+    filledTrackColor.startsWith('#');
   const filledTrackColorStyle = isFilledTrackColorRaw ? { backgroundColor: filledTrackColor } : {};
   const filledTrackColorClass = isFilledTrackColorRaw ? '' : filledTrackColor;
 

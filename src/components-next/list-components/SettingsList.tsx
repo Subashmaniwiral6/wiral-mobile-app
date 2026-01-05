@@ -26,10 +26,7 @@ const ListItem = (props: ListItemProps) => {
       onPress={() => listItem.onPressListItem && listItem.onPressListItem()}
       key={index}
       style={({ pressed }) => [
-        tailwind.style(
-          index === 0 ? 'rounded-t-[13px]' : '',
-          isLastItem ? 'rounded-b-[13px]' : '',
-        ),
+        tailwind.style(index === 0 ? 'rounded-t-[13px]' : '', isLastItem ? 'rounded-b-[13px]' : ''),
         pressed && { backgroundColor: 'rgba(255, 255, 255, 0.05)' },
       ]}>
       <Animated.View style={tailwind.style('flex flex-row items-center pl-3')}>

@@ -7,6 +7,7 @@ import Animated, {
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRoute } from '@react-navigation/native';
 import {
   BottomSheetModal,
   useBottomSheetSpringConfigs,
@@ -23,7 +24,12 @@ import {
   InboxFilters,
 } from './components';
 
-import { ActionTabs, BottomSheetBackdrop, BottomSheetBackground, BottomSheetWrapper } from '@/components-next';
+import {
+  ActionTabs,
+  BottomSheetBackdrop,
+  BottomSheetBackground,
+  BottomSheetWrapper,
+} from '@/components-next';
 
 import { EmptyStateIcon } from '@/svg-icons';
 import {
@@ -46,17 +52,28 @@ import {
   setBottomSheetState,
 } from '@/store/conversation/conversationHeaderSlice';
 import { resetActionState } from '@/store/conversation/conversationActionSlice';
-import { conversationActions } from '@/store/conversation/conversationActions';
 import {
   selectConversationsLoading,
   selectIsAllConversationsFetched,
   getFilteredConversations,
 } from '@/store/conversation/conversationSelectors';
-import { selectFilters, FilterState } from '@/store/conversation/conversationFilterSlice';
+import {
+  selectHelpMeConversationsLoading,
+  selectIsAllHelpMeConversationsFetched,
+  selectHelpMeConversations,
+} from '@/store/help-me/helpMeConversationSelectors';
+import {
+  selectFilters,
+  FilterState,
+  defaultFilterState,
+} from '@/store/conversation/conversationFilterSlice';
 import { ConversationPayload } from '@/store/conversation/conversationTypes';
 import { clearAllConversations } from '@/store/conversation/conversationSlice';
 import { clearAllContacts } from '@/store/contact/contactSlice';
 import { clearAssignableAgents } from '@/store/assignable-agent/assignableAgentSlice';
+import { conversationActions } from '@/store/conversation/conversationActions';
+import { helpMeConversationActions } from '@/store/help-me/helpMeConversationActions';
+import { clearHelpMeConversations } from '@/store/help-me/helpMeConversationSlice';
 
 import i18n from '@/i18n';
 import ActionBottomSheet from '@/navigation/tabs/ActionBottomSheet';
@@ -73,7 +90,7 @@ type FlashListRenderItemType = {
   index: number;
 };
 
-const ConversationList = () => {
+const ConversationList = ({ isHelpMe = false }: { isHelpMe?: boolean }) => {
   const { dismissAll } = useBottomSheetModal();
   const dispatch = useAppDispatch();
   const [appState, setAppState] = useState(AppState.currentState);
@@ -89,9 +106,19 @@ const ConversationList = () => {
   const { openedRowIndex } = useConversationListStateContext();
 
   // This is used to check if the conversations are still loading
-  const isConversationsLoading = useAppSelector(selectConversationsLoading);
+  const isConversationsLoading = useAppSelector(
+    isHelpMe ? selectHelpMeConversationsLoading : selectConversationsLoading,
+  );
   // This is used to check if all the conversations are fetched
-  const isAllConversationsFetched = useAppSelector(selectIsAllConversationsFetched);
+  const isAllConversationsFetched = useAppSelector(
+    isHelpMe ? selectIsAllHelpMeConversationsFetched : selectIsAllConversationsFetched,
+  );
+  // Get the appropriate conversations based on isHelpMe flag
+  const allConversations = useAppSelector(
+    isHelpMe
+      ? selectHelpMeConversations
+      : state => getFilteredConversations(state, filters || defaultFilterState),
+  );
 
   const handleRender = useCallback(({ item, index }: FlashListRenderItemType) => {
     return (
@@ -107,33 +134,40 @@ const ConversationList = () => {
   const filters = useAppSelector(selectFilters);
   const previousFilters = useRef(filters);
 
+  const clearAndFetchConversations = useCallback(
+    async (filters?: FilterState) => {
+      setPageNumber(1);
+      if (isHelpMe) {
+        await dispatch(clearHelpMeConversations());
+      } else {
+        await dispatch(clearAllConversations());
+        await dispatch(clearAllContacts());
+        await dispatch(clearAssignableAgents());
+      }
+      fetchConversations(filters || defaultFilterState);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [isHelpMe],
+  );
+
   // Reset last active timestamp when the conversation screen is opened
   useEffect(() => {
     AsyncStorage.removeItem(LAST_ACTIVE_TIMESTAMP_KEY);
   }, []);
 
   useEffect(() => {
-    if (previousFilters.current !== filters) {
-      previousFilters.current = filters;
-      clearAndFetchConversations(filters);
-    }
+    dismissAll();
+    clearAndFetchConversations(filters || defaultFilterState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters]);
+  }, []);
 
   useEffect(() => {
-    dismissAll();
-    clearAndFetchConversations(filters);
+    if (previousFilters.current !== filters) {
+      previousFilters.current = filters;
+      clearAndFetchConversations(filters || defaultFilterState);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const clearAndFetchConversations = useCallback(async (filters: FilterState) => {
-    setPageNumber(1);
-    await dispatch(clearAllConversations());
-    await dispatch(clearAllContacts());
-    await dispatch(clearAssignableAgents());
-    fetchConversations(filters);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [filters, clearAndFetchConversations]);
 
   const ListFooterComponent = () => {
     if (isAllConversationsFetched) return null;
@@ -151,7 +185,7 @@ const ConversationList = () => {
   const handleRefresh = useCallback(() => {
     setFlashListReady(false);
     setIsRefreshing(true);
-    clearAndFetchConversations(filters).finally(() => {
+    clearAndFetchConversations(filters || defaultFilterState).finally(() => {
       setIsRefreshing(false);
     });
   }, [clearAndFetchConversations, filters]);
@@ -162,7 +196,7 @@ const ConversationList = () => {
       const currentTimestamp = Date.now();
       const difference = currentTimestamp - parseInt(lastActiveTimestamp);
       if (difference > LAST_ACTIVE_TIMESTAMP_THRESHOLD) {
-        clearAndFetchConversations(filters);
+        clearAndFetchConversations(filters || defaultFilterState);
       }
     }
   }, [clearAndFetchConversations, filters]);
@@ -192,25 +226,34 @@ const ConversationList = () => {
 
   const fetchConversations = useCallback(
     async (filters: FilterState, page: number = 1) => {
-      const conversationFilters = {
-        // 2025-12-09 thouseef-hamza: Backend call keeps default filters while UI uses new client filters
-        status: 'all',
-        assigneeType: 'all',
-        page: page,
-        sortBy: 'latest',
-        inboxId: parseInt(filters.inbox_id),
-      } as ConversationPayload;
+      if (isHelpMe) {
+        // For Help Me, use the help me conversation actions with label filter
+        dispatch(helpMeConversationActions.fetchHelpMeConversations({ page }));
+      } else {
+        // For regular conversations, use the normal conversation actions
+        const conversationFilters = {
+          // 2025-12-09 thouseef-hamza: Backend call keeps default filters while UI uses new client filters
+          status: 'all',
+          assigneeType: 'all',
+          page,
+          sortBy: 'latest',
+          inboxId: filters?.inbox_id ? parseInt(filters.inbox_id) : undefined,
+        } as ConversationPayload;
 
-      dispatch(conversationActions.fetchConversations(conversationFilters));
+        dispatch(conversationActions.fetchConversations(conversationFilters));
+      }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [isHelpMe],
   );
 
   const onChangePageNumber = () => {
     const nextPageNumber = pageNumber + 1;
     setPageNumber(nextPageNumber);
-    fetchConversations(filters, nextPageNumber);
+    if (isHelpMe) {
+      dispatch(helpMeConversationActions.fetchHelpMeConversations({ page: nextPageNumber }));
+    } else {
+      fetchConversations(filters, nextPageNumber);
+    }
   };
 
   const handleOnEndReached = () => {
@@ -229,8 +272,6 @@ const ConversationList = () => {
       }
     },
   });
-
-  const allConversations = useAppSelector(state => getFilteredConversations(state, filters));
 
   const shouldShowEmptyLoader = isConversationsLoading && allConversations.length === 0;
 
@@ -253,7 +294,7 @@ const ConversationList = () => {
           )}>
           <EmptyStateIcon />
           <Animated.Text style={tailwind.style('pt-6 text-md  tracking-[0.32px] text-gray-800')}>
-            {i18n.t('CONVERSATION.EMPTY')}
+            {isHelpMe ? 'No help me conversations yet' : i18n.t('CONVERSATION.EMPTY')}
           </Animated.Text>
         </Animated.ScrollView>
       ) : (
@@ -278,8 +319,12 @@ const ConversationList = () => {
 };
 
 const ConversationScreen = () => {
+  const route = useRoute();
   const currentBottomSheet = useAppSelector(selectBottomSheetState);
   const dispatch = useAppDispatch();
+
+  // Get the isHelpMe flag from route params, default to false
+  const isHelpMe = (route.params as any)?.isHelpMe || false;
 
   const animationConfigs = useBottomSheetSpringConfigs({
     mass: 1.2,
@@ -313,35 +358,34 @@ const ConversationScreen = () => {
 
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
-      <StatusBar
-        translucent
-        backgroundColor="#121213"
-        barStyle="light-content"
-      />
+      <StatusBar translucent backgroundColor="#121213" barStyle="light-content" />
       <ConversationListStateProvider>
         <View style={{ flex: 1 }}>
-          <ConversationHeader />
-          <ConversationList />
+          <ConversationHeader isHelpMe={isHelpMe} />
+          <ConversationList isHelpMe={isHelpMe} />
         </View>
-        <BottomSheetModal
-          ref={filtersModalSheetRef}
-          backdropComponent={BottomSheetBackdrop}
-          backgroundComponent={BottomSheetBackground}
-          handleIndicatorStyle={tailwind.style(
-            'overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]',
-          )}
-          handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
-          style={tailwind.style('rounded-[26px] overflow-hidden')}
-          animationConfigs={animationConfigs}
-          enablePanDownToClose
-          snapPoints={filterSnapPoints}
-          onDismiss={handleOnDismiss}>
-          <BottomSheetWrapper>
-            {currentBottomSheet === 'assignee_id' ? <AgentFilters /> : null}
-            {currentBottomSheet === 'label' ? <LabelFilters /> : null}
-            {currentBottomSheet === 'inbox_id' ? <InboxFilters /> : null}
-          </BottomSheetWrapper>
-        </BottomSheetModal>
+        {/* Only show filter bar for regular conversations, not Help Me */}
+        {!isHelpMe && (
+          <BottomSheetModal
+            ref={filtersModalSheetRef}
+            backdropComponent={BottomSheetBackdrop}
+            backgroundComponent={BottomSheetBackground}
+            handleIndicatorStyle={tailwind.style(
+              'overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]',
+            )}
+            handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
+            style={tailwind.style('rounded-[26px] overflow-hidden')}
+            animationConfigs={animationConfigs}
+            enablePanDownToClose
+            snapPoints={filterSnapPoints}
+            onDismiss={handleOnDismiss}>
+            <BottomSheetWrapper>
+              {currentBottomSheet === 'assignee_id' ? <AgentFilters /> : null}
+              {currentBottomSheet === 'label' ? <LabelFilters /> : null}
+              {currentBottomSheet === 'inbox_id' ? <InboxFilters /> : null}
+            </BottomSheetWrapper>
+          </BottomSheetModal>
+        )}
         <ActionBottomSheet />
         <ActionTabs />
       </ConversationListStateProvider>

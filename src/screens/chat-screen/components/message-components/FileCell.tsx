@@ -65,20 +65,13 @@ export const FilePreview = (props: FilePreviewProps) => {
     <React.Fragment>
       {fileDownload ? (
         <Animated.View style={tailwind.style('pr-1.5')}>
-          <Spinner
-            size={20}
-            stroke={isIncoming ? tailwind.color('text-white') : '#873CF6'}
-          />
+          <Spinner size={20} stroke={isIncoming ? tailwind.color('text-white') : '#873CF6'} />
         </Animated.View>
       ) : (
         <Animated.View style={tailwind.style('pr-1.5')}>
           <Icon
             size={24}
-            icon={
-              <FileIcon
-                fill={isIncoming ? tailwind.color('bg-white') : '#873CF6'}
-              />
-            }
+            icon={<FileIcon fill={isIncoming ? tailwind.color('bg-white') : '#873CF6'} />}
           />
         </Animated.View>
       )}

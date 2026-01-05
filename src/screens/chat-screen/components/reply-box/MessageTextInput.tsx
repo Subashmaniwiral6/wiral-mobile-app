@@ -245,7 +245,7 @@ export const MessageTextInput = ({
       <Animated.View
         style={[
           // Pre calculated value to position the lock
-          tailwind.style('absolute right-13px]'),
+          tailwind.style('absolute right-15px]'),
           lockIconAnimatedPosition,
         ]}>
         <Pressable hitSlop={5} onPress={toggleReplyMode}>
@@ -255,15 +255,17 @@ export const MessageTextInput = ({
                 tailwind.style('items-center justify-center'),
                 {
                   width: 29,
-                  height: 29,
+                  height: 30,
                   borderRadius: 14.5,
                   backgroundColor: 'white',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 },
               ]}>
               <Users size={20} color="black" strokeWidth={1.5} />
             </View>
           ) : (
-            <Users size={29} color="white" strokeWidth={1.5} />
+            <Users size={29} color="white" strokeWidth={1.5} style={{ paddingRight: 2 }} />
           )}
         </Pressable>
       </Animated.View>

@@ -37,10 +37,7 @@ export const ConversationActionsHeader = ({ contact }: ConversationActionsHeader
       </Animated.View>
       {name && (
         <Animated.Text
-          style={[
-            tailwind.style('text-xl font-inter-medium-24 mt-0'),
-            { color: '#E8E9EB' },
-          ]}>
+          style={[tailwind.style('text-xl font-inter-medium-24 mt-0'), { color: '#E8E9EB' }]}>
           {name}
         </Animated.Text>
       )}
@@ -50,10 +47,7 @@ export const ConversationActionsHeader = ({ contact }: ConversationActionsHeader
           style={tailwind.style('flex-row items-center mt-4 gap-2')}>
           <Icon icon={<PhoneIcon stroke="#873CF6" strokeWidth={2} />} size={20} />
           <Animated.Text
-            style={[
-              tailwind.style('text-base font-inter-normal-20'),
-              { color: '#873CF6' },
-            ]}>
+            style={[tailwind.style('text-base font-inter-normal-20'), { color: '#873CF6' }]}>
             {phoneNumber}
           </Animated.Text>
         </Pressable>
@@ -61,4 +55,3 @@ export const ConversationActionsHeader = ({ contact }: ConversationActionsHeader
     </Animated.View>
   );
 };
-

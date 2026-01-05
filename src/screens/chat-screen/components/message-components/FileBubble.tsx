@@ -61,11 +61,7 @@ export const FileBubblePreview = (props: FilePreviewProps) => {
         <Animated.View style={tailwind.style('pr-1.5')}>
           <Spinner
             size={20}
-            stroke={
-              variant === MESSAGE_VARIANTS.USER
-                ? tailwind.color('text-white')
-                : '#873CF6'
-            }
+            stroke={variant === MESSAGE_VARIANTS.USER ? tailwind.color('text-white') : '#873CF6'}
           />
         </Animated.View>
       ) : (
@@ -74,11 +70,7 @@ export const FileBubblePreview = (props: FilePreviewProps) => {
             size={24}
             icon={
               <FileIcon
-                fill={
-                  variant === MESSAGE_VARIANTS.USER
-                    ? tailwind.color('bg-white')
-                    : '#873CF6'
-                }
+                fill={variant === MESSAGE_VARIANTS.USER ? tailwind.color('bg-white') : '#873CF6'}
               />
             }
           />

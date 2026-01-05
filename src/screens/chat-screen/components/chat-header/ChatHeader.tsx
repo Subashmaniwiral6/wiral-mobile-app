@@ -84,7 +84,10 @@ export const ChatHeader = ({
             `flex flex-row flex-1 justify-end ${Platform.OS === 'ios' ? 'gap-4' : ''}`,
           )}>
           {onActionsPress && (
-            <Pressable hitSlop={8} onPress={onActionsPress} style={tailwind.style('h-8 w-8 flex justify-center items-end')}>
+            <Pressable
+              hitSlop={8}
+              onPress={onActionsPress}
+              style={tailwind.style('h-8 w-8 flex justify-center items-end')}>
               <BookUser size={24} color="#E8E9EB" />
             </Pressable>
           )}

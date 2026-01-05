@@ -50,7 +50,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     scheme: 'wiralapp',
     splash: {
       image: './assets/splash.png',
-      resizeMode: 'cover', 
+      resizeMode: 'cover',
       backgroundColor: '#ffffff',
       // 2025-12-09 thouseef-hamza: Added padding-safe logo to avoid side clipping
       imageStyle: {
@@ -73,7 +73,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       },
       // Please use the relative path to the google-services.json file
       googleServicesFile:
-        process.env.EXPO_PUBLIC_IOS_GOOGLE_SERVICES_FILE || './google-services.json',
+        process.env.EXPO_PUBLIC_IOS_GOOGLE_SERVICES_FILE || './GoogleService-Info.plist',
       entitlements: { 'aps-environment': 'production' },
       associatedDomains: ['applinks:uat.wiral.ai'],
     },

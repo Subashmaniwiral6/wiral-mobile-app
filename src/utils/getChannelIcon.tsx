@@ -78,15 +78,17 @@ export const getChannelIcon = (channelType: Channel, medium: string, additionalT
 
   console.log('channelType', channelType);
 
-  return   <View
-  style={{
-    backgroundColor: '#873CF6',
-    borderRadius: 7, 
-    width: 16,
-    height: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }}>
-  <Ionicons name="logo-whatsapp" color="#ffff" size={16} />
-</View>
+  return (
+    <View
+      style={{
+        backgroundColor: '#873CF6',
+        borderRadius: 7,
+        width: 16,
+        height: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <Ionicons name="logo-whatsapp" color="#ffff" size={16} />
+    </View>
+  );
 };

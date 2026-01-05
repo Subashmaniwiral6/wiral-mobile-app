@@ -354,10 +354,18 @@ const CalendarView: React.FC<CalendarViewProps> = ({
                     borderLeftColor: event.color,
                   },
                 ]}>
-                <Text style={[tailwind.style('text-base font-inter-medium-24 mb-1'), { color: '#E8E9EB' }]}>
+                <Text
+                  style={[
+                    tailwind.style('text-base font-inter-medium-24 mb-1'),
+                    { color: '#E8E9EB' },
+                  ]}>
                   {event.title}
                 </Text>
-                <Text style={[tailwind.style('text-sm font-inter-normal-20 mb-1'), { color: '#9CA3AF' }]}>
+                <Text
+                  style={[
+                    tailwind.style('text-sm font-inter-normal-20 mb-1'),
+                    { color: '#9CA3AF' },
+                  ]}>
                   {event.startTime.toLocaleTimeString('en-US', {
                     hour: 'numeric',
                     minute: '2-digit',
@@ -374,7 +382,8 @@ const CalendarView: React.FC<CalendarViewProps> = ({
                   </Text>
                 )} */}
                 {event.contact_person_phone_number && (
-                  <Text style={[tailwind.style('text-xs font-inter-normal-20'), { color: '#9CA3AF' }]}>
+                  <Text
+                    style={[tailwind.style('text-xs font-inter-normal-20'), { color: '#9CA3AF' }]}>
                     {event.contact_person_phone_number}
                   </Text>
                 )}
@@ -639,11 +648,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
   if (loading && events.length === 0) {
     return (
       <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
-        <StatusBar
-          translucent
-          backgroundColor="#121213"
-          barStyle="light-content"
-        />
+        <StatusBar translucent backgroundColor="#121213" barStyle="light-content" />
         {/* <CalendarHeader onAddEvent={handleAddEvent} /> */}
         <View style={tailwind.style('flex-1 items-center justify-center')}>
           <ActivityIndicator size="large" color="#873CF6" />
@@ -659,14 +664,11 @@ const CalendarScreen: React.FC<CalendarScreenProps> = () => {
   if (error && events.length === 0) {
     return (
       <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
-        <StatusBar
-          translucent
-          backgroundColor="#121213"
-          barStyle="light-content"
-        />
+        <StatusBar translucent backgroundColor="#121213" barStyle="light-content" />
         {/* <CalendarHeader onAddEvent={handleAddEvent} /> */}
         <View style={tailwind.style('flex-1 items-center justify-center px-4')}>
-          <Text style={[tailwind.style('text-base font-inter-medium-24 mb-2'), { color: '#E8E9EB' }]}>
+          <Text
+            style={[tailwind.style('text-base font-inter-medium-24 mb-2'), { color: '#E8E9EB' }]}>
             Error loading appointments
           </Text>
           <Text

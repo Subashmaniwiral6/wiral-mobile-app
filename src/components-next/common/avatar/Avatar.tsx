@@ -51,7 +51,7 @@ function getInitials(name: string, size: AvatarSizes) {
 // Generate a light colorful background color based on the name
 function getColorfulBackground(name: string): string {
   if (!name) return '#A78BFA'; // Default light purple color
-  
+
   // Light colorful colors palette (pastel colors)
   const colors = [
     '#A78BFA', // Light Purple
@@ -67,13 +67,13 @@ function getColorfulBackground(name: string): string {
     '#FDB88C', // Light Peach
     '#A5F3FC', // Light Cyan
   ];
-  
+
   // Simple hash function to get consistent color for the same name
   let hash = 0;
   for (let i = 0; i < name.length; i++) {
     hash = name.charCodeAt(i) + ((hash << 5) - hash);
   }
-  
+
   return colors[Math.abs(hash) % colors.length];
 }
 

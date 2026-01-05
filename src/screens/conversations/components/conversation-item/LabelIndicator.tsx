@@ -20,7 +20,9 @@ const LabelText = ({
 }) => {
   const [imageError, setImageError] = useState(false);
   const shouldUseImage = labelIconUrl && !imageError;
-  const imageUri = labelIconUrl ? `${baseUrl.replace(/\/$/, '')}/${labelIconUrl.replace(/^\//, '')}` : null;
+  const imageUri = labelIconUrl
+    ? `${baseUrl.replace(/\/$/, '')}/${labelIconUrl.replace(/^\//, '')}`
+    : null;
 
   return (
     <NativeView

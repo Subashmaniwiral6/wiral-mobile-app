@@ -147,7 +147,8 @@ const InboxList = () => {
         `pb-[${TAB_BAR_HEIGHT}px]`,
       )}>
       <EmptyStateIcon />
-      <Animated.Text style={[tailwind.style('pt-6 text-md tracking-[0.32px]'), { color: '#E8E9EB' }]}>
+      <Animated.Text
+        style={[tailwind.style('pt-6 text-md tracking-[0.32px]'), { color: '#E8E9EB' }]}>
         {i18n.t('NOTIFICATION.EMPTY')}
       </Animated.Text>
     </Animated.ScrollView>
@@ -181,11 +182,7 @@ const InboxScreen = () => {
 
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#121213' }}>
-      <StatusBar
-        translucent
-        backgroundColor="#121213"
-        barStyle="light-content"
-      />
+      <StatusBar translucent backgroundColor="#121213" barStyle="light-content" />
       <InboxListStateProvider>
         <InboxHeader markAllAsRead={markAllAsRead} />
         <InboxList />

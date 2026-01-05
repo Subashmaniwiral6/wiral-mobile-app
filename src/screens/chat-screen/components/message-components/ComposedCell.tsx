@@ -156,17 +156,13 @@ export const ComposedCell = (props: ComposedCellProps) => {
                       return isAnInstagramStory && isInstagramStoryExpired ? (
                         <Animated.View
                           style={[
-                            tailwind.style(
-                              'flex flex-row items-center justify-center py-8 gap-1',
-                            ),
+                            tailwind.style('flex flex-row items-center justify-center py-8 gap-1'),
                             { backgroundColor: '#22242C' },
                           ]}>
                           <Icon icon={<FileErrorIcon fill="#E8E9EB" />} />
                           <Animated.Text
                             style={[
-                              tailwind.style(
-                                'text-cxs font-inter-420-20 mt-[1px]',
-                              ),
+                              tailwind.style('text-cxs font-inter-420-20 mt-[1px]'),
                               { color: '#E8E9EB' },
                             ]}>
                             {i18n.t('CONVERSATION.STORY_NOT_AVAILABLE')}
