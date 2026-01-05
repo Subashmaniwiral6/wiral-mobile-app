@@ -35,10 +35,10 @@ export interface ConversationResponse {
 
 export interface ConversationPayload {
   page: number;
-  status: ConversationStatus;
-  assigneeType: AssigneeTypes;
-  sortBy: SortTypes;
-  inboxId?: number;
+  status: string; // Always "all" hardcoded
+  sort_by: string; // Always "last_activity_at_desc" hardcoded  
+  inbox_id?: number; // Only passed if not all channel
+  labels?: string[]; // Comes from UI status filter (2nd filter)
 }
 
 export interface ToggleConversationStatusPayload {

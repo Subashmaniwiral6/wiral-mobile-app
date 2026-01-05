@@ -41,15 +41,24 @@ import type { AxiosRequestConfig } from 'axios';
 
 export class ConversationService {
   static async getConversations(payload: ConversationPayload): Promise<ConversationListResponse> {
-    const { status, assigneeType, page, sortBy, inboxId = 0 } = payload;
+    const { page, status, sort_by, inbox_id, labels } = payload;
 
-    const params = {
-      inbox_id: inboxId || null,
-      assignee_type: assigneeType,
+    const params: any = {
       status: status,
       page: page,
-      sort_by: sortBy,
+      sort_by: sort_by,
     };
+
+    // Only include inbox_id if it's provided (not all channel)
+    if (inbox_id !== undefined) {
+      params.inbox_id = inbox_id;
+    }
+
+    // Include labels array if provided
+    if (labels && labels.length > 0) {
+      params.labels = labels;
+    }
+
     const response = await apiService.get<ConversationListAPIResponse>('conversations', {
       params,
     });
@@ -64,16 +73,25 @@ export class ConversationService {
   }
 
   static async getHelpmeConversations(payload: ConversationPayload): Promise<ConversationListResponse> {
-    const { status, assigneeType, page, sortBy, inboxId = 0 } = payload;
+    const { page, status, sort_by, inbox_id, labels } = payload;
 
-    const params = {
-      inbox_id: inboxId || null,
-      assignee_type: assigneeType,
+    const params: any = {
       status: status,
       page: page,
-      sort_by: sortBy,
+      sort_by: sort_by,
     };
-    const response = await apiService.get<ConversationListAPIResponse>('conversations?label=helpme', {
+
+    // Only include inbox_id if it's provided (not all channel)
+    if (inbox_id !== undefined) {
+      params.inbox_id = inbox_id;
+    }
+
+    // Include labels array if provided
+    if (labels && labels.length > 0) {
+      params.labels = labels;
+    }
+
+    const response = await apiService.get<ConversationListAPIResponse>('conversations', {
       params,
     });
     const {

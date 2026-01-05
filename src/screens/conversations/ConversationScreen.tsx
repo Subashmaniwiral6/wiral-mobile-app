@@ -231,14 +231,21 @@ const ConversationList = ({ isHelpMe = false }: { isHelpMe?: boolean }) => {
         dispatch(helpMeConversationActions.fetchHelpMeConversations({ page }));
       } else {
         // For regular conversations, use the normal conversation actions
+        // Map UI filters to backend parameters
+        const labels = filters?.label && filters.label !== 'all' ? [filters.label] : undefined;
+        
+        // Only pass inbox_id if it's not "0" (all channels) or undefined
+        const inboxId = filters?.inbox_id && filters.inbox_id !== '0' ? parseInt(filters.inbox_id) : undefined;
+
         const conversationFilters = {
-          // 2025-12-09 thouseef-hamza: Backend call keeps default filters while UI uses new client filters
-          status: 'all',
-          assigneeType: 'all',
           page,
-          sortBy: 'latest',
-          inboxId: filters?.inbox_id ? parseInt(filters.inbox_id) : undefined,
+          status: 'all', // Hardcoded
+          sort_by: 'last_activity_at_desc', // Hardcoded
+          inbox_id: inboxId,
+          labels: labels,
         } as ConversationPayload;
+
+        console.log('conversationFilters', conversationFilters);
 
         dispatch(conversationActions.fetchConversations(conversationFilters));
       }

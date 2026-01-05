@@ -15,11 +15,11 @@ export const helpMeConversationActions = {
         dispatch(setHelpMeConversationsLoading(true));
 
         const conversationFilters: ConversationPayload = {
-          status: 'all',
-          assigneeType: 'all',
           page: payload.page || 1,
-          sortBy: 'latest',
-          inboxId: payload.inboxId,
+          status: 'all', // Hardcoded
+          sort_by: 'last_activity_at_desc', // Hardcoded
+          inbox_id: payload.inboxId,
+          labels: ['helpme'], // Help me conversations are filtered by helpme label
         };
 
         const response = await ConversationService.getHelpmeConversations(conversationFilters);
